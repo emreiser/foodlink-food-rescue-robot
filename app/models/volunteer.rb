@@ -26,7 +26,7 @@ class Volunteer < ActiveRecord::Base
                   :pickup_prefs, :preferred_contact, :transport, :sms_too,
                   :transport_type, :cell_carrier, :cell_carrier_id,
                   :transport_type_id, :photo, :get_sncs_email,
-                  :assigned, :requested_region_id, :authentication_token
+                  :assigned, :requested_region_id, :authentication_token, :address, :emergency_contact
 
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
@@ -35,6 +35,9 @@ class Volunteer < ActiveRecord::Base
                     styles: { thumb: '50x50', small: '200x200', medium: '500x500' },
                     s3_credentials: { bucket: 'boulder-food-rescue-robot-volunteer-photo' }
   validates_attachment_file_name :photo, matches: [/png\Z/, /jpe?g\Z/, /gif\Z/]
+
+  validates :address, presence: true
+  validates :emergency_contact, presence: true
 
   before_save :ensure_authentication_token
   after_save :auto_assign_region
