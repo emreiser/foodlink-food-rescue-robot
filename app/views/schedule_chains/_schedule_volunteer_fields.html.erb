@@ -1,5 +1,6 @@
-<div class="nested_fields">
+<div class="volunteer nested_fields">
   <%= f.association :volunteer, collection: @region.volunteers, as: :select, label: false, input_html: {class: "form-control"} %>
+  <%= f.check_box(:lead_volunteer) %> Is lead volunteer
   <button onclick="$(this).parent().remove();" class="btn btn-xs btn-danger">
     <i class="fa fa-remove"></i>
     Remove
