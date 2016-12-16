@@ -96,7 +96,9 @@
           </button>
         <% else %>
           <% schedule.volunteers.each do |volunteer| %>
-            <%= link_to volunteer.name, volunteer %><br />
+            <span class=<%= "bold" if schedule.lead_volunteer_id == volunteer.id %>>
+              <%= link_to volunteer.name, volunteer %><br />
+            </span>
           <% end %>
           <%= render 'take_or_leave', schedule: schedule %>
         <% end %>
