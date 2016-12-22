@@ -76,15 +76,6 @@
     </tr>
     <tr>
       <td>
-        <label for="schedule_chain_hilliness">Hilliness</label>
-      </td>
-      <td>
-        <%= f.select(:hilliness, ScheduleChain::Hilliness.enum_for(:each_with_index).collect{ |x,i| [x,i] },{:include_blank => true},{class: "form-control"}) %>
-
-      </td>
-    </tr>
-    <tr>
-      <td>
         <label for="schedule_chain_expected_weight">Expected Weight</label>
         <div class="subtext">
           Typical weight observed on pickup. Current mean = <%= @schedule.mean_weight.nil? ? "Unknown" : @schedule.mean_weight.round %>, max = <%= @schedule.max_weight.nil? ? "Unknown" : @schedule.max_weight.round %>.
@@ -138,12 +129,6 @@
         <div class="subtext">Temporary covers will still show up in open shifts even if they have a volunteer</div>
       </td>
       <td><%= f.check_box(:temporary) %></td>
-    </tr>
-    <tr>
-      <td>
-        <label for="schedule_chain_transport_type_id">Scheduled Transport</label>
-      </td>
-        <td><%= f.select(:transport_type_id, @transport_types, {}, {class: "form-control"}) %></td>
     </tr>
     <!--<tr>
       <td>
