@@ -39,7 +39,6 @@
         <th> Admin Notes</th>
       <% end %>
       <th>Prior Volunteers</th>
-      <th>Transport</th>
       <th>Food Types</th>
       <% if current_volunteer.any_admin? %>
         <th>Link</th>
@@ -122,7 +121,6 @@
           <%= link_to prior_volunteer.name, prior_volunteer %><br />
         <% end %>
       </td>
-      <td> <%= schedule.transport_type.nil? ? "?" : schedule.transport_type.name %>
       <td> <% foods = ""
               schedule.schedules.each do |stops|
                 if stops.is_pickup_stop?
