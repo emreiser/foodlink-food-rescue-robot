@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20161216022024) do
+ActiveRecord::Schema.define(:version => 20170105211656) do
 
   create_table "absences", :force => true do |t|
     t.integer "volunteer_id"
@@ -256,7 +256,7 @@ ActiveRecord::Schema.define(:version => 20161216022024) do
     t.integer  "transport_type_id"
     t.integer  "cell_carrier_id"
     t.boolean  "sms_too",                :default => false
-    t.boolean  "pre_reminders_too",      :default => false
+    t.boolean  "pre_reminders_too",      :default => true
     t.string   "photo_file_name"
     t.string   "photo_content_type"
     t.integer  "photo_file_size"
