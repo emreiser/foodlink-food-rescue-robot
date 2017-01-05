@@ -1,6 +1,6 @@
 class Notifier < ActionMailer::Base
   add_template_helper(ApplicationHelper)
-  default from: "robot@boulderfoodrescue.org"
+  default from: "robot@foodlinkma.org"
   #ForceTo = "cphillips@smallwhitecube.com"
   ForceTo = nil
 
