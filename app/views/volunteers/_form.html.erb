@@ -1,4 +1,4 @@
-<%= form_for @volunteer, :url => {action: @action } do |f| %>
+sch<%= form_for @volunteer, :url => {action: @action } do |f| %>
 
   <table class="table table-striped">
 
@@ -56,7 +56,7 @@
     <tr>
       <td>
         <label for="volunteer_emergency_contact">
-          Address
+          Emergency contact name and number
         </label>
       </td>
       <td><%= f.text_field(:emergency_contact, class: "form-control") %></td>
