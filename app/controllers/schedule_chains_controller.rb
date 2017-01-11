@@ -57,7 +57,7 @@ class ScheduleChainsController < ApplicationController
     end
 
 
-    embed_parameters += '&mode=bicycling'
+    embed_parameters += '&mode=driving'
     @embed_request_url = ('https://www.google.com/maps/embed/v1/directions' + '?key=' + api_key + embed_parameters)
 
     #This can apparently be nil, so have to do a funky sort fix
