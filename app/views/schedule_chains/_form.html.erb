@@ -154,7 +154,8 @@ jQuery(document).ready(function(){
   });
   $('#schedule_chain_frequency').change();
 
-  $(".volunteer.nested_fields input").on("change", function(event){
+  $(".volunteer.nested_fields input").prop("checked", true);
+  $(document).on("change", ".volunteer.nested_fields input", function(event){
     $(".volunteer.nested_fields input:checked").prop("checked", false);
     $(event.target).prop("checked", true);
   });
