@@ -97,7 +97,7 @@ module FoodRobot
     Log.where("NOT complete").each{ |log|
       # FUTURE reminders...
       days_future = (log.when - Time.zone.today).to_i
-
+      binding.pry
       if days_future == 1 and !log.volunteers.empty?
         log.volunteers.reject{ |v| not v.pre_reminders_too }.each{ |v|
           pre_reminder_list[v] = [] if pre_reminder_list[v].nil?
@@ -130,24 +130,24 @@ module FoodRobot
     }
 
     # Send reminders to enter data for PAST pickups
-    reminder_list.each{ |v, logs|
-      m = Notifier.volunteer_log_reminder(v, logs)
-      if @@DontDeliverEmails
-        puts m
-      else
-        m.deliver
-      end
-      c += 1
+    # reminder_list.each{ |v, logs|
+    #   m = Notifier.volunteer_log_reminder(v, logs)
+    #   if @@DontDeliverEmails
+    #     puts m
+    #   else
+    #     m.deliver
+    #   end
+    #   c += 1
 
-      if v.sms_too and !v.sms_email.nil?
-        m = Notifier.volunteer_log_sms_reminder(v,logs)
-        if @@DontDeliverEmails
-          puts m
-        else
-          m.deliver
-        end
-      end
-    }
+    #   if v.sms_too and !v.sms_email.nil?
+    #     m = Notifier.volunteer_log_sms_reminder(v,logs)
+    #     if @@DontDeliverEmails
+    #       puts m
+    #     else
+    #       m.deliver
+    #     end
+    #   end
+    # }
 
     # Send reminders to do FUTURE pickups
     pre_reminder_list.each{ |v,logs|

@@ -147,6 +147,7 @@ class ScheduleChainsController < ApplicationController
   end
 
   def update
+    binding.pry
     @schedule = ScheduleChain.find(params[:id])
 
     unless current_volunteer.any_admin? @schedule.region

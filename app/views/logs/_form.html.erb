@@ -13,213 +13,185 @@
     </div>
   <% end %>
 
-  <div class="row">
-    <div class="col-sm-12">
-      <%= hidden_field_tag "log[region_id]", @region.id %>
-      <%= hidden_field_tag "log[schedule_chain_id]", @log.schedule_chain.nil? ? nil : @log.schedule_chain.id  %>
-      <details>
-        <table class="table table-striped">
-          <tr>
-            <td>
-              Date
-            </td>
-            <td>
-              <div class="form-inline">
-                <%= f.date_select :when, {order: [:month, :day, :year]}, {class: 'form-control'} %>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td>Volunteer</td>
-            <td>
-              <div>
-                <%= f.simple_fields_for :log_volunteers do |log_volunteer| %>
-                  <%= render 'log_volunteer_fields', :f => log_volunteer %>
-                <% end %>
-                <br />
-                <%= link_to_add_association 'add another volunteer', f, :log_volunteers, class: 'btn btn-primary' %>
-              </div>
-            </td>
-          </tr>
-          <% if current_volunteer.any_admin?(@log.region) %>
-            <tr>
-              <td>
-                Needed Volunteers<br/>
-                <span class="subtext">Default is the number required by the associated schedule, or at least one.</span>
-              </td>
-              <td>
-                <%= f.text_field(:num_volunteers, class: "form-control") %>
-              </td>
-            </tr>
-          <% end %>
-
-          <tr>
-            <td>Recipients</td>
-            <td>
-              <div>
-                <%= f.simple_fields_for :log_recipients do |log_recipient| %>
-                  <%= render 'log_recipient_fields', :f => log_recipient %>
-                <% end %>
-                <%= link_to_add_association 'add another recipient', f, :log_recipients, :class=>'btn' %>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td>Donor</td>
-            <td>
-              <%= f.select :donor_id, (@region.locations.donors + @region.locations.hubs + @region.locations.sellers).collect{ |d| [d.name,d.id] }, {include_blank: true}, {class: 'form-control select2'} %>
-            </td>
-          </tr>
-        </table>
-      </details>
-    </div>
+  <div class="table-striped">
+    <%= hidden_field_tag "log[region_id]", @region.id %>
+    <%= hidden_field_tag "log[schedule_chain_id]", @log.schedule_chain.nil? ? nil : @log.schedule_chain.id  %>
+    <details>
+      <div class="row">
+        <div class="col-sm-4">
+          Date
+        </div>
+        <div class="col-sm-8">
+          <%= f.date_select :when, {order: [:month, :day, :year]}, {class: "form-control inline"} %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-4">Volunteer</div>
+        <div class="col-sm-8">
+          <div>
+            <%= f.simple_fields_for :log_volunteers do |log_volunteer| %>
+              <%= render 'log_volunteer_fields', :f => log_volunteer %>
+            <% end %>
+            <br />
+            <%= link_to_add_association 'add another volunteer', f, :log_volunteers, class: 'btn btn-primary' %>
+          </div>
+        </div>
+      </div>
+      <% if current_volunteer.any_admin?(@log.region) %>
+        <div class="row">
+          <div class="col-sm-4">
+            Needed Volunteers<br/>
+            <span class="subtext">Default is the number required by the associated schedule, or at least one.</span>
+          </div>
+          <div class="col-sm-8">
+            <%= f.text_field(:num_volunteers, class: "form-control") %>
+          </div>
+        </div>
+      <% end %>
+      <div class="row">
+        <div class="col-sm-4">Donor</div>
+        <div class="col-sm-8">
+          <%= f.select :donor_id, (@region.locations.donors + @region.locations.hubs + @region.locations.sellers).collect{ |d| [d.name,d.id] }, {include_blank: true}, {class: 'form-control select2'} %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-4">Recipients</div>
+        <div class="col-sm-8">
+          <div>
+            <%= f.simple_fields_for :log_recipients do |log_recipient| %>
+              <%= render 'log_recipient_fields', :f => log_recipient %>
+            <% end %>
+            <%= link_to_add_association 'add another recipient', f, :log_recipients, :class=>'btn' %>
+          </div>
+        </div>
+      </div>
+    </details>
   </div>
 
   <div class="row">
-    <div class="col-sm-12">
-      <table class="table">
-        <tr>
-          <td>
-            Data<br />
-            <span class="subtext">Enter the weight and/or count for each food type.<br /><br />
-            If the pick-up was dropped, put zeroes for the weights, and please explain why using the notes field below.</span>
-          </td>
-          <td>
-            <table class="table table-striped">
-              <thead>
-                <tr>
-                  <th>What</th>
-                  <th>Weight<br />(<%= @log.weight_unit.nil? ? "in scale's units" : @log.weight_unit %>)</th>
-                  <th>Count</th>
-                  <th>Description</th>
-                </tr>
-              </thead>
-              <tbody>
-                <% @log.log_parts.each{ |lp| %>
-                  <%= fields_for :log_parts, lp, :index => "update_#{lp.id}" do |f2| %>
-                    <tr class="log_part" style="background: <%= lp.required ? "lightgrey" : "white" %>;">
-                      <td>
-                        <%= f2.select(:food_type_id, @food_types,{:include_blank => true}, {class: "form-control"}) %>
-                      </td>
-                      <td>
-                        <%= f2.text_field(:weight, size: 5, class: "form-control") %>
-                      </td>
-                      <td>
-                        <%= f2.text_field(:count, size: 5, class: "form-control") %>
-                      </td>
-                      <td>
-                        <%= f2.text_field(:description, size: 20, class: "form-control") %>
-                        <%= f2.hidden_field(:id) %>
-                      </td>
-                    </tr>
-                  <% end %>
-                <% } %>
+    <div class="col-sm-4">
+      <h3>Data</h3>
+      <span class="subtext">Enter the amount collected for each food type.<br/>
+      If the pick-up didn't happen, put zeroes for the amounts, and please explain why using the notes field below.</span>
+    </div>
+    <div class="col-sm-8 table-striped mobile-only">
+      <div class="row labels desktop-only">
+        <div class=col-sm-4>What</div>
+        <div class=col-sm-4>
+          Amount (<%= @log.scale_type.weight_unit.capitalize %>)
+        </div>
+        <div class=col-sm-4>Description</div>
+      </div>
+      <% @log.log_parts.each{ |lp| %>
+        <%= fields_for :log_parts, lp, :index => "update_#{lp.id}" do |f2| %>
+          <div class="log_part row" style="background: <%= lp.required ? "lightgrey" : "white" %>;">
+            <div class="col-sm-4">
+              <%= f2.select(:food_type_id, @food_types,{:include_blank => true}, {class: "form-control"}) %>
+            </div>
+            <div class="col-sm-4">
+              <%= f2.text_field(:weight, size: 5, class: "form-control") %>
+            </div>
+            <div class="col-sm-4">
+              <%= f2.text_field(:description, size: 20, class: "form-control") %>
+              <%= f2.hidden_field(:id) %>
+            </div>
+          </div>
+        <% end %>
+      <% } %>
 
-                <%= fields_for :log_parts, LogPart.new, :index => "new_0" do |f2| %>
-                  <tr class="log_part">
-                    <td>
-                      <%= f2.select(:food_type_id, @food_types,{:include_blank => true}, {class: "form-control"}) %>
-                    </td>
-                    <td>
-                      <%= f2.text_field(:weight, size: 5, class: "form-control") %>
-                    </td>
-                    <td>
-                      <%= f2.text_field(:count, size: 5, class: "form-control") %>
-                    </td>
-                    <td>
-                      <%= f2.text_field(:description, size: 20, class: "form-control") %>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td>TOTAL: <span id="total_weight">0</span></td>
-                  </tr>
-                <% end %>
-              </tbody>
-            </table>
+      <%= fields_for :log_parts, LogPart.new, :index => "new_0" do |f2| %>
+        <div class="row log_part">
+          <div class="col-sm-4">
+            <%= f2.select(:food_type_id, @food_types,{:include_blank => true}, {class: "form-control"}) %>
+          </div>
+          <div class="col-sm-4">
+            <%= f2.text_field(:weight, size: 5, class: "form-control") %>
+          </div>
+          <div class="col-sm-4">
+            <%= f2.text_field(:description, size: 20, class: "form-control") %>
+          </div>
+        </div>
+        <div class="row labels">
+          <div class="col-sm-4"></div>
+          <div class="col-sm-4 center">TOTAL: <span id="total_weight">0</span></div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12 center">
             <%=
-              task = "<tr class=\"log_part\">"
+              task = "<div class=\"log_part row\">"
               fields_for :log_parts, LogPart.new, :index => "new_42" do |f2|
-                task += "<td>" + f2.select(:food_type_id, @food_types,{:include_blank => true}, {class: 'form-control'})
-                task += "<td>" + f2.text_field(:weight,size: 5, class: 'form-control')
-                task += "<td>" + f2.text_field(:count,size: 5, class: 'form-control')
-                task += "<td>" + f2.text_field(:description,size: 20, class: 'form-control')
+                task += "<div class=\"col-sm-4\">" + f2.select(:food_type_id, @food_types,{:include_blank => true}, {class: 'form-control'}) + "</div>"
+                task += "<div class=\"col-sm-4\">" + f2.text_field(:weight,size: 5, class: 'form-control') + "</div>"
+                task += "<div class=\"col-sm-4\">" + f2.text_field(:description,size: 20, class: 'form-control') + "</div>"
               end
-              task += "</tr>"
+              task += "</div>"
               func_str =
                 "var new_id = 'new_' + new Date().getTime();
                 $('#{ escape_javascript task }'.replace(/new_\\d+/g, new_id)).insertAfter($('.log_part').last());
                 $('#'+new_id).on('change',function(){ update_total_weight(); });";
                 link_to_function "+ Add Another", func_str, class: "btn btn-info";
              %>
-          </td>
-        </tr>
-      </td>
-    </tr>
-
-    <% if @scale_types.length != 1 %>
-      <tr>
-        <td>Weighed With</td>
-        <td>
-          <%= f.select(:scale_type_id, @scale_types, {:include_blank => true}, {class: "form-control"}) %>
-        </td>
-    <% end %>
-
-  <tr>
-    <td>Transported With</td>
-    <td><%= f.select(:transport_type_id, @transport_types,{:include_blank => true}, {class: "form-control"}) %></td>
-  </tr>
-  <tr>
-    <td>
-      Time Spent<br />
-      <span class="subtext">Approximately how long did you spend doing this shift, in hours? (e.g., 0.5)</span>
-    </td>
-    <td>
-      <%= f.text_field(:hours_spent, :size => "3", class: "form-control") %>
-    </td>
-  </tr>
-  <tr>
-    <td>
-      Notes<br />
-      <span class="subtext">Something to report? Any problems? e.g., trailer<br />in need of repair, issues with the scale, busted bin.</span><td><%= f.text_area(:notes, :size => "30x6") %>
-    </td>
-  </td>
-  <tr>
-    <td>
-      Flag For Admin<br />
-      <span class="subtext">Check this if you want to make sure someone reads this.</span>
-    </td>
-    <td>
-      <div class="checkbox">
-      <label for="log_flag_for_admin">
-        <%= f.check_box(:flag_for_admin) %>
-        Flag
-      </label>
-    </td>
-  </tr>
-
-  <tr id="zero_reason">
-    <td>
-      Why Zero?<br />
-      <span class="subtext">You're trying to save a log with zero weight. Please tell us what happened.</span>
-    </td>
-    <td>
-      <div class="radio">
-        <label for="log_why_zero_1">
-          <%= f.radio_button(:why_zero,1) %>
-          No Food At Donor
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+  <div class="table-striped">
+    <div class="row">
+      <div class="col-sm-6">Transported With</div>
+      <div class="col-sm-6"><%= f.select(:transport_type_id, @transport_types,{:include_blank => true}, {class: "form-control"}) %></div>
+    </div>
+    <div class="row">
+      <div class="col-sm-6">
+        Time Spent<br />
+        <span class="subtext">Approximately how long did you spend doing this shift, in hours? (e.g., 0.5)</span>
+      </div>
+      <div class="col-sm-6">
+        <%= f.text_field(:hours_spent, :size => "3", class: "form-control") %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-6">
+        Notes<br />
+        <span class="subtext">Something to report? Any problems? e.g., trailer<br />in need of repair, issues with the scale, busted bin.</span>
+      </div>
+      <div class="col-sm-6"><%= f.text_area(:notes, size: "30x6", class: "form-control") %></div>
+    </div>
+    <div class="row">
+      <div class="col-sm-6">
+        Flag For Admin<br />
+        <span class="subtext">Check this if you want to make sure someone reads this.</span>
+      </div>
+      <div class="col-sm-6">
+        <div class="checkbox">
+        <label for="log_flag_for_admin">
+          <%= f.check_box(:flag_for_admin) %>
+          Flag
         </label>
       </div>
-      <div class="radio">
-        <label for="log_why_zero_2">
-          <%= f.radio_button(:why_zero,2) %>
-          Shift Didn't Happen
-        </label>
+    </div>
+
+    <div class="row" id="zero_reason">
+      <div class="col-sm-6">
+        Why Zero?<br />
+        <span class="subtext">You're trying to save a log with zero weight. Please tell us what happened.</span>
       </div>
-    </td>
-  </tr>
-</table>
-</div>
+      <div class="col-sm-6">
+        <div class="radio">
+          <label for="log_why_zero_1">
+            <%= f.radio_button(:why_zero,1) %>
+            No Food At Donor
+          </label>
+        </div>
+        <div class="radio">
+          <label for="log_why_zero_2">
+            <%= f.radio_button(:why_zero,2) %>
+            Shift Didn't Happen
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
 <div class="row">

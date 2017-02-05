@@ -1,18 +1,18 @@
 Webapp::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb
-  config.time_zone = 'Mountain Time (US & Canada)'
+  config.time_zone = 'Eastern Time (US & Canada)'
 
   #Asset Mailer Host!
-  config.action_mailer.asset_host = 'https://boulder-food-rescue-robot.herokuapp.com'
+  config.action_mailer.asset_host = 'http://localhost:3000/'
 
   config.action_mailer.smtp_settings = {
-    address: "smtp.sendgrid.net",
+    address: "smtp.gmail.com",
     port: 587,
-    domain: ENV["DOMAIN_NAME"],
+    domain: "gmail.com",
     authentication: "plain",
     enable_starttls_auto: true,
-    user_name: ENV["SENDGRID_USERNAME"],
-    password: ENV["SENDGRID_PASSWORD"]
+    user_name: "emiliereiser@gmail.com",
+    password: "9Cuttothechaseai9!"
   }
   # ActionMailer Config
   #config.action_mailer.default_url_options = { :host => 'robot.boulderfoodrescue.org' }
@@ -49,7 +49,7 @@ Webapp::Application.configure do
   # config.action_dispatch.x_sendfile_header = 'X-Accel-Redirect' # for nginx
 
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
-  config.force_ssl = true
+  config.force_ssl = false
 
   # See everything in the log (default is :info)
   # config.log_level = :debug
@@ -87,18 +87,18 @@ Webapp::Application.configure do
   # config.active_record.auto_explain_threshold_in_seconds = 0.5
 
   config.middleware.use ExceptionNotifier,
-    email_prefix: '[BFR ROBOT ERROR] ',
-    sender_address: %{"BFR Robot" <notifier@boulderfoodrescue.org>},
-    exception_recipients: %w{rylanb@gmail.com cphillips@smallwhitecube.com}
+    email_prefix: '[ROBOT ERROR] ',
+    sender_address: %{"Food Link Robot" <emiliereiser@gmail.com>},
+    exception_recipients: %w{emiliereiser@gmail.com}
 
   ExceptionNotifier::Rake.configure
 
   config.paperclip_defaults = {
     storage: :s3,
     s3_credentials: {
-      access_key_id: ENV.fetch('AWS_ACCESS_KEY_ID'),
-      secret_access_key: ENV.fetch('AWS_SECRET_ACCESS_KEY'),
-      s3_region: ENV.fetch('AWS_REGION')
+      access_key_id: "12345",
+      secret_access_key: "12345",
+      s3_region: "12345"
     },
     url: ':s3_domain_url',
     path: '/:class/:attachment/:id_partition/:style/:filename'
