@@ -1,21 +1,20 @@
 Webapp::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb
-  config.time_zone = 'Mountain Time (US & Canada)'
+  config.time_zone = 'Eastern Time (US & Canada)'
 
   #Asset Mailer Host!
-  config.action_mailer.asset_host = 'https://boulder-food-rescue-robot.herokuapp.com'
+  config.action_mailer.asset_host = ENV['DOMAIN_NAME']
 
   config.action_mailer.smtp_settings = {
-    address: "smtp.sendgrid.net",
+    address: "smtp.gmail.com",
     port: 587,
-    domain: ENV["DOMAIN_NAME"],
+    domain: "gmail.com",
     authentication: "plain",
     enable_starttls_auto: true,
-    user_name: ENV["SENDGRID_USERNAME"],
-    password: ENV["SENDGRID_PASSWORD"]
+    user_name: ENV['GMAIL_USERNAME'],
+    password: ENV['GMAIL_PASSWORD']
   }
   # ActionMailer Config
-  #config.action_mailer.default_url_options = { :host => 'robot.boulderfoodrescue.org' }
   config.action_mailer.default_url_options = { host: "#{ENV['DOMAIN_NAME']}" }
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.perform_deliveries = true
@@ -87,9 +86,9 @@ Webapp::Application.configure do
   # config.active_record.auto_explain_threshold_in_seconds = 0.5
 
   config.middleware.use ExceptionNotifier,
-    email_prefix: '[BFR ROBOT ERROR] ',
-    sender_address: %{"BFR Robot" <notifier@boulderfoodrescue.org>},
-    exception_recipients: %w{rylanb@gmail.com cphillips@smallwhitecube.com}
+    email_prefix: '[FOOD LINK ROBOT ERROR] ',
+    sender_address: %{"Food Link Robot" <robot@foodlinkma.org>},
+    exception_recipients: %w{emilie.reiser@gmail.com}
 
   ExceptionNotifier::Rake.configure
 
