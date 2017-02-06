@@ -10,6 +10,8 @@ class LogPart < ActiveRecord::Base
       self.weight*2.2
     elsif display_unit == "st"
       self.weight*14
+    elsif display_unit == "box"
+      self.weight*8
     else
       self.weight
     end
