@@ -89,7 +89,7 @@
               <thead>
                 <tr>
                   <th>What</th>
-                  <th>Weight<br />(<%= @log.weight_unit.nil? ? "in scale's units" : @log.weight_unit %>)</th>
+                  <th>Amount<br />(<%= @log.weight_unit.nil? ? "in scale's units" : @log.scale_type.weight_unit %>)</th>
                   <th>Count</th>
                   <th>Description</th>
                 </tr>

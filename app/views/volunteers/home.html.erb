@@ -189,15 +189,15 @@
         </tr>
         <tr>
           <td> Amount of Food Rescued </td>
-          <td> <%= @total_food_rescued %> lbs</td>
+          <td> <%= @total_food_rescued %> boxes</td>
         </tr>
         <tr>
           <td> Weekly Avg </td>
-          <td> <%= sprintf("%.02f", @earliest != nil ? (@lbs/((Time.zone.today-(@earliest.when))/7.0)): "0" ) %> lbs</td>
+          <td> <%= sprintf("%.02f", @earliest != nil ? (@lbs/((Time.zone.today-(@earliest.when))/7.0)): "0" ) %> boxes</td>
         </tr>
         <tr>
           <td> Pickup Avg </td>
-          <td> <%= sprintf('%.02f',@lbs/@pickups.length.to_f) %> lbs</td>
+          <td> <%= sprintf('%.02f',@lbs/@pickups.length.to_f) %> boxes</td>
         </tr>
         <tr>
           <td> % Human Powered </td>
@@ -303,7 +303,7 @@
           categories: ['<%= raw @by_month.sort_by{ |k,v| k}.collect{ |pair| pair[0] }.join("','") %>']
         },
         yAxis: {
-          title: { text: 'Pounds' }
+          title: { text: 'Boxes' }
         },
         series: [{
           name: 'Food Rescued',
