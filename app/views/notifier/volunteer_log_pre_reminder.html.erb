@@ -18,10 +18,15 @@
         Volunteers: <%= l.volunteers.collect{ |v| v.nil? ? nil : v.name.split.first.capitalize }.compact.join(", ") %><br><br>
         
         <strong>Delivery locations:</strong><br>
-        <%= l.recipients.collect{ |r| r.nil? ? nil : r.name }.compact.join("<br>").html_safe %><br><br>
+        <%= l.recipients.collect{ |r| r.nil? ? nil : r.name }.compact.join("<br>").html_safe %><br>
       </li>
     <% } %>
     </ul>
+
+    <p>
+      <strong>The next pantry date is:</strong><br>
+      <%= @pantry.strftime("%A, %b%e %Y") %>
+    </p>
 
     If you have any questions or can’t make your shift, please reply to this email as soon as possible.
 
