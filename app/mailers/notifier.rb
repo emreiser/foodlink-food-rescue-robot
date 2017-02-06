@@ -33,6 +33,8 @@ class Notifier < ActionMailer::Base
     @logs = logs
     @logs = logs
     @volunteer = volunteer
+    date = Date.today
+    @pantry = date + 1 + ((2-date.wday) % 7)
     to = ForceTo.nil? ? volunteer.email : ForceTo
     mail(to: to, subject: "[FoodRobot] Upcoming Shift Reminder"){ |format| format.html }
   end
