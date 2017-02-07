@@ -41,7 +41,7 @@ module ApplicationHelper
   def readable_pickup_timespan schedule
     return nil if schedule.nil?
     schedule = schedule.schedule_chain if schedule.is_a? Schedule
-    str = "Pickup "
+    str = "Collection "
     str+= "irregularly " if schedule.irregular
     str+= "every "+Date::DAYNAMES[schedule.day_of_week]+" " if schedule.weekly? and !schedule.day_of_week.nil?
     str+= "on "+schedule.detailed_date.to_s(:long_ordinal)+" " if schedule.one_time?

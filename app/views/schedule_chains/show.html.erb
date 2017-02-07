@@ -31,7 +31,7 @@
     <p>
       <%= readable_pickup_timespan @schedule %>
       <% unless @schedule.next_pickup_time.nil? %>
-        (next pickup <%= @schedule.next_pickup_time[:start].to_s(:long_ordinal) %>)
+        (next collection <%= @schedule.next_pickup_time[:start].to_s(:long_ordinal) %>)
       <% end %>
       .
     </p>
