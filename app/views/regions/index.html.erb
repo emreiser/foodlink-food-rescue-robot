@@ -40,7 +40,7 @@
         <td><small>
           <%= word_wrap(region.notes,:line_width => 30).gsub("\n","<br>").html_safe unless region.notes.nil? %>
         </small></td>
-        <td>Completed Pickups: <%= Log.pickup_count region.id %>, 
+        <td>Completed Collections: <%= Log.pickup_count region.id %>,
             Active Volunteers: <%= region.active_volunteer_count %>
         </td>
         <td>
