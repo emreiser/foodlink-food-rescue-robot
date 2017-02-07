@@ -23,7 +23,7 @@
 
 <div class="row bordered-bottom">
   <div class="col-sm-6">
-    <h2>Upcoming Pickups</h2>
+    <h2>Upcoming Collections</h2>
     <% if @upcoming_pickups.length > 0 %>
       <table class="table table-striped">
         <tr>
@@ -62,7 +62,7 @@
         <% end %>
       </table>
     <% else %>
-      <p>You have no upcoming pickups.</p>
+      <p>You have no upcoming collections.</p>
     <% end %>
   </div>
 
@@ -104,7 +104,7 @@
         <% end %>
       </table>
     <% else %>
-      <p>You are up to date on all your pickup reports - nice work!</p>
+      <p>You are up to date on all your collection reports - nice work!</p>
     <% end %>
   </div>
 </div><!-- /row -->
@@ -181,10 +181,10 @@
       <tbody>
         <tr>
           <td> Stats Start Date </td>
-          <td> <%= @earliest == nil ? "No Pickups Logged" : @earliest.when %> </td>
+          <td> <%= @earliest == nil ? "No Collections Logged" : @earliest.when %> </td>
         </tr>
         <tr>
-          <td> Completed Pickups </td>
+          <td> Completed Collections </td>
           <td> <%= @completed_pickup_count %> </td>
         </tr>
         <tr>
@@ -204,7 +204,7 @@
           <% if @human_pct > -1 %>
           <td> <%= @human_pct.round %>%<%= @human_pct > 90 ? " :)" : "" %> </td>
           <% else %>
-          <td> You have no pickups logged </td>
+          <td> You have no collections logged </td>
           <% end %>
         </tr>
       </tbody>

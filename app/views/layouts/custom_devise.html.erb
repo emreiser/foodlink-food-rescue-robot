@@ -40,7 +40,7 @@
               </span>
             </li>
             <li>
-              <strong>Total Food Pickups To Date:</strong>
+              <strong>Total Food Collections To Date:</strong>
               <span class="label label-success">
                 <%= number_to_human(Log.where("complete").count) %> pickups
               </span>
@@ -48,7 +48,7 @@
             <li>
               <strong>Total Food Rescued:</strong>
               <span class="label label-success">
-                <%= number_to_human(Log.joins(:log_parts).where("complete").sum("weight")) %> lbs
+                <%= number_to_human(Log.joins(:log_parts).where("complete").sum("weight")) %> boxes
               </span>
             </li>
             <li>
