@@ -7,7 +7,7 @@
 
     Hi <%= @volunteer.name.split.first.capitalize %>,
     <p>
-    Thank you for volunteering tomorrow!<br>
+    Thank you for volunteering tomorrow, <%= @logs.first.when.strftime("%b%e") %>!<br>
     Below are the details for your shift<%= @logs.length > 1 ? "s" : "" %>:
     </p>
 
@@ -15,7 +15,8 @@
     <% @logs.each{ |l| %>
       <li>
         <strong>Collection location: <%= l.donor.nil? ? "Unknown" : l.donor.name %></strong> (<%= readable_start_time(l.schedule_chain) %>)<br>
-        Volunteers: <%= l.volunteers.collect{ |v| v.nil? ? nil : v.name.split.first.capitalize }.compact.join(", ") %><br><br>
+        Volunteers: <%= l.volunteers.collect{ |v| v.nil? ? nil : v.name.split.first.capitalize }.compact.join(", ") %><br>
+        Lead Volunteer: <%= l.lead_volunteer.name.split.first.capitalize %> - <%= l.lead_volunteer.phone %><br><br>
         
         <strong>Delivery locations:</strong><br>
         <%= l.recipients.collect{ |r| r.nil? ? nil : r.name }.compact.join("<br>").html_safe %><br>
@@ -24,7 +25,7 @@
     </ul>
 
     <p>
-      <strong>The next pantry date is:</strong><br>
+      <strong>The next Arlington Food Pantry distribution date is:</strong><br>
       <%= @pantry.strftime("%A, %b%e %Y") %>
     </p>
 
