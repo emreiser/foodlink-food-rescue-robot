@@ -8,9 +8,9 @@
 
 
 /*** Bootstrap Includes ***/
-@import "base/bootstrap_and_overrides";
 @import "bootstrap-sprockets";
 @import "bootstrap";
+@import "base/bootstrap_and_overrides";
 
 /*** Font Awesome Includes ***/
 @import "font-awesome-sprockets";
