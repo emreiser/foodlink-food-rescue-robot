@@ -3,7 +3,7 @@
   background: #F1F1F1;
   border: 1px solid #E5E5E5;
   float: right;
-  margin-top: 20px;
+  margin-top: 35px;
   padding: 25px;
   -webkit-border-radius: 10px;
   border-radius: 10px;
@@ -46,7 +46,7 @@
 /*Info Section*/
 .info_section {
   padding: 0px;
-  margin: 45px 0 0;
+  margin: 25px 0 0;
   p {
     padding-right: 2em;
     text-align: justify;
@@ -54,7 +54,7 @@
 
   a {
     text-decoration: none;
-    color: blue;
+    color: #0F55CD;
     &:hover {
       text-decoration: underline;
     }
@@ -95,7 +95,7 @@
 }
 
 .section_title {
-  color: red;
+  color: #e05b1a;
 }
 
 div#error_explanation {
