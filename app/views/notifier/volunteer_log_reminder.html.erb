@@ -4,10 +4,10 @@
   <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
 </head>
 <body>
-  Hi <%= @volunteer.name %>,
+  Hi <%= @volunteer.name.split.first.capitalize %>,
   <p>
     This is a friendly reminder from the food robot that you need to enter
-    some data for your recent pickup<%= @logs.length > 1 ? "s" : "" %>:
+    some data for your recent collection<%= @logs.length > 1 ? "s" : "" %>:
   </p>
 
   <ul>
@@ -22,9 +22,6 @@
             <%= link_to "Click Here!", edit_log_url(l) %> to enter this data and stop getting these emails!
           </li>
           <li>
-            Food Types: <%= l.food_types.length == 0 ? "Miscellany" : l.food_types.collect{ |ft| ft.name }.join(",") %>
-          </li>
-          <li>
             This is your <strong><%= l.num_reminders.ordinalize %> reminder</strong>.
           </li>
         </ul>
@@ -33,12 +30,7 @@
   </ul>
 
   <p>Thanks!</p>
-  <p>*chirp* *beep*</p>
-  --<br/>
-  <p>
-    The Food Rescue Robot<br/>
-    <a href="http://robot.boulderfoodrescue.org">http://robot.boulderfoodrescue.org</a>
-  </p>
+  <p>The Food Link Team</p>
 
 </body>
 </html>

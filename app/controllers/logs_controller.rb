@@ -251,7 +251,7 @@ class LogsController < ApplicationController
         end
         respond_to do |format|
           format.json { render json: {error: 0, message: flash[:notice] } }
-          format.html { render :edit }
+          format.html { render :show}
         end
       else
         flash[:error] = "Failed to mark as complete."

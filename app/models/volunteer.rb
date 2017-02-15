@@ -33,7 +33,7 @@ class Volunteer < ActiveRecord::Base
 
   has_attached_file :photo,
                     styles: { thumb: '50x50', small: '200x200', medium: '500x500' },
-                    s3_credentials: { bucket: 'boulder-food-rescue-robot-volunteer-photo' }
+                    s3_credentials: { bucket: 'foodlink-robot' }
   validates_attachment_file_name :photo, matches: [/png\Z/, /jpe?g\Z/, /gif\Z/]
 
   validates :address, presence: true

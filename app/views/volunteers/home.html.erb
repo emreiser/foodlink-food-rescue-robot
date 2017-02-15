@@ -23,7 +23,7 @@
 
 <div class="row bordered-bottom">
   <div class="col-sm-6">
-    <h2>Upcoming Pickups</h2>
+    <h2>Upcoming Collections</h2>
     <% if @upcoming_pickups.length > 0 %>
       <table class="table table-striped">
         <tr>
@@ -62,12 +62,12 @@
         <% end %>
       </table>
     <% else %>
-      <p>You have no upcoming pickups.</p>
+      <p>You have no upcoming collections.</p>
     <% end %>
   </div>
 
   <div class="col-sm-6">
-    <h2> To Do Pickup Reports </h2>
+    <h2> To Do Collection Reports </h2>
     <% if @to_do_reports.length > 0 %>
       <table class="table table-striped">
         <thead>
@@ -104,7 +104,7 @@
         <% end %>
       </table>
     <% else %>
-      <p>You are up to date on all your pickup reports - nice work!</p>
+      <p>You are up to date on all your collection reports - nice work!</p>
     <% end %>
   </div>
 </div><!-- /row -->
@@ -181,30 +181,30 @@
       <tbody>
         <tr>
           <td> Stats Start Date </td>
-          <td> <%= @earliest == nil ? "No Pickups Logged" : @earliest.when %> </td>
+          <td> <%= @earliest == nil ? "No Collections Logged" : @earliest.when %> </td>
         </tr>
         <tr>
-          <td> Completed Pickups </td>
+          <td> Completed Collections </td>
           <td> <%= @completed_pickup_count %> </td>
         </tr>
         <tr>
           <td> Amount of Food Rescued </td>
-          <td> <%= @total_food_rescued %> lbs</td>
+          <td> <%= @total_food_rescued %> boxes</td>
         </tr>
         <tr>
           <td> Weekly Avg </td>
-          <td> <%= sprintf("%.02f", @earliest != nil ? (@lbs/((Time.zone.today-(@earliest.when))/7.0)): "0" ) %> lbs</td>
+          <td> <%= sprintf("%.02f", @earliest != nil ? (@lbs/((Time.zone.today-(@earliest.when))/7.0)): "0" ) %> boxes</td>
         </tr>
         <tr>
           <td> Pickup Avg </td>
-          <td> <%= sprintf('%.02f',@lbs/@pickups.length.to_f) %> lbs</td>
+          <td> <%= sprintf('%.02f',@lbs/@pickups.length.to_f) %> boxes</td>
         </tr>
         <tr>
           <td> % Human Powered </td>
           <% if @human_pct > -1 %>
           <td> <%= @human_pct.round %>%<%= @human_pct > 90 ? " :)" : "" %> </td>
           <% else %>
-          <td> You have no pickups logged </td>
+          <td> You have no collections logged </td>
           <% end %>
         </tr>
       </tbody>
@@ -303,7 +303,7 @@
           categories: ['<%= raw @by_month.sort_by{ |k,v| k}.collect{ |pair| pair[0] }.join("','") %>']
         },
         yAxis: {
-          title: { text: 'Pounds' }
+          title: { text: 'Boxes' }
         },
         series: [{
           name: 'Food Rescued',

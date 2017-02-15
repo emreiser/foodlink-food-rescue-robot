@@ -4,16 +4,16 @@
   border-bottom: 2px solid #E5E5E5;
   padding: 10px;
   overflow: auto;
-}
 
-.header .logo_image{
-  float: right;
-  height: 50px;
+  .logo-image {
+    height: 65px;
+    margin: 10px 20px;
+  }
 }
 
 #bfr_title{
   font-size: 1.5em;
-  color: #0E30B7;
+  color: #3b752f;
   padding: 0px;
   font-weight: bold;
 }

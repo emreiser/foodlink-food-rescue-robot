@@ -91,6 +91,10 @@ class Log < ActiveRecord::Base
     self.log_volunteers.collect{ |sv| (not sv.active) ? sv.volunteer : nil }.compact
   end
 
+  def lead_volunteer
+    Volunteer.find(self.schedule_chain.lead_volunteer_id)
+  end
+
   #### CLASS METHODS
 
   # Creates a log for a given schedule (s) and date (d)

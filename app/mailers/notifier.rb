@@ -1,7 +1,6 @@
 class Notifier < ActionMailer::Base
   add_template_helper(ApplicationHelper)
-  default from: "emilie.reiser@gmail.com"
-  #ForceTo = "cphillips@smallwhitecube.com"
+  default from: "robot@foodlinkma.org"
   ForceTo = nil
 
   def admin_emails_for_region(region)
@@ -27,15 +26,17 @@ class Notifier < ActionMailer::Base
     @logs = logs
     @volunteer = volunteer
     to = ForceTo.nil? ? volunteer.email : ForceTo
-    mail(to: to, subject: "[Food Link Robot] Reminder: How much food did you pick up!?"){ |format| format.html }
+    mail(to: to, subject: "[FoodRobot] Report: How much food did you pick up!?"){ |format| format.html }
   end
 
   def volunteer_log_pre_reminder(volunteer, logs)
     @logs = logs
     @logs = logs
     @volunteer = volunteer
+    date = Date.today
+    @pantry = date + 1 + ((2-date.wday) % 7)
     to = ForceTo.nil? ? volunteer.email : ForceTo
-    mail(to: to, subject: "[Food Link Robot] Upcoming Shift Reminder"){ |format| format.html }
+    mail(to: to, subject: "[FoodRobot] Upcoming Shift Reminder"){ |format| format.html }
   end
 
   def volunteer_log_sms_reminder(volunteer, logs)

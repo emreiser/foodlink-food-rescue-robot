@@ -1,36 +1,36 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
-</head>
-<body>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    Hi <%= @volunteer.name.split.first.capitalize %>,
+    <p>
+    Thank you for volunteering tomorrow, <%= @logs.first.when.strftime("%b%e") %>!<br>
+    Below are the details for your shift<%= @logs.length > 1 ? "s" : "" %>:
+    </p>
 
-  Hi <%= @volunteer.name.split.first.capitalize %>,
-  <p>
-  Thank you for volunteering tomorrow!<br>
-  Below are the details for your shift<%= @logs.length > 1 ? "s" : "" %>:
-  </p>
+    <ul>
+    <% @logs.each{ |l| %>
+      <li>
+        <strong>Collection location: <%= l.donor.nil? ? "Unknown" : l.donor.name %></strong> (<%= readable_start_time(l.schedule_chain) %>)<br>
+        Volunteers: <%= l.volunteers.collect{ |v| v.nil? ? nil : v.name.split.first.capitalize }.compact.join(", ") %><br>
+        Lead Volunteer: <%= l.lead_volunteer.name.split.first.capitalize %> - <%= l.lead_volunteer.phone %><br><br>
+        
+        <strong>Delivery locations:</strong><br>
+        <%= l.recipients.collect{ |r| r.nil? ? nil : r.name }.compact.join("<br>").html_safe %><br>
+      </li>
+    <% } %>
+    </ul>
 
-  <ul>
-  <% @logs.each{ |l| %>
-    <li>
-      <strong>Collection location: <%= l.donor.nil? ? "Unknown" : l.donor.name %></strong> (<%= readable_start_time(l.schedule_chain) %>)<br>
-      Volunteers: <%= l.volunteers.collect{ |v| v.nil? ? nil : v.name.split.first.capitalize }.compact.join(", ") %><br><br>
-      
-      <strong>Delivery locations:</strong><br>
-      <%= l.recipients.collect{ |r| r.nil? ? nil : r.name }.compact.join(", ") %><br><br>
+    <p>
+      <strong>The next Arlington Food Pantry distribution date is:</strong><br>
+      <%= @pantry.strftime("%A, %b%e %Y") %>
+    </p>
 
+    If you have any questions or can’t make your shift, please reply to this email as soon as possible.
 
-      <% unless l.schedule_chain.nil? %>
-        <%= link_to "More shift details", schedule_chain_url(l.schedule_chain) %>
-      <% end %>
-    </li>
-  <% } %>
-  </ul>
-
-  If you have any questions or can’t make your shift, please reply to this email as soon as possible.
-
-  <p>Thanks!</p>
-  <p>The Food Link Team</p>
-</body>
+    <p>Thanks!</p>
+    <p>The Food Link Team</p>
+  </body>
 </html>

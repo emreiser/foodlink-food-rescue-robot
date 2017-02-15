@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>The Food Rescue Robot</title>
+  <title>Food Rescue Robot</title>
   <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/3.5.1/build/cssreset/cssreset-min.css">
   <link href='http://fonts.googleapis.com/css?family=Droid+Sans' rel='stylesheet' type='text/css'>
-  <link rel="shortcut icon" href="/favicon.ico" type="image/ico" />
+  <%= favicon_link_tag 'favicon.ico' %>
   <%= stylesheet_link_tag "application", :media => "all" %>
   <%= csrf_meta_tags %>
 </head>
@@ -12,7 +12,10 @@
   <div class="container">
     <div class="header">
       <div>
-        <h2 id="bfr_title">The Food Rescue Robot</h2>
+        <%= image_tag("foodlink-logo.png", alt: "Food Link logo", class: "logo-image" ) %>
+      </div>
+      <div>
+        <h2 id="bfr_title">Food Rescue Robot</h2>
         <h4>Just-in-Time Food Rescue Tracking</h4>
       </div>
     </div>
@@ -34,21 +37,15 @@
         <% cache("login_page_stats",:expires_in => 12.hours) do %>
           <ul class="unstyled">
             <li>
-              <strong>Number of Cities Using the Robot:</strong>
+              <strong>Total Food Collections To Date:</strong>
               <span class="label label-success">
-                <%= number_to_human(Region.count) %>
-              </span>
-            </li>
-            <li>
-              <strong>Total Food Pickups To Date:</strong>
-              <span class="label label-success">
-                <%= number_to_human(Log.where("complete").count) %> pickups
+                <%= number_to_human(Log.where("complete").count) %> collections
               </span>
             </li>
             <li>
               <strong>Total Food Rescued:</strong>
               <span class="label label-success">
-                <%= number_to_human(Log.joins(:log_parts).where("complete").sum("weight")) %> lbs
+                <%= number_to_human(Log.joins(:log_parts).where("complete").sum("weight")) %> boxes
               </span>
             </li>
             <li>
