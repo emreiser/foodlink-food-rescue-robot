@@ -4,10 +4,9 @@
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
   </head>
   <body>
-
     Hi <%= @volunteer.name.split.first.capitalize %>,
     <p>
-    Thank you for volunteering tomorrow, <%= @logs.first.when.strftime("%b%e") %>!<br>
+    Thank you for volunteering tomorrow, <%= @logs.first.when.strftime("%b %e") %>!<br>
     Below are the details for your shift<%= @logs.length > 1 ? "s" : "" %>:
     </p>
 
@@ -26,7 +25,7 @@
 
     <p>
       <strong>The next Arlington Food Pantry distribution date is:</strong><br>
-      <%= @pantry.strftime("%A, %b%e %Y") %>
+      <%= @pantry.strftime("%A, %b %e %Y") %>
     </p>
 
     If you have any questions or can’t make your shift, please reply to this email as soon as possible.

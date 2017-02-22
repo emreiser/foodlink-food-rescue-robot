@@ -4,6 +4,55 @@
 form div fieldset label {
   display: block;
 }
-form td div.nested_fields div {
-	display: inline-block;
+.nested_fields {
+  margin-bottom: 5px;
+}
+
+.table-striped {
+  .row {
+    padding: 15px 0;
+    margin-top: 0;
+
+    &:nth-child(odd){
+      background: whitesmoke !important;
+    }
+
+    input, select {
+      margin-bottom: 5px;
+    }
+
+    &.labels {
+      background: whitesmoke;
+      font-weight: bold;
+    }
+  }
+}
+
+.form-control.inline {
+  width: auto;
+  display: inline-block;
+}
+
+.row.header {
+  font-weight: bold;
+}
+
+.center {
+  text-align: center;
+}
+
+@media (min-width: 768px){
+  .table-striped.mobile-only .row {
+    background: white !important;
+
+    &.labels {
+      background: whitesmoke !important; 
+    }
+  }
+}
+
+@media (max-width: 768px){
+  .desktop-only {
+    display: none;
+  }
 }
