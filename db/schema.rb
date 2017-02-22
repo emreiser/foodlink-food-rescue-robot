@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20170105211656) do
+ActiveRecord::Schema.define(:version => 20170222011207) do
 
   create_table "absences", :force => true do |t|
     t.integer "volunteer_id"
@@ -88,6 +88,7 @@ ActiveRecord::Schema.define(:version => 20170105211656) do
     t.datetime "updated_at",   :null => false
     t.integer  "count"
     t.text     "description"
+    t.integer  "num_boxes"
   end
 
   add_index "log_parts", ["food_type_id"], :name => "index_log_parts_on_food_type_id"
