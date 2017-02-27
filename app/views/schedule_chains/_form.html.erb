@@ -151,14 +151,11 @@ jQuery(document).ready(function(){
   });
   $('#schedule_chain_frequency').change();
 
-<<<<<<< HEAD
   var volunteers = $(".volunteer.nested_fields");
   if(volunteers.length <= 1){
     $(volunteers[0]).find("input").prop("checked", true);
   }
-=======
-  $(".volunteer.nested_fields input").prop("checked", true);
->>>>>>> mobile-log-form
+
   $(document).on("change", ".volunteer.nested_fields input", function(event){
     $(".volunteer.nested_fields input:checked").prop("checked", false);
     $(event.target).prop("checked", true);
