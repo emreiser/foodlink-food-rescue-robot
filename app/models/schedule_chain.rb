@@ -166,7 +166,8 @@ class ScheduleChain < ActiveRecord::Base
   end
 
   def lead_volunteer_id
-    self.schedule_volunteers.where(lead_volunteer: true, active: true)[0].volunteer_id
+    lead = self.schedule_volunteers.where(lead_volunteer: true, active: true)[0]
+    lead ? lead.volunteer_id : nil
   end
 
   def from_to_name
