@@ -31,7 +31,7 @@
             categories: ['<%= raw @pounds_per_month.collect{ |x| x[0] }.join("','") %>']
         },
         yAxis: {
-            title: { text: 'Boxes' }
+            title: { text: 'Pounds' }
         },
         series: [{
             name: 'Food Rescued',
@@ -50,7 +50,7 @@
             categories: ['<%= raw @pounds_per_year.collect{ |x| x[0] }.join("','") %>']
         },
         yAxis: {
-            title: { text: 'Boxes' }
+            title: { text: 'Pounds' }
         },
         series: [{
             name: 'Food Rescued',

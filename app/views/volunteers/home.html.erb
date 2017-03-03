@@ -189,15 +189,15 @@
         </tr>
         <tr>
           <td> Amount of Food Rescued </td>
-          <td> <%= @total_food_rescued %> boxes</td>
+          <td> <%= @total_food_rescued %> pounds</td>
         </tr>
         <tr>
           <td> Weekly Avg </td>
-          <td> <%= sprintf("%.02f", @earliest != nil ? (@lbs/((Time.zone.today-(@earliest.when))/7.0)): "0" ) %> boxes</td>
+          <td> <%= sprintf("%.02f", @earliest != nil ? (@lbs/((Time.zone.today-(@earliest.when))/7.0)): "0" ) %> pounds</td>
         </tr>
         <tr>
           <td> Pickup Avg </td>
-          <td> <%= sprintf('%.02f',@lbs/@pickups.length.to_f) %> boxes</td>
+          <td> <%= sprintf('%.02f',@lbs/@pickups.length.to_f) %> pounds</td>
         </tr>
         <tr>
           <td> % Human Powered </td>

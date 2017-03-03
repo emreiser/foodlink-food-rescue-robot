@@ -12,10 +12,10 @@ Last week, there were <%= @num_logs %> scheduled collections.
 We have data entered for <%= @num_entered %> of those.
 </p>
 <p>
-We picked up <em>at least</em> <strong><%= @lbs %> boxes</strong> of food.
+We picked up <em>at least</em> <strong><%= @lbs %> pounds</strong> of food.
 </p>
 <p>
-The biggest collection was <%= @biggest.summed_weight %> boxes, done by <%= @biggest.volunteers.collect{ |v| v.nil? ? "Unknown" : v.name }.compact.join(", ") %>
+The biggest collection was <%= @biggest.summed_weight %> pounds, done by <%= @biggest.volunteers.collect{ |v| v.nil? ? "Unknown" : v.name }.compact.join(", ") %>
 from <%= @biggest.donor.nil? ? "Unknown" : @biggest.donor.name %> to <%= @biggest.recipients.collect{ |r| r.nil? ? nil : r.name }.compact.join(", ") %> on <%= @biggest.when.strftime('%A') %>.
 </p>
 <% if @flagged_logs.length > 0 %>
@@ -24,7 +24,7 @@ from <%= @biggest.donor.nil? ? "Unknown" : @biggest.donor.name %> to <%= @bigges
   </p>
   <ul>
   <% @flagged_logs.each{ |l| %>
-    <li><%= l.donor.nil? ? "Unknown" : l.donor.name %> -&gt; <%= l.recipients.collect{ |e| e.nil? ? nil : e.name }.compact.join(", ") %> on <%= l.when %> for <%= l.summed_weight %> boxes</li>
+    <li><%= l.donor.nil? ? "Unknown" : l.donor.name %> -&gt; <%= l.recipients.collect{ |e| e.nil? ? nil : e.name }.compact.join(", ") %> on <%= l.when %> for <%= l.summed_weight %> pounds</li>
       <ul>
         <li>Volunteers:
         <% l.volunteers.each{ |v| %>
@@ -44,11 +44,11 @@ There were no flagged logs this week.
 
 <% if @zero_logs.length > 0 %>
   <p style="font-weight: bold;">
-    These logs were completed with zero boxes (problems!?):
+    These logs were completed with zero pounds (problems!?):
   </p>
   <ul>
     <% @zero_logs.each{ |l| %>
-      <li><%= l.donor.name %> -&gt; <%= l.recipients.collect{ |e| e.nil? ? nil : e.name }.compact.join(", ") %> on <%= l.when %> for <%= l.summed_weight %> boxes</li>
+      <li><%= l.donor.name %> -&gt; <%= l.recipients.collect{ |e| e.nil? ? nil : e.name }.compact.join(", ") %> on <%= l.when %> for <%= l.summed_weight %> pounds</li>
       <ul>
         <li>Volunteers:
           <% l.volunteers.each{ |v| %>

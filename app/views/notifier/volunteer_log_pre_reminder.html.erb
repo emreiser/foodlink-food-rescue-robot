@@ -18,7 +18,7 @@
         Lead Volunteer: <%= l.lead_volunteer.name.split.first.capitalize %> - <%= l.lead_volunteer.phone %><br><br>
         
         <strong>Delivery locations:</strong><br>
-        <%= l.recipients.collect{ |r| r.nil? ? nil : r.name }.compact.join("<br>").html_safe %><br>
+        <%= l.recipients.collect{ |r| r.nil? ? nil : r.name }.compact.join("<br>").html_safe %><br><br>
       </li>
     <% } %>
     </ul>
