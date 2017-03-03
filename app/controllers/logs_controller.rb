@@ -414,15 +414,13 @@ class LogsController < ApplicationController
     def parse_and_create_log_parts(params,log)
       ret = []
       params["log_parts"].each{ |dc,lpdata|
-        lpdata["weight"] = nil if lpdata["weight"].strip == ""
-        lpdata["count"] = nil if !lpdata["count"] || lpdata["count"].strip == ""
-        next if lpdata["id"].nil? and lpdata["weight"].nil? and lpdata["count"].nil?
+        lpdata["num_boxes"] = nil if !lpdata["num_boxes"] || lpdata["num_boxes"].strip == ""
+        next if lpdata["id"].nil? and lpdata["num_boxes"].nil?
         lp = lpdata["id"].nil? ? LogPart.new : LogPart.find(lpdata["id"].to_i)
-        lp.count = lpdata["count"]
+        lp.num_boxes = lpdata["num_boxes"]
         lp.description = lpdata["description"]
         lp.food_type_id = lpdata["food_type_id"].to_i
         lp.log_id = log.id
-        lp.weight = lpdata["weight"].to_f
         ret.push lp
         lp.save
       } unless params["log_parts"].nil?

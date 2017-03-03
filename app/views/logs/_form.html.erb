@@ -105,7 +105,7 @@
             <%= f2.select(:food_type_id, @food_types,{:include_blank => true}, {class: "form-control"}) %>
           </div>
           <div class="col-sm-3">
-            <%= f2.text_field(:weight, size: 5, class: "form-control") %>
+            <%= f2.text_field(:num_boxes, size: 5, class: "form-control") %>
           </div>
           <div class="col-sm-5">
             <%= f2.text_field(:description, size: 20, class: "form-control") %>
@@ -116,13 +116,14 @@
           <div class="col-sm-3 center">TOTAL: <span id="total_weight">0</span></div>
         </div>
         <div class="row">
-          <div class="col-sm-12 center">
+          <div class="col-sm-4"></div>
+          <div class="col-sm-3 center">
             <%=
               task = "<div class=\"log_part row\">"
               fields_for :log_parts, LogPart.new, :index => "new_42" do |f2|
                 task += "<div class=\"col-sm-4\">" + f2.select(:food_type_id, @food_types,{:include_blank => true}, {class: 'form-control'}) + "</div>"
-                task += "<div class=\"col-sm-4\">" + f2.text_field(:weight,size: 5, class: 'form-control') + "</div>"
-                task += "<div class=\"col-sm-4\">" + f2.text_field(:description,size: 20, class: 'form-control') + "</div>"
+                task += "<div class=\"col-sm-3\">" + f2.text_field(:num_boxes,size: 5, class: 'form-control') + "</div>"
+                task += "<div class=\"col-sm-5\">" + f2.text_field(:description,size: 20, class: 'form-control') + "</div>"
               end
               task += "</div>"
               func_str =
@@ -205,7 +206,7 @@
 <script type="text/javascript" charset="utf-8">
   function update_total_weight(){
     t = 0.0
-    $( "input[id$='weight']").each(function(i){
+    $( "input[id$='num_boxes']").each(function(i){
       v = $(this).val()
       if(v != "" && v != undefined) {
         t = t + parseFloat(v)
@@ -221,14 +222,8 @@
 
   jQuery(document).ready(function() {
 
-    //jQuery('.select2').select2({
-    //  width:'element',
-    //  placeholder:'',allowClear:true,
-    //  minimumResultsForSearch: -1
-    //});
-
     update_total_weight();
-    $( "input[id$='weight']").each(function(i){
+    $( "input[id$='num_boxes']").each(function(i){
       $(self).on("change",function(){
         update_total_weight();
       });

@@ -118,7 +118,7 @@
 
               <% unless current_page?(controller: "logs", action: "open") %>
                 <td>
-                  <%= shift_group.all?{ |shift| shift.complete } ? shift_group.collect{ |shift| shift.summed_weight }.sum.round : "?" %> boxes
+                  <%= shift_group.all?{ |shift| shift.complete } ? shift_group.collect{ |shift| shift.summed_weight }.sum.round : "?" %> pounds
                 </td>
                 <td>
                   <% shift_group.collect{ |shift| shift.transport_type }.compact.each{ |transport_type| %> <%= transport_type.name %><br> <% } %>

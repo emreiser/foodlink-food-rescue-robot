@@ -39,20 +39,15 @@ class Log < ActiveRecord::Base
                   :id, :created_at, :updated_at, :complete, :recipient_ids, :volunteer_ids, :num_volunteers
 
   # units conversion on scale type --- we always store in lbs in the database
-  before_save { |record|
+  before_validation { |record|
     return if record.region.nil?
     record.scale_type = record.region.scale_types.first if record.scale_type.nil? and record.region.scale_types.length == 1
     unless record.scale_type.nil?
       record.weight_unit = record.scale_type.weight_unit if record.weight_unit.nil?
       record.log_parts.each{ |lp|
-        if record.weight_unit == "kg"
-          lp.weight = (lp.weight * (1.0/2.2).to_f).round(2) unless lp.weight.nil?
-        elsif record.weight_unit == "st"
-          lp.weight = (lp.weight.to_f * (1.0/14.0).to_f).round(2) unless lp.weight.nil?
-        end
+        lp.weight = (lp.num_boxes * lp.food_type.weight_per_box)
         lp.save
       }
-      record.weight_unit = "lb"
     end
   }
 
