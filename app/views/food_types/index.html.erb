@@ -18,6 +18,7 @@ No food types.
   <thead>
   <tr>
     <th> Name </th>
+    <th> Avg weight per box (lbs)</th>
     <th> Region </th>
     <th> Link </th>
   </tr>
@@ -27,8 +28,9 @@ No food types.
   @food_types.each do |ft|
   %>
   <tr>
-    <td> <%= ft.name %>
-    <td> <%= ft.region.name %>
+    <td><%= ft.name %></td>
+    <td><%= ft.weight_per_box %></td>
+    <td><%= ft.region.name %></td>
     <td><%= link_to 'edit', :controller => "food_types", :action => "edit", :id => ft %><br>
          <%= link_to "delete", ft, :confirm => "Are you sure?", :method => :delete %> </td>
   </tr>

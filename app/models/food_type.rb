@@ -1,5 +1,5 @@
 class FoodType < ActiveRecord::Base
-  attr_accessible :name, :region_id
+  attr_accessible :name, :region_id, :weight_per_box
   has_many :schedules, :through => :schedule_parts
   has_many :schedule_parts
   has_many :log_parts
