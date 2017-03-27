@@ -2,11 +2,10 @@
 .sign_in_section {
   background: #F1F1F1;
   border: 1px solid #E5E5E5;
-  float: right;
   margin-top: 35px;
-  padding: 25px;
   -webkit-border-radius: 10px;
   border-radius: 10px;
+  padding: 25px;
 
   label{
     font-weight: bold;
@@ -45,8 +44,6 @@
 
 /*Info Section*/
 .info_section {
-  padding: 0px;
-  margin: 25px 0 0;
   p {
     padding-right: 2em;
     text-align: justify;
@@ -112,4 +109,12 @@ div#error_explanation {
     margin-bottom: 0;
   }
 
+}
+
+@media (max-width: 768px){
+  .sign_in_section {
+    -webkit-border-radius: 0;
+    border-radius: 0;
+    margin-top: 10px;
+  }
 }

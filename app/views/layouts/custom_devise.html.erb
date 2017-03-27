@@ -9,19 +9,23 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-  <div class="container">
-    <div class="header">
-      <div>
-        <%= image_tag("foodlink-logo.png", alt: "Food Link logo", class: "logo-image" ) %>
-      </div>
-      <div>
-        <h2 id="bfr_title">Food Rescue Robot</h2>
-        <h4>Just-in-Time Food Rescue Tracking</h4>
-      </div>
+  <div class="header">
+    <div>
+      <%= image_tag("foodlink-logo.png", alt: "Food Link logo", class: "logo-image" ) %>
     </div>
-
-    <div class="wrap">
-      <div class="info_section col-sm-7">
+    <div>
+      <h2 id="bfr_title">Food Rescue Robot</h2>
+      <h4>Just-in-Time Food Rescue Tracking</h4>
+    </div>
+  </div>
+  <div class="container">
+    <div class="row">
+      <div class="sign_in_section col-sm-5 col-sm-push-7">
+        <div>
+          <%= yield %>
+        </div>
+      </div>
+      <div class="info_section col-sm-7 col-sm-pull-5">
         <h2 class="section_title">About The Robot</h2>
         <p>
           The robot is a web-application for scheduling, routing, and tracking just-in-time food rescue.
@@ -68,12 +72,6 @@
             </li>
           </ul>
         <% end %>
-      </div>
-
-      <div class="sign_in_section col-sm-5">
-        <div>
-          <%= yield %>
-        </div>
       </div>
 
     </div>
