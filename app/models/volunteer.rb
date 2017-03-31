@@ -36,9 +36,6 @@ class Volunteer < ActiveRecord::Base
                     s3_credentials: { bucket: 'foodlink-robot' }
   validates_attachment_file_name :photo, matches: [/png\Z/, /jpe?g\Z/, /gif\Z/]
 
-  validates :address, presence: true
-  validates :emergency_contact, presence: true
-
   before_save :ensure_authentication_token
   after_save :auto_assign_region
 
