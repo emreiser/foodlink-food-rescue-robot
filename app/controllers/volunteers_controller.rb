@@ -277,8 +277,12 @@ class VolunteersController < ApplicationController
     @last_ten_pickups = Log.picked_up_by(current_volunteer.id, true, 10)
 
     #Pickup Stats
+    @regions = current_volunteer.regions
     @completed_pickup_count = Log.picked_up_by(current_volunteer.id).count
     @total_food_rescued = Log.picked_up_weight(nil,current_volunteer.id)
+    @pounds_per_month = Log.joins(:log_parts).select("date_trunc('month',logs.when) as month, sum(weight)").
+      where("complete AND region_id in (#{@regions.collect{ |r| r.id }.join(',')})").
+      group("month").order("month ASC").collect{ |l| [Date.parse(l.month).strftime("%Y-%m"),l.sum] }
 
     @unassigned = current_volunteer.unassigned?
 

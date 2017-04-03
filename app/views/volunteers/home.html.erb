@@ -307,8 +307,12 @@
           title: { text: 'Boxes' }
         },
         series: [{
-          name: 'Food Rescued',
+          name: 'Rescued by you',
           data: [<%= @by_month.sort_by{ |k,v| k}.collect{ |pair| pair[1] }.join(",") %>]
+        },
+        {
+          name: 'Total rescued by Food Link',
+          data: [<%= @pounds_per_month.collect{ |x| x[1] }.join(",") %>]
         }]
       });
     });

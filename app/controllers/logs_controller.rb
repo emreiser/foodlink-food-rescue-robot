@@ -414,8 +414,8 @@ class LogsController < ApplicationController
     def parse_and_create_log_parts(params,log)
       ret = []
       params["log_parts"].each{ |dc,lpdata|
-        lpdata["num_boxes"] = nil if !lpdata["num_boxes"] || lpdata["num_boxes"].strip == ""
-        next if lpdata["id"].nil? and lpdata["num_boxes"].nil?
+        empty = !lpdata["food_type_id"].present? || !lpdata["num_boxes"].present?
+        next if lpdata["id"].nil? and empty
         lp = lpdata["id"].nil? ? LogPart.new : LogPart.find(lpdata["id"].to_i)
         lp.num_boxes = lpdata["num_boxes"]
         lp.description = lpdata["description"]
