@@ -6,6 +6,8 @@ class FoodType < ActiveRecord::Base
   has_many :logs, :through => :log_parts
   belongs_to :region
   default_scope { where(active:true) }
+  validates :name, presence: true
+  validates :weight_per_box, presence: true
 
   def self.regional(region_id)
     where(:region_id=>region_id)

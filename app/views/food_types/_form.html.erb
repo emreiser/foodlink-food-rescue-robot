@@ -1,11 +1,11 @@
 <%= form_for @food_type, :url => {:action => @action } do |f| %>
 <%= hidden_field_tag "food_type[region_id]", @food_type.region_id %>
   <div class="row">
-    <div class="col-sm-3">Name</div>
+    <div class="col-sm-3">Name*</div>
     <div class="col-sm-3"><%= f.text_field(:name) %></div>
   </div>
   <div class="row">
-    <div class="col-sm-3">Avg weight per box (lbs)</div>
+    <div class="col-sm-3">Avg weight per box (lbs)*</div>
     <div class="col-sm-3"><%= f.text_field(:weight_per_box) %></div>
   </div>
 <%= submit_tag %>
