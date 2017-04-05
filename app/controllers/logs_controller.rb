@@ -6,11 +6,11 @@ class LogsController < ApplicationController
   before_filter :admin_only, :only => [:today,:tomorrow,:yesterday,:being_covered,:tardy,:receipt,:new,:create,:stats,:export]
 
   def mine_past
-    index(Log.group_by_schedule(Log.past_for(current_volunteer.id)),"My Past Shifts")
+    index(Log.group_by_schedule(Log.past_for(current_volunteer.id)),"Your Past Shifts")
   end
 
   def mine_upcoming
-    index(Log.group_by_schedule(Log.upcoming_for(current_volunteer.id)),"My Upcoming Shifts")
+    index(Log.group_by_schedule(Log.upcoming_for(current_volunteer.id)),"Your Upcoming Shifts")
   end
 
   def open
@@ -36,7 +36,7 @@ class LogsController < ApplicationController
   end
 
   def todo
-    index(Log.group_by_schedule(Log.past_for(current_volunteer.id).where("\"when\" < current_date AND NOT complete")),"My To Do Shift Reports")
+    index(Log.group_by_schedule(Log.past_for(current_volunteer.id).where("\"when\" < current_date AND NOT complete")),"Your To Do Shift Reports")
   end
 
   def tardy

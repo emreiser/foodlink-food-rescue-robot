@@ -12,7 +12,7 @@
   def mine
     @schedules = current_volunteer.schedule_chains
     @my_admin_regions = current_volunteer.admin_regions
-    @page_title = "My Regular Shifts"
+    @page_title = "Your Regular Shifts"
     render :index
   end
 
