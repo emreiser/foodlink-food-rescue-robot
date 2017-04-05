@@ -108,9 +108,20 @@ div#error_explanation {
   ul {
     margin-bottom: 0;
   }
-
 }
 
+
+/* Sign Waiver */
+.sign-waiver {
+  font-size: 1.2em;
+  text-align: center;
+}
+
+::-webkit-scrollbar {
+  width: 20px;
+}
+
+ 
 @media (max-width: 768px){
   .sign_in_section {
     -webkit-border-radius: 0;
