@@ -1,4 +1,4 @@
-class ScheduleChainsController < ApplicationController
+ class ScheduleChainsController < ApplicationController
   before_filter :authenticate_volunteer!
   before_filter :admin_only, :only => [:fast_schedule, :today, :tomorrow, :yesterday, :edit, :update, :create, :new]
 
