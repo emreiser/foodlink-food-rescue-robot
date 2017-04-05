@@ -52,7 +52,7 @@
             </td>
             <td>
               <% unless first_pickup.schedule_chain.nil? %>
-                <button class="btn btn-info info" onclick="window.location='/schedule_chains/<%= first_pickup.schedule_chain.id %>';">
+                <button class="btn btn-info info" onclick="window.open('/schedule_chains/<%= first_pickup.schedule_chain.id %>')">
                   <i class="fa fa-info-circle"></i>
                   Info
                 </button>
