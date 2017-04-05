@@ -1,4 +1,4 @@
-sch<%= form_for @volunteer, :url => {action: @action } do |f| %>
+<%= form_for @volunteer, :url => {action: @action } do |f| %>
 
   <table class="table table-striped">
 
@@ -25,18 +25,6 @@ sch<%= form_for @volunteer, :url => {action: @action } do |f| %>
 
     <tr>
       <td>
-        <label for="volunteer_phone">Phone</label>
-      </td>
-      <td>
-        <div class="form-inline">
-          <%= f.text_field(:phone, class: "form-control") %> with <%= f.select(:cell_carrier_id, CellCarrier.all.collect{ |cc| [cc.name,cc.id] },{include_blank: true}, {class: "form-control"}) %>
-        </div>
-      </td>
-      </tr>
-    </tr>
-
-    <tr>
-      <td>
         <label for="volunteer_email">
           Email
         </label>
@@ -46,87 +34,13 @@ sch<%= form_for @volunteer, :url => {action: @action } do |f| %>
 
     <tr>
       <td>
-        <label for="volunteer_address">
-          Address
-        </label>
-      </td>
-      <td><%= f.text_area(:address, class: "form-control") %></td>
-    </tr>
-
-    <tr>
-      <td>
-        <label for="volunteer_emergency_contact">
-          Emergency contact name and number
-        </label>
-      </td>
-      <td><%= f.text_field(:emergency_contact, class: "form-control") %></td>
-    </tr>
-
-    <tr>
-      <td>
-        <label for="volunteer_preferred_contact">
-          Preferred Contact
-        </label>
-      </td>
-      <td>
-        <div class="form-inline">
-          <%= f.select(:preferred_contact,[["Email","Email"],["Phone","Phone"],["Text","Text"]], {include_blank: true}, {class: "form-control"}) %>
-        </div>
-      </td>
-    </tr>
-
-    <tr>
-      <td>
-        <label for="">Receive From Robot</label>
+        <label for="">Receive collection reminder emails</label>
       </td>
       <td>
         <div>
-          <%= f.check_box(:sms_too) %>
-          <label for="volunteer_sms_too">Text Messages</label>
-        </div>
-        <div>
-          <%= f.check_box(:pre_reminders_too) %>
-          <label for="volunteer_pre_reminders_too">Pre Pickup-Reminders</label>
-        </div>
-        <div>
-          <%= f.check_box(:get_sncs_email) %>
-          <label for="volunteer_get_sncs_email">SNCS Email</label>
+          <%= f.check_box(:pre_reminders_too) %> Yes
         </div>
       </td>
-    </tr>
-
-    <tr>
-      <td>
-        <label for="volunteer_on_email_list">On Email List</label>
-      </td>
-      <td>
-        <%= f.check_box(:on_email_list) %>
-      </td>
-    </tr>
-
-    <tr>
-      <td>
-        <label for="volunteer_transport_type_id">Transport</label>
-      </td>
-      <td>
-        <div class="form-inline">
-          <%= f.select(:transport_type_id, TransportType.all.collect{ |tt| [tt.name,tt.id] },{include_blank: true}, {class: "form-control"}) %>
-        </div>
-      </td>
-    </tr>
-
-    <tr>
-      <td>
-        <label for="volunteer_has_car">Has Car</label>
-      </td>
-      <td><%= f.check_box(:has_car) %></td>
-    </tr>
-
-    <tr>
-      <td>
-        <label for="volunteer_pickup_prefs">Pickup Preferences</label>
-      </td>
-      <td class="form-fields"><%= f.text_area(:pickup_prefs, size: "30x6", class: "form-control") %></td>
     </tr>
 
     <% if current_volunteer.any_admin? %>

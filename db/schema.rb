@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20170222015455) do
+ActiveRecord::Schema.define(:version => 20170405142636) do
 
   create_table "absences", :force => true do |t|
     t.integer "volunteer_id"
@@ -49,6 +49,7 @@ ActiveRecord::Schema.define(:version => 20170222015455) do
     t.integer  "region_id"
     t.boolean  "active",         :default => true, :null => false
     t.decimal  "weight_per_box"
+    t.decimal  "avg_box_weight"
   end
 
   create_table "locations", :force => true do |t|
@@ -270,8 +271,6 @@ ActiveRecord::Schema.define(:version => 20170222015455) do
     t.integer  "requested_region_id"
     t.string   "authentication_token"
     t.boolean  "active",                 :default => true,  :null => false
-    t.text     "address"
-    t.text     "emergency_contact"
   end
 
   add_index "volunteers", ["email"], :name => "index_volunteers_on_email", :unique => true
