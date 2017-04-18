@@ -24,7 +24,6 @@ class Log < ActiveRecord::Base
 
   validates :notes, presence: { if: Proc.new{ |a| a.complete and a.summed_weight == 0 and a.summed_count == 0 and a.why_zero == 2 },
              message: "can't be blank if weights/counts are all zero: let us know what happened!" }
-  validates :transport_type_id, presence: { if: :complete }
   validates :donor_id, presence: { if: :complete }
   validates :scale_type_id, presence: { if: :complete }
   validates :when, presence: true

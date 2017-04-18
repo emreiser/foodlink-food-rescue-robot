@@ -166,7 +166,6 @@ class LogsController < ApplicationController
     @region = @log.region
     @food_types = @region.food_types.collect{ |e| [e.name,e.id] }
     @scale_types = @region.scale_types.collect{ |e| [e.name,e.id] }
-    @transport_types = TransportType.all.collect{ |e| [e.name,e.id] }
     if @scale_types.length<2 and @log.scale_type_id.nil?
       @log.scale_type_id = @region.scale_types.first.id
     end
@@ -424,6 +423,7 @@ class LogsController < ApplicationController
         ret.push lp
         lp.save
       } unless params["log_parts"].nil?
+      LogPart.delete(log.log_parts - ret)
       ret
     end
 
