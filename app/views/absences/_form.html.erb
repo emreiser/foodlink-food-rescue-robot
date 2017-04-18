@@ -1,55 +1,65 @@
 You can use the form below to schedule an absence. Note that any shift occuring <strong>within the next three days</strong> cannot be deferred in this way. Instead, please contact the volunteer coordinator (and/or email list if one exists in your organization) to find a cover on short notice. Thanks!
 
 <%= form_for(@absence) do |f| %>
-  <table class="table absence_table">
 
-    <% if current_volunteer.any_admin? %>
-      <tr>
-        <td>Volunteer:</td>
-        <% if current_volunteer.super_admin? %>
-          <td><%= f.select(:volunteer_id, Volunteer.all.collect{ |v| [v.name,v.id] }) %></td>
-        <% else %>
-          <td><%= f.select(:volunteer_id, Volunteer.all.collect{ |v| ((v.regions.collect{ |r| r.id } & current_volunteer.admin_region_ids).length > 0 and !v.admin) ? [v.name,v.id] : nil }.compact,{:class => "select2"}) %></td>
-        <% end %>
-      </tr>
-    <% end %>
+  <% if current_volunteer.any_admin? %>
+    <div class="row">
+      <div class="col-sm-2">Volunteer:</div>
+      <% if current_volunteer.super_admin? %>
+        <div class="col-sm-4"><%= f.select(:volunteer_id, Volunteer.all.collect{ |v| [v.name,v.id]}, {}, {class: "form-control"}) %></div>
+      <% else %>
+        <div class="col-md-4"><%= f.select(:volunteer_id, Volunteer.all.collect{ |v| ((v.regions.collect{ |r| r.id } & current_volunteer.admin_region_ids).length > 0 and !v.admin) ? [v.name,v.id] : nil }.compact, {}, {class: "form-control"}) %></div>
+      <% end %>
+    </div>
+  <% end %>
 
-    <tr>
-      <td>
-        <label for="absence_start_date_1i">Starting On: </label>
-      </td>
-      <td class="form-fields">
-        <div class="form-inline">
-          <%= date_select(:absence, :start_date, {default: 3.days.from_now, order: [:month, :day, :year]}, {class: 'form-control'}) %>
-        </div>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <label for="absence_stop_date_1i">Ending On: </label>
-      </td>
-      <td class="form-fields">
-        <div class="form-inline">
-          <%= date_select(:absence, :stop_date, {default: 3.days.from_now, order: [:month, :day, :year]}, {class: 'form-control'})%>
-        </div>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <label for="absence_comments">Comments:</label>
-      </td>
-      <td class="form-fields">
-        <%= f.text_area(:comments, size: "30x6", class: 'form-control') %>
-      </td>
-    </tr>
-  </table>
-  <%= submit_tag %>
+  <div class="row">
+    <div class="col-sm-2">
+      <label for="absence_start_date_1i">Starting On: </label>
+    </div>
+    <div class="col-sm-4">
+      <div class="form-inline input-group date">
+        <%= f.text_field(:start_date, class: 'form-control datepicker') %>
+        <span class="input-group-addon">
+          <span class="glyphicon glyphicon-calendar"></span>
+        </span>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-2">
+      <label for="absence_stop_date_1i">Ending On: </label>
+    </div>
+    <div class="col-sm-4">
+      <div class="form-inline input-group date">
+         <%= f.text_field(:stop_date, class: 'form-control datepicker') %>
+         <span class="input-group-addon">
+          <span class="glyphicon glyphicon-calendar"></span>
+        </span>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-2">
+      <label for="absence_comments">Comments:</label>
+    </div>
+    <div class="col-sm-4">
+      <%= f.text_area(:comments, size: "30x6", class: 'form-control') %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-2"></div>
+    <div class="col-sm-4">
+      <%= submit_tag %>
+    </div>
+  </div>
 <% end %>
 
 <% content_for :scripts do %>
   <script type="text/javascript" charset="utf-8">
     jQuery(document).ready(function(){
       //jQuery('.select2').select2({width:'element'});
+      $(".date, .datepicker").datetimepicker({format: "MMM D YYYY"});
     });
   </script>
 <% end %>
