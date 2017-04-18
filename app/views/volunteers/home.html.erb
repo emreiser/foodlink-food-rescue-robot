@@ -244,36 +244,8 @@
           <td> <%= current_volunteer.regions.collect{ |r| r.name }.join(", ") %> </td>
         </tr>
         <tr>
-          <td> Preferred Transporation </td>
-          <td> <%= current_volunteer.transport_type.nil? ? "unknown" : "a #{current_volunteer.transport_type.name}" %> </td>
-        </tr>
-        <tr>
-          <td> Preferred Method of Contact </td>
-          <td> <%= current_volunteer.preferred_contact.nil? ? "unknown" : current_volunteer.preferred_contact %> </td>
-        </tr>
-        <tr>
-          <td> SMS Setup </td>
-          <td> <%= current_volunteer.sms_too ? "Yes" : "No" %> </td>
-        </tr>
-        <tr>
-          <td> SMS Active </td>
-          <td>
-            <% if current_volunteer.sms_email.nil? %>
-            <p> No : Missing your cellphone carrier </p>
-            <% elsif current_volunteer.sms_too %>
-            <p> No : Missing your cellphone number </p>
-            <% else %>
-            <p> Yes </p>
-            <% end %>
-          </td>
-        </tr>
-        <tr>
           <td> Recieving pre-pick-up reminders </td>
           <td> <%= current_volunteer.pre_reminders_too ? "Yes" : "No" %> </td>
-        </tr>
-        <tr>
-          <td> Recieving SNCS Emails </td>
-          <td> <%= current_volunteer.get_sncs_email ? "Yes" : "No" %> </td>
         </tr>
         <tr>
           <td> Liability Waiver Signed </td>
