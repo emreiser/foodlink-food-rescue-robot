@@ -154,13 +154,6 @@
       return redirect_to(root_path)
     end
 
-    delete_schedules = []
-    unless params[:schedule_chain]["schedules_attributes"].nil?
-      params[:schedule_chain]["schedules_attributes"].collect{ |k,v|
-        delete_schedules << v["id"].to_i if v["food_type_ids"].nil?
-      }
-    end
-
     delete_volunteers = []
     unless params[:schedule_chain]["schedule_volunteers_attributes"].nil?
       params[:schedule_chain]["schedule_volunteers_attributes"].collect{ |k,v|
@@ -169,9 +162,6 @@
     end
 
     if @schedule.update_attributes(params[:schedule_chain])
-      @schedule.schedules.each do |s|
-        s.delete if delete_schedules.include? s.id
-      end
 
       @schedule.schedule_volunteers.each do |s|
         s.update_attributes({active: false}) if delete_volunteers.include? s.id
