@@ -127,13 +127,6 @@
       </td>
       <td><%= f.check_box(:temporary) %></td>
     </tr>
-    <!--<tr>
-      <td>
-        Food Type(s)</td><td>< FoodType.regional(@schedule.region).each{ |f
-      t| %>
-      <= check_box_tag "schedule[food_type_ids][]", ft.id, @schedule.food_types.include?(ft) %> <= ft.name %>
-    < } %></td>
-    </tr>-->
   </table>
 
   <%= submit_tag %>
@@ -160,6 +153,14 @@ jQuery(document).ready(function(){
     $(".volunteer.nested_fields input:checked").prop("checked", false);
     $(event.target).prop("checked", true);
   });
+
+  $(document).on("click", ".volunteer .remove", function(e){
+    e.preventDefault();
+    $(this).parent().remove();
+    if ($('.volunteer.nested_fields input[checked="checked"]').length < 1){
+      $(".volunteer.nested_fields").first().find("input").prop("checked", true);
+    }
+  })
 });
 document.activeElement.blur();
 </script>
