@@ -37,7 +37,7 @@ class Volunteer < ActiveRecord::Base
   validates_attachment_file_name :photo, matches: [/png\Z/, /jpe?g\Z/, /gif\Z/]
 
   before_save :ensure_authentication_token
-  after_save :auto_assign_region
+  after_create :alert_admin_to_assign
 
   # more trustworthy and self.assigned? attribute?
   def unassigned?
@@ -152,6 +152,13 @@ class Volunteer < ActiveRecord::Base
     if Region.count==1 and self.regions.count==0
       Assignment.add_volunteer_to_region self, Region.first
       logger.info "Automatically assigned new user to region #{self.regions.first.name}"
+    end
+  end
+
+  def alert_admin_to_assign
+    if self.regions.count == 0
+      m = Notifier.admin_unassigned_volunteer_notice(self.requested_region)
+      m.deliver
     end
   end
 

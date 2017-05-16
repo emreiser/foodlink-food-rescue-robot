@@ -24,9 +24,6 @@ class Assignment < ActiveRecord::Base
     end
     volunteer.assigned = true
     volunteer.save
-
-    m = Notifier.region_welcome_email(region, volunteer)
-    m.deliver unless m.nil?
     return true
   end
 

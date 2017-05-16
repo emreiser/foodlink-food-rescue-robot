@@ -15,6 +15,12 @@ class Notifier < ActionMailer::Base
     mail(to: to, subject: "[Food Link Robot] Schedule Collision Warning"){ |format| format.html }
   end
 
+  def admin_unassigned_volunteer_notice(region)
+    to = region.volunteer_coordinator_email
+    to = ForceTo.nil? ? to : ForceTo
+    mail(to: to, subject: "[Food Link Robot] Request to Join Region"){ |format| format.html }
+  end
+
   def region_welcome_email(region, volunteer)
     return nil if region.welcome_email_text.nil? or region.welcome_email_text.strip.length == 0
     @welcome_email_text = region.welcome_email_text
