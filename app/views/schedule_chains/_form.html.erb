@@ -144,21 +144,21 @@ jQuery(document).ready(function(){
   });
   $('#schedule_chain_frequency').change();
 
-  var volunteers = $(".volunteer.nested_fields");
+  var volunteers = $(".lead-volunteer");
   if(volunteers.length <= 1){
     $(volunteers[0]).find("input").prop("checked", true);
   }
 
-  $(document).on("change", ".volunteer.nested_fields input", function(event){
-    $(".volunteer.nested_fields input:checked").prop("checked", false);
+  $(document).on("change", ".lead-volunteer input", function(event){
+    $(".lead-volunteer input:checked").prop("checked", false);
     $(event.target).prop("checked", true);
   });
 
   $(document).on("click", ".volunteer .remove", function(e){
     e.preventDefault();
     $(this).parent().remove();
-    if ($('.volunteer.nested_fields input[checked="checked"]').length < 1){
-      $(".volunteer.nested_fields").first().find("input").prop("checked", true);
+    if ($('.lead-volunteer input[checked="checked"]').length < 1){
+      $(".lead-volunteer").first().find("input").prop("checked", true);
     }
   })
 });

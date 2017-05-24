@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20170405142636) do
+ActiveRecord::Schema.define(:version => 20170516181134) do
 
   create_table "absences", :force => true do |t|
     t.integer "volunteer_id"
@@ -215,6 +215,7 @@ ActiveRecord::Schema.define(:version => 20170405142636) do
     t.datetime "updated_at",                           :null => false
     t.integer  "schedule_chain_id"
     t.boolean  "lead_volunteer",    :default => false
+    t.text     "week_assignment"
   end
 
   add_index "schedule_volunteers", ["volunteer_id"], :name => "index_schedule_volunteers_on_volunteer_id"

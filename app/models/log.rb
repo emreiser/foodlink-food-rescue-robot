@@ -104,9 +104,12 @@ class Log < ActiveRecord::Base
     log.when = date
     log.region_id = schedule_chain.region_id
     log.absences << a unless a.nil?
-    schedule_chain.volunteers.each{ |v|
-      next if (not a.nil?) and (v == a.volunteer)
-      log.log_volunteers << LogVolunteer.new(volunteer:v,log:log,active:true)
+    schedule_chain.schedule_volunteers.each{ |sv|
+      next if (not a.nil?) and (sv.volunteer == a.volunteer)
+      week_of_collection = date.week_of_month
+      if sv.get_assigned_weeks.include? week_of_collection || sv.week_assignment.blank?
+        log.log_volunteers << LogVolunteer.new(volunteer:sv.volunteer,log:log,active:true)
+      end
     }
     log.num_volunteers = schedule_chain.num_volunteers
     # list each recipient that follows this donor in the chain

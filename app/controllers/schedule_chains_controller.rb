@@ -111,6 +111,7 @@
     @schedule = ScheduleChain.new
     @schedule.volunteers.build
     @schedule.region = @region
+    @week_options = ScheduleVolunteer::WEEK_OPTIONS
     set_vars_for_form @region
     @action = "create"
     render :new
@@ -141,6 +142,7 @@
     end
 
     @region = @schedule.region
+    @week_options = ScheduleVolunteer::WEEK_OPTIONS
     set_vars_for_form @region
     @inactive_volunteers = @schedule.schedule_volunteers.select { |sched_vol| sched_vol.active == false }
     @action = "update"
@@ -162,7 +164,6 @@
     end
 
     if @schedule.update_attributes(params[:schedule_chain])
-
       @schedule.schedule_volunteers.each do |s|
         s.update_attributes({active: false}) if delete_volunteers.include? s.id
       end

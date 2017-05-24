@@ -166,6 +166,10 @@ class Volunteer < ActiveRecord::Base
     self.absences.keep_if{ |a| a.start_date < Date.today and a.stop_date > Date.today }
   end
 
+  def find_active_schedule_volunteer(schedule_chain_id)
+    self.schedule_volunteers.where(schedule_chain_id: schedule_chain_id).where(active: true).last
+  end
+
   ### CLASS METHODS
 
   def self.active(region_ids=nil,ndays=90)
