@@ -33,8 +33,8 @@
       <th>Stops</th>
       <th>Volunteers</th>
       <th>Start Time</th>
-      <th>End Time</th>
-      <th>Notes</th>
+<!--       <th>End Time</th> -->
+<!--       <th>Notes</th> -->
       <% if current_volunteer.any_admin? %>
         <th> Admin Notes</th>
       <% end %>
@@ -98,12 +98,12 @@
       <td>
         <%= readable_start_time schedule %>
       </td>
-      <td>
+<!--       <td>
         <%= readable_stop_time schedule %>
-      </td>
-      <td style="font-size: 10pt;">
+      </td> -->
+      <!-- <td style="font-size: 10pt;">
         <%= word_wrap(schedule.public_notes, line_width: 20).gsub("\n","<br>").html_safe unless schedule.public_notes.nil? %>
-      </td>
+      </td> -->
       <% if current_volunteer.any_admin? %>
         <td>
           <%= word_wrap(schedule.admin_notes,:line_width => 20).gsub("\n","<br>").html_safe unless schedule.admin_notes.nil? or !current_volunteer.region_admin?(schedule.region) %>
