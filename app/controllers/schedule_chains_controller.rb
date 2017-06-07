@@ -144,7 +144,7 @@
     @region = @schedule.region
     @week_options = ScheduleVolunteer::WEEK_OPTIONS
     set_vars_for_form @region
-    @inactive_volunteers = @schedule.schedule_volunteers.select { |sched_vol| sched_vol.active == false }
+    @inactive_volunteers = @schedule.schedule_volunteers.select { |sched_vol| sched_vol.active == false && sched_vol.volunteer.present? }
     @action = "update"
   end
 
