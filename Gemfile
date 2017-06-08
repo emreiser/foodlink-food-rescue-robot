@@ -12,6 +12,7 @@ gem 'json'
 
 # lets us use the ubiquitous jquery javascript library
 gem 'jquery-rails', '2.1.4'
+gem 'sass', '3.2.13'
 gem 'sass-rails'
 gem 'coffee-rails', '~> 3.2.1'
 gem 'therubyracer', :platforms => :ruby

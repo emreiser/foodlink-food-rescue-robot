@@ -262,7 +262,7 @@ GEM
       rspec-support (~> 3.5.0)
     rspec-support (3.5.0)
     ruby-graphviz (1.2.2)
-    sass (3.4.22)
+    sass (3.2.13)
     sass-rails (3.2.6)
       railties (~> 3.2.0)
       sass (>= 3.1.10)
@@ -365,6 +365,7 @@ DEPENDENCIES
   rails_12factor
   ranked-model
   rspec-rails (~> 3.5)
+  sass (= 3.2.13)
   sass-rails
   simple_form
   test-unit (~> 3.0)
