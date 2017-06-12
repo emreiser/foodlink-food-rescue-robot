@@ -10,18 +10,11 @@ class ScheduleVolunteer < ActiveRecord::Base
 	accepts_nested_attributes_for :volunteer
 
   WEEK_OPTIONS = {
-    first_third: "1st and 3rd weeks",
-    second_fourth: "2nd and 4th weeks",
-    fifth: "5th week"
+    "1" => "1st week",
+    "2" => "2nd week",
+    "3" => "3rd week",
+    "4" => "4th week",
+    "5" => "5th week",
   }
-
-  def get_assigned_weeks
-    weeks = []
-    weeks.push(1,3) if self.week_assignment.include? "first_third"
-    weeks.push(2,4) if self.week_assignment.include? "second_fourth"
-    weeks.push(5) if self.week_assignment.include? "fifth"
-
-    weeks
-  end
 
 end

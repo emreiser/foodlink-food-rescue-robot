@@ -157,15 +157,18 @@
     end
 
     delete_volunteers = []
+    clear_week_assignment = []
     unless params[:schedule_chain]["schedule_volunteers_attributes"].nil?
       params[:schedule_chain]["schedule_volunteers_attributes"].collect{ |k,v|
         delete_volunteers << v["id"].to_i if v["volunteer_id"].nil?
+        clear_week_assignment << v["id"].to_i if !v["week_assignment"]
       }
     end
 
     if @schedule.update_attributes(params[:schedule_chain])
       @schedule.schedule_volunteers.each do |s|
         s.update_attributes({active: false}) if delete_volunteers.include? s.id
+        s.update_attributes({week_assignment: []}) if clear_week_assignment.include? s.id
       end
 
       flash[:notice] = "Updated Successfully"

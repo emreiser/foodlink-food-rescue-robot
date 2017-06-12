@@ -7,7 +7,7 @@
   <div class="field">
     <%= f.label "Week assignment" %><br>
     <% @week_options.each do |value, label| %>
-      <%= f.check_box :week_assignment, {multiple: true}, value.to_s, false %>
+      <%= f.check_box :week_assignment, {multiple: true}, value, false %>
       <%= label %><br>
     <% end %><br>
   </div>
