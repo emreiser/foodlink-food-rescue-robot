@@ -25,6 +25,7 @@
     @schedules = ScheduleChain.where(region_id: current_volunteer.region_ids).where(dowq)
     @my_admin_regions = current_volunteer.admin_regions
     @page_title = title
+    @week_options = ScheduleVolunteer::WEEK_OPTIONS
     render :index
   end
 
