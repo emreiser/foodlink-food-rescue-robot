@@ -169,30 +169,30 @@ module FoodRobot
     }
 
     # Remind the admins to cover things without a volunteer...
-    if short_term_cover_list.length > 0
-      short_term_cover_list.each{ |region, logs|
-        m = Notifier.admin_short_term_cover_summary(region, logs)
-        if @@DontDeliverEmails
-          puts m
-        else
-          m.deliver
-        end
-      }
-    end
+    # if short_term_cover_list.length > 0
+    #   short_term_cover_list.each{ |region, logs|
+    #     m = Notifier.admin_short_term_cover_summary(region, logs)
+    #     if @@DontDeliverEmails
+    #       puts m
+    #     else
+    #       m.deliver
+    #     end
+    #   }
+    # end
 
     # Let the admin know about tardy data entry
-    if naughty_list.length > 0
-      naughty_list.each{ |region, logs|
-        m = Notifier.admin_reminder_summary(region, logs)
-        if @@DontDeliverEmails
-          puts m
-        else
-          m.deliver
-        end
-      }
-    end
-    return c
-  end
+  #   if naughty_list.length > 0
+  #     naughty_list.each{ |region, logs|
+  #       m = Notifier.admin_reminder_summary(region, logs)
+  #       if @@DontDeliverEmails
+  #         puts m
+  #       else
+  #         m.deliver
+  #       end
+  #     }
+  #   end
+  #   return c
+  # end
 
   def self.send_weekly_pickup_summary
     Region.all.each{ |r|
