@@ -6,6 +6,8 @@
     @schedules = ScheduleChain.open_in_regions current_volunteer.region_ids
     @my_admin_regions = current_volunteer.admin_regions
     @page_title = "Open Shifts"
+    @week_options = ScheduleVolunteer::WEEK_OPTIONS
+    @schedule_volunteer = ScheduleVolunteer.new
     render :index
   end
 
@@ -26,6 +28,7 @@
     @my_admin_regions = current_volunteer.admin_regions
     @page_title = title
     @week_options = ScheduleVolunteer::WEEK_OPTIONS
+    @schedule_volunteer = ScheduleVolunteer.new
     render :index
   end
 
@@ -203,7 +206,7 @@
       if schedule.has_volunteer? current_volunteer
         flash[:error] = "You are already on this shift"
       else
-        schedule_volunteer = ScheduleVolunteer.new(:volunteer_id=>current_volunteer.id, :schedule_chain_id=>schedule.id)
+        schedule_volunteer = ScheduleVolunteer.new(volunteer_id: current_volunteer.id, schedule_chain_id: schedule.id, week_assignment: params[:week_assignment])
         if schedule_volunteer.save
           collided_shifts = []
           Log.where('schedule_chain_id = ? AND "when" >= current_date AND NOT complete',schedule.id).each{ |l|

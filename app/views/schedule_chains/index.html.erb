@@ -81,19 +81,12 @@
         <% end %>
       </td>
       <td>
-        <% if schedule.no_volunteers? or schedule.temporary %>
-          <button class="btn btn-primary take" onclick="window.location='/schedule_chains/take?id=<%= schedule.id %>';">
-            <i class="fa fa-hand-rock-o"></i>
-            Take Weekly Shift
-          </button>
-        <% else %>
-          <% schedule.volunteers.each do |volunteer| %>
-            <span class=<%= "bold" if schedule.lead_volunteer_id == volunteer.id %>>
-              <%= link_to volunteer.name, volunteer %> (<%= display_week_assignment(volunteer.find_active_schedule_volunteer(schedule.id).week_assignment) %>)<br />
-            </span>
-          <% end %>
-          <%= render 'take_or_leave', schedule: schedule %>
+        <% schedule.volunteers.each do |volunteer| %>
+          <span class=<%= "bold" if schedule.lead_volunteer_id == volunteer.id %>>
+            <%= link_to volunteer.name, volunteer %> (<%= display_week_assignment(volunteer.find_active_schedule_volunteer(schedule.id).week_assignment) %>)<br />
+          </span>
         <% end %>
+        <%= render partial: "take_or_leave", locals: {schedule: schedule} %>
       </td>
       <td>
         <%= readable_start_time schedule %>
@@ -135,7 +128,7 @@
 <script type="text/javascript">
 $(function () {
   $('#data_table').dataTable( {
-    'iDisplayLength' : 50
+    'iDisplayLength' : 50, 'order': [[3, 'asc']]
   });
 });
 </script>

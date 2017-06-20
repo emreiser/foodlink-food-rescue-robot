@@ -3,38 +3,5 @@
     <%= link_to "(Leave it)", :controller => "schedule_chains", :action => "leave", :id => schedule, class: "btn btn-warning" %>
   <% end %>
 <% else %>
-  <%=link_to (schedule.has_volunteers? ? '(Join it)' : '(Take it)'), {controller: "schedule_chains", action: "take", id: schedule}, class: "highlight" %>
+  <%= render partial: "week_assignment_modal", locals: {schedule: schedule} %>
 <% end %>
-
-<!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#week-assignment-modal">
-  Test week modal
-</button>
-
-<!-- Modal -->
-<div class="modal fade" id="week-assignment-modal" tabindex="-1" role="dialog" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title" id="exampleModalLabel" style="display: inline-block;">Week Assignment</h4>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <h2>Sign up for the collection from <%= schedule.donor_stops.first.location.name %></h2>
-        <p>(<%= Date::DAYNAMES[schedule.day_of_week]+"s" if schedule.weekly? and !schedule.day_of_week.nil? %> starting at <%= readable_start_time schedule %>)</p>
-        
-        <h3>Which weeks of the month are you available to take this shift?</h3>
-        <% @week_options.each do |value, label| %>
-          <%= check_box_tag "week_assignment", value, false %>
-          <%= label %><br>
-        <% end %><br>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-        <button type="button" class="btn btn-primary">Submit</button>
-      </div>
-    </div>
-  </div>
-</div>

@@ -41,6 +41,26 @@ form div fieldset label {
   text-align: center;
 }
 
+.margin-top {
+  margin-top: 10px;
+}
+
+/////// Modals ////////
+
+.unbold {
+  font-weight: normal;
+}
+
+.modal {
+  input[type="checkbox"] {
+    margin-right: 5px;
+  }
+
+  h2 {
+    margin-top: 5px;
+  }
+}
+
 @media (min-width: 768px){
   .table-striped.mobile-only .row {
     background: white !important;
