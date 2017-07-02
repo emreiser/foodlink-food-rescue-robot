@@ -165,9 +165,8 @@ class ScheduleChain < ActiveRecord::Base
     self.recipient_stops.collect{ |rs| rs.location }
   end
 
-  def lead_volunteer_id
-    lead = self.schedule_volunteers.where(lead_volunteer: true, active: true)[0]
-    lead ? lead.volunteer_id : nil
+  def lead_volunteer
+    self.schedule_volunteers.where(lead_volunteer: true, active: true).first
   end
 
   def from_to_name

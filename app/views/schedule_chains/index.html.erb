@@ -82,7 +82,7 @@
       </td>
       <td>
         <% schedule.volunteers.each do |volunteer| %>
-          <span class=<%= "bold" if schedule.lead_volunteer_id == volunteer.id %>>
+          <span class=<%= "bold" if schedule.lead_volunteer == volunteer %>>
             <%= link_to volunteer.name, volunteer %> (<%= display_week_assignment(volunteer.find_active_schedule_volunteer(schedule.id).week_assignment) %>)<br />
           </span>
         <% end %>

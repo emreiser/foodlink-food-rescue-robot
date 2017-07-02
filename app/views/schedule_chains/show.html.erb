@@ -65,8 +65,8 @@
         <ul>
           <% @schedule.volunteers.each do |volunteer| %>
             <li>
-              <span class=<%= "bold" if @schedule.lead_volunteer_id == volunteer.id %>>
-                <%= link_to volunteer.name.titleize, "mailto:#{volunteer.email}" %> <%= "- Lead" if @schedule.lead_volunteer_id == volunteer.id %><%= volunteer.phone.nil? ? "" : ": #{volunteer.phone}" %> (<%= display_week_assignment(volunteer.find_active_schedule_volunteer(@schedule.id).week_assignment) %>)
+              <span class=<%= "bold" if @schedule.lead_volunteer == volunteer %>>
+                <%= link_to volunteer.name.titleize, "mailto:#{volunteer.email}" %> <%= "- Lead" if @schedule.lead_volunteer == volunteer %><%= volunteer.phone.nil? ? "" : ": #{volunteer.phone}" %> (<%= display_week_assignment(volunteer.find_active_schedule_volunteer(@schedule.id).week_assignment) %>)
               </span>
             </li>
           <% end %>
