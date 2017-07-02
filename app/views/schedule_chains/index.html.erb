@@ -33,12 +33,9 @@
       <th>Stops</th>
       <th>Volunteers</th>
       <th>Start Time</th>
-<!--       <th>End Time</th> -->
-<!--       <th>Notes</th> -->
       <% if current_volunteer.any_admin? %>
         <th> Admin Notes</th>
       <% end %>
-<!--       <th>Prior Volunteers</th> -->
       <% if current_volunteer.any_admin? %>
         <th>Link</th>
       <% end %>
@@ -91,28 +88,17 @@
       <td>
         <%= readable_start_time schedule %>
       </td>
-<!--       <td>
-        <%= readable_stop_time schedule %>
-      </td> -->
-      <!-- <td style="font-size: 10pt;">
-        <%= word_wrap(schedule.public_notes, line_width: 20).gsub("\n","<br>").html_safe unless schedule.public_notes.nil? %>
-      </td> -->
       <% if current_volunteer.any_admin? %>
         <td>
           <%= word_wrap(schedule.admin_notes,:line_width => 20).gsub("\n","<br>").html_safe unless schedule.admin_notes.nil? or !current_volunteer.region_admin?(schedule.region) %>
         </td>
       <% end %>
-     <!--  <td style="font-size: 10pt;">
-        <% schedule.prior_volunteers.each do |prior_volunteer| %>
-          <%= link_to prior_volunteer.name, prior_volunteer %><br />
-        <% end %>
-      </td> -->
-      <td>
-        <% if current_volunteer.any_admin? %>
+      <% if current_volunteer.any_admin? %>
+        <td>
           <%= link_to 'edit', :controller => "schedule_chains", :action => "edit", :id => schedule %><br>
           <%= link_to "delete", schedule, :confirm => "Are you sure?", :method => :delete %>
-        <% end %>
-      </td>
+        </td>
+      <% end %>
     </tr>
     <% end %>
   </tbody>
