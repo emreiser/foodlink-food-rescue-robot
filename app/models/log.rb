@@ -103,7 +103,7 @@ class Log < ActiveRecord::Base
     schedule_chain.schedule_volunteers.each{ |sv|
       next if (not a.nil?) and (sv.volunteer == a.volunteer)
       week_of_collection = date.week_of_month
-      if sv.week_assignment.include? week_of_collection.to_s || sv.week_assignment.blank?
+      if sv.week_assignment.include? week_of_collection.to_s or sv.week_assignment.blank?
         log.log_volunteers << LogVolunteer.new(volunteer:sv.volunteer,log:log,active:true)
       end
     }
