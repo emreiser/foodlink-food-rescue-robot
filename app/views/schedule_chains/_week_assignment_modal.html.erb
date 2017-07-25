@@ -1,37 +1,39 @@
-<!-- Button trigger modal -->
-<button type="button" class="btn btn-primary margin-top" data-toggle="modal" data-target="#week-assignment-modal-<%= schedule.id %>">
-  <i class="fa fa-hand-rock-o"></i>
-  Take shift
-</button>
+<% if schedule.functional? %>
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-primary margin-top" data-toggle="modal" data-target="#week-assignment-modal-<%= schedule.id %>">
+    <i class="fa fa-hand-rock-o"></i>
+    Take shift
+  </button>
 
-<!-- Modal -->
-<div class="modal fade" id="week-assignment-modal-<%= schedule.id %>" tabindex="-1" role="dialog" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <%= form_for @schedule_volunteer, url: {controller: "schedule_chains", action: "take", id: schedule}, method: "get" do |f| %>
-      <div class="modal-header">
-        <h4 class="modal-title" id="exampleModalLabel" style="display: inline-block;">Week Assignment</h4>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <h2>Sign up for the collection from <%= schedule.donor_stops.first.location.name %></h2>
-        <h4 class="unbold">(<%= Date::DAYNAMES[schedule.day_of_week]+"s" if schedule.weekly? and !schedule.day_of_week.nil? %> starting at <%= readable_start_time schedule %>)</h4>
-
-        <h3>Which weeks of the month are you available to take this shift?</h3>
-        <div class="container">
-          <% @week_options.each do |value, label| %>
-            <%= check_box_tag "week_assignment[]", value, false %>  <%= label %><br>
-          <% end %><br>
-          <%= hidden_field_tag :id, schedule.id %>
+  <!-- Modal -->
+  <div class="modal fade" id="week-assignment-modal-<%= schedule.id %>" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <%= form_for @schedule_volunteer, url: {controller: "schedule_chains", action: "take", id: schedule}, method: "get" do |f| %>
+        <div class="modal-header">
+          <h4 class="modal-title" id="exampleModalLabel" style="display: inline-block;">Week Assignment</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
         </div>
+        <div class="modal-body">
+          <h2>Sign up for the collection from <%= schedule.donor_stops.first.location.name %></h2>
+          <h4 class="unbold">(<%= Date::DAYNAMES[schedule.day_of_week]+"s" if schedule.weekly? and !schedule.day_of_week.nil? %> starting at <%= readable_start_time schedule %>)</h4>
+
+          <h3>Which weeks of the month are you available to take this shift?</h3>
+          <div class="container">
+            <% @week_options.each do |value, label| %>
+              <%= check_box_tag "week_assignment[]", value, false %>  <%= label %><br>
+            <% end %><br>
+            <%= hidden_field_tag :id, schedule.id %>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+          <%= submit_tag 'Submit', name: nil %>
+        </div>
+        <% end %>
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-        <%= submit_tag 'Submit', name: nil %>
-      </div>
-      <% end %>
     </div>
   </div>
-</div>
+<% end %>
