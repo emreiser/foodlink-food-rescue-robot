@@ -169,10 +169,19 @@
       }
     end
 
+    delete_stops = []
+    params[:schedule_chain]["schedules_attributes"].each do |s|
+      delete_stops << s[1]["id"].to_i if s[1]["location_id"].nil?
+    end
+
     if @schedule.update_attributes(params[:schedule_chain])
       @schedule.schedule_volunteers.each do |s|
         s.update_attributes({active: false}) if delete_volunteers.include? s.id
         s.update_attributes({week_assignment: []}) if clear_week_assignment.include? s.id
+      end
+
+      if delete_stops.present?
+        @schedule.schedules = @schedule.schedules.reject{ |l| delete_stops.include? l.id }
       end
 
       flash[:notice] = "Updated Successfully"
