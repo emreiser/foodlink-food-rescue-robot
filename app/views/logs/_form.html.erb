@@ -72,7 +72,7 @@
     <div class="col-sm-4">
       <h3>Items collected</h3>
       <span class="subtext">Enter the amount collected for each food type.<br/>
-      If the pick-up didn't happen, put zeroes for the amounts, and please explain why using the notes field below.</span>
+       If the collection didn’t happen, please enter a “0” for one food type and explain below.</span>
     </div>
     <div class="col-sm-8 table-striped mobile-only">
       <div class="row labels desktop-only">
@@ -147,18 +147,11 @@
     <div class="row">
       <div class="col-sm-6">
         Time Spent*<br />
-        <span class="subtext">Approximately how long did you spend doing this shift, in hours? (e.g., 0.5)</span>
+        <span class="subtext">Approximately how long was this shift, in hours? (e.g. 2.5)</span>
       </div>
       <div class="col-sm-6">
         <%= f.number_field(:hours_spent, :size => "3", class: "form-control") %>
       </div>
-    </div>
-    <div class="row">
-      <div class="col-sm-6">
-        Notes<br />
-        <span class="subtext">Something to report? Any problems? e.g., trailer<br />in need of repair, issues with the scale, busted bin.</span>
-      </div>
-      <div class="col-sm-6"><%= f.text_area(:notes, size: "30x3", class: "form-control") %></div>
     </div>
     <div class="row">
       <div class="col-sm-6">
@@ -193,6 +186,13 @@
           </label>
         </div>
       </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-6">
+        Notes<br />
+        <span class="subtext">Something to report? Any problems? (e.g. van broke down, equipment issues, etc.)</span>
+      </div>
+      <div class="col-sm-6"><%= f.text_area(:notes, size: "30x3", class: "form-control") %></div>
     </div>
   </div>
 
