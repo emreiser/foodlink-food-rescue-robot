@@ -154,7 +154,7 @@ class Log < ActiveRecord::Base
   end
 
   def self.past_for(volunteer_id)
-    Log.joins(:log_volunteers).where("active AND \"when\" < ? AND volunteer_id = ?",Time.zone.today,volunteer_id).order("logs.when")
+    Log.joins(:log_volunteers).where("active AND volunteer_id = ? AND \"when\" <= ? AND complete",volunteer_id,Time.zone.today).order("logs.when")
   end
 
   def self.needing_coverage(region_id_list=nil, days_away=nil, limit=nil)
