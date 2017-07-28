@@ -182,7 +182,7 @@
       <tbody>
         <tr>
           <td> Stats Start Date </td>
-          <td> <%= @earliest == nil ? "No Collections Logged" : @earliest.when %> </td>
+          <td> <%= @earliest == nil ? "No Collections Logged" : @earliest.when.strftime("%b %d, %Y") %> </td>
         </tr>
         <tr>
           <td> Completed Collections </td>
@@ -199,14 +199,6 @@
         <tr>
           <td> Pickup Avg </td>
           <td> <%= sprintf('%.02f',@lbs/@pickups.length.to_f) %> pounds</td>
-        </tr>
-        <tr>
-          <td> % Human Powered </td>
-          <% if @human_pct > -1 %>
-          <td> <%= @human_pct.round %>%<%= @human_pct > 90 ? " :)" : "" %> </td>
-          <% else %>
-          <td> You have no collections logged </td>
-          <% end %>
         </tr>
       </tbody>
     </table>
@@ -279,11 +271,11 @@
           title: { text: 'Boxes' }
         },
         series: [{
-          name: 'Rescued by you',
+          name: 'Total food rescued by you',
           data: [<%= @by_month.sort_by{ |k,v| k}.collect{ |pair| pair[1] }.join(",") %>]
         },
         {
-          name: 'Total rescued by Food Link',
+          name: 'Total food rescued by Food Link',
           data: [<%= @pounds_per_month.collect{ |x| x[1] }.join(",") %>]
         }]
       });
