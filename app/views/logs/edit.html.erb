@@ -1,2 +1,2 @@
-<h2>Edit Collection Report for <%= @log.donor.name %> <span class="normal">(<%= @log.when.strftime("%b %e, %Y") %>)</span></h2>
+<h2>Edit Collection Report for <%= @log.donor.name if @log.donor %> <span class="normal">(<%= @log.when.strftime("%b %e, %Y") %>)</span></h2>
 <%= render :partial => "form" %>
