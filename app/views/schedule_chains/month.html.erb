@@ -1,0 +1,13 @@
+<%= month_calendar do |date| %>
+  <h5><%= date.day %></h5>
+
+  <% @schedules.each do |s| %>
+    <% if s.day_of_week == date.wday %>
+      <div style="<%= "background-color: pink" if !s.covered? %>">
+        <% if s.schedules.where(position: 0).present? %>
+          <%= link_to s.schedules.where(position: 0).first.location.name, s  %><br>
+        <% end %>
+      </span>
+    <% end %>
+  <% end %> 
+<% end %>

@@ -88,8 +88,10 @@
       </td>
       <% if current_volunteer.any_admin? %>
         <td>
-          <%= schedule.volunteers.collect{|v| v.email}.join(", ") %><br>
-          <%= mail_to schedule.volunteers.collect{|v| v.email}.join(","), "Email volunteers" %>
+          <% if schedule.has_volunteers? %>
+            <%= schedule.volunteers.collect{|v| v.email}.join(", ") %><br>
+            <%= mail_to schedule.volunteers.collect{|v| v.email}.join(","), "Email volunteers" %>
+            <% end %>
         </td>
         <td>
           <%= link_to 'edit', :controller => "schedule_chains", :action => "edit", :id => schedule %><br>

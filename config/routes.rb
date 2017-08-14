@@ -75,6 +75,8 @@ Webapp::Application.routes.draw do
       get :update
       get :create
       get :destroy
+      get :month
+      get :my_month
     end
     #member do
     #  get :show

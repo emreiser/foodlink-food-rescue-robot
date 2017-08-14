@@ -266,6 +266,17 @@
     end
   end
 
+  def month
+    @page_title = "Schedules for"
+    @schedules = ScheduleChain.select {|s| s.functional?}
+  end
+
+  def my_month
+    @page_title = "Your shifts"
+    @schedules = current_volunteer.schedule_chains
+    render :month
+  end
+
   def admin_only
     redirect_to(root_path) unless current_volunteer.any_admin?
   end
