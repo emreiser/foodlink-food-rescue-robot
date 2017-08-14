@@ -34,9 +34,7 @@
       <th>Volunteers</th>
       <th>Start Time</th>
       <% if current_volunteer.any_admin? %>
-        <th> Admin Notes</th>
-      <% end %>
-      <% if current_volunteer.any_admin? %>
+        <th>Email list</th>
         <th>Link</th>
       <% end %>
     </tr>
@@ -90,10 +88,9 @@
       </td>
       <% if current_volunteer.any_admin? %>
         <td>
-          <%= word_wrap(schedule.admin_notes,:line_width => 20).gsub("\n","<br>").html_safe unless schedule.admin_notes.nil? or !current_volunteer.region_admin?(schedule.region) %>
+          <%= schedule.volunteers.collect{|v| v.email}.join(", ") %><br>
+          <%= mail_to schedule.volunteers.collect{|v| v.email}.join(","), "Email volunteers" %>
         </td>
-      <% end %>
-      <% if current_volunteer.any_admin? %>
         <td>
           <%= link_to 'edit', :controller => "schedule_chains", :action => "edit", :id => schedule %><br>
           <%= link_to "delete", schedule, :confirm => "Are you sure?", :method => :delete %>
