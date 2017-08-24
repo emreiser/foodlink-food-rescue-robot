@@ -273,7 +273,7 @@
 
   def my_month
     @page_title = "Your shifts"
-    @schedules = current_volunteer.schedule_volunteers
+    @schedules = current_volunteer.schedule_volunteers.where(active: true)
     @absence_days = current_volunteer.absences.map {|a| (a.start_date..a.stop_date).to_a }.flatten
   end
 
