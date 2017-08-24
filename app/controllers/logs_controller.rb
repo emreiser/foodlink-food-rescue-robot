@@ -243,6 +243,10 @@ class LogsController < ApplicationController
 
       if @log.save
         if @log.complete
+          if @log.region.receive_log_emails
+            m = Notifier.email_log_report(@log.region, @log)
+            m.deliver
+          end
           flash[:notice] = "Updated Successfully. All done!"
         else
           flash[:warning] = %Q[Saved, but some weights/counts still needed to complete this log. <a href="/logs/#{@log.id}/edit">Finish it here.</a>]

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20170516181134) do
+ActiveRecord::Schema.define(:version => 20170824020446) do
 
   create_table "absences", :force => true do |t|
     t.integer "volunteer_id"
@@ -49,7 +49,11 @@ ActiveRecord::Schema.define(:version => 20170516181134) do
     t.integer  "region_id"
     t.boolean  "active",         :default => true, :null => false
     t.decimal  "weight_per_box"
-    t.decimal  "avg_box_weight"
+  end
+
+  create_table "food_types_schedules", :force => true do |t|
+    t.integer "food_type_id"
+    t.integer "schedule_id"
   end
 
   create_table "locations", :force => true do |t|
@@ -118,18 +122,20 @@ ActiveRecord::Schema.define(:version => 20170516181134) do
     t.text     "notes"
     t.integer  "num_reminders"
     t.boolean  "flag_for_admin"
-    t.datetime "created_at",                           :null => false
-    t.datetime "updated_at",                           :null => false
+    t.datetime "created_at",                            :null => false
+    t.datetime "updated_at",                            :null => false
     t.integer  "donor_id"
     t.integer  "transport_type_id"
     t.integer  "region_id"
-    t.boolean  "complete",          :default => false
+    t.boolean  "complete",           :default => false
     t.integer  "scale_type_id"
     t.string   "weight_unit"
     t.integer  "schedule_chain_id"
     t.integer  "num_volunteers"
     t.integer  "why_zero"
     t.decimal  "hours_spent"
+    t.text     "info_for_next_day"
+    t.text     "volunteer_feedback"
   end
 
   create_table "regions", :force => true do |t|
@@ -165,6 +171,7 @@ ActiveRecord::Schema.define(:version => 20170516181134) do
     t.string   "volunteer_coordinator_email"
     t.boolean  "post_pickup_emails",          :default => false
     t.boolean  "unschedule_self",             :default => false
+    t.boolean  "receive_log_emails"
   end
 
   create_table "scale_types", :force => true do |t|

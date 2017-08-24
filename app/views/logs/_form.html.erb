@@ -189,8 +189,26 @@
     </div>
     <div class="row">
       <div class="col-sm-6">
-        Notes<br />
-        <span class="subtext">Something to report? Any problems? (e.g. van broke down, equipment issues, etc.)</span>
+        Important information for the next day’s operation<br/>
+        <span class="subtext">(Food that needs to be distributed, etc.)</span>
+      </div>
+      <div class="col-sm-6">
+        <%= f.text_area(:info_for_next_day, size: "30x3", class: "form-control") %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-6">
+        Information about volunteers<br/>
+        <span class="subtext">(New volunteers, no shows, praise, etc.)</span>
+      </div>
+      <div class="col-sm-6">
+        <%= f.text_area(:volunteer_feedback, size: "30x3", class: "form-control") %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-6">
+        Other notes<br/>
+        <span class="subtext">Something to report? Any problems? (Equipment updates, updates from food donors or recipient agencies, etc.)</span>
       </div>
       <div class="col-sm-6"><%= f.text_area(:notes, size: "30x3", class: "form-control") %></div>
     </div>
