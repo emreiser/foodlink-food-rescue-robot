@@ -28,7 +28,7 @@ class LogsController < ApplicationController
   end
 
   def last_ten
-    index(Log.group_by_schedule(Log.where("region_id IN (#{current_volunteer.region_ids.join(",")}) AND \"when\" >= '#{(Time.zone.today-10).to_s}'")),"Last 10 Days of Shifts")
+    index(Log.group_by_schedule(Log.where("region_id IN (#{current_volunteer.region_ids.join(",")}) AND \"when\" >= '#{(Time.zone.today-10).to_s}' AND \"when\" <= '#{(Time.zone.today).to_s}'")),"Last 10 Days of Shifts")
   end
 
   def being_covered
