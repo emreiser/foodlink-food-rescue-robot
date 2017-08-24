@@ -1,0 +1,17 @@
+<%= month_calendar do |date| %>
+  <h5><%= date.day %></h5>
+
+  <% @schedules.each do |sv| %>
+    <% if sv.schedule_chain.day_of_week == date.wday %>
+      <% if sv.week_assignment.include? date.week_of_month.to_s or sv.week_assignment.blank? %>
+        <% if @absence_days.present? && !@absence_days.include?(date) %>
+          <% if sv.schedule_chain.schedules.where(position: 0).present? %>
+            <span style="<%= "background-color: pink" if !sv.schedule_chain.covered? %>">
+              <%= link_to sv.schedule_chain.schedules.where(position: 0).first.location.name, sv.schedule_chain  %><br>
+            </span>
+          <% end %>
+        <% end %>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>
