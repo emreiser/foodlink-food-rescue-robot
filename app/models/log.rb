@@ -35,7 +35,8 @@ class Log < ActiveRecord::Base
                   :num_reminders, :transport, :when, :scale_type_id, :hours_spent,
                   :log_volunteers_attributes, :weight_unit, :volunteers_attributes,
                   :schedule_chain_id, :recipients_attributes, :log_recipients_attributes, :log_volunteers_attributes,
-                  :id, :created_at, :updated_at, :complete, :recipient_ids, :volunteer_ids, :num_volunteers
+                  :id, :created_at, :updated_at, :complete, :recipient_ids, :volunteer_ids, :num_volunteers,
+                  :info_for_next_day, :volunteer_feedback
 
   # units conversion on scale type --- we always store in lbs in the database
   before_validation { |record|

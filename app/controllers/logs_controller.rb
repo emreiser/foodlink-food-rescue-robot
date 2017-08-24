@@ -28,7 +28,7 @@ class LogsController < ApplicationController
   end
 
   def last_ten
-    index(Log.group_by_schedule(Log.where("region_id IN (#{current_volunteer.region_ids.join(",")}) AND \"when\" >= '#{(Time.zone.today-10).to_s}'")),"Last 10 Days of Shifts")
+    index(Log.group_by_schedule(Log.where("region_id IN (#{current_volunteer.region_ids.join(",")}) AND \"when\" >= '#{(Time.zone.today-10).to_s}' AND \"when\" <= '#{(Time.zone.today).to_s}'")),"Last 10 Days of Shifts")
   end
 
   def being_covered
@@ -243,6 +243,10 @@ class LogsController < ApplicationController
 
       if @log.save
         if @log.complete
+          if @log.region.receive_log_emails
+            m = Notifier.email_log_report(@log.region, @log)
+            m.deliver
+          end
           flash[:notice] = "Updated Successfully. All done!"
         else
           flash[:warning] = %Q[Saved, but some weights/counts still needed to complete this log. <a href="/logs/#{@log.id}/edit">Finish it here.</a>]

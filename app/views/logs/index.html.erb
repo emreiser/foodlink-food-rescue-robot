@@ -52,9 +52,7 @@
               first_shift = shift_group[0]
               row_bgcolor = nil
 
-              if shift_group.any?{ |shift_group| shift_group.volunteers.empty? } and not current_page?(controller: "logs", action: "open")
-                row_bgcolor = "pink"
-              end
+              row_bgcolor = "pink" if shift_group.reject{|s| s.complete}.present?
           %>
             <tr <% unless row_bgcolor.nil? %>style="background: <%= row_bgcolor %>;"<% end %>>
               <td>
@@ -62,9 +60,9 @@
               </td>
               <td>
                 <% unless first_shift.schedule_chain.nil? %>
-                  <%= link_to schedule_chain_path(first_shift.schedule_chain.id), class: 'btn btn-info info' do %>
+                  <%= link_to log_path(first_shift), class: 'btn btn-info info' do %>
                     <i class="fa fa-info-circle"></i>
-                    Info
+                    View report
                   <% end %>
                 <% else %>
                   One-time Shift
@@ -112,7 +110,7 @@
                 <% shift_group.each{ |shift|
                   next if shift.notes.nil?
                 %>
-                  <%= word_wrap(shift.notes, line_width: 20).gsub("\n","<br>").html_safe %><hr>
+                  <%= word_wrap(shift.notes, line_width: 20).gsub("\n","<br>").html_safe %>
                 <% } %>
                 <% if current_volunteer.any_admin?(first_shift.region) %>
                   <td>

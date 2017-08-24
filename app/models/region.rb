@@ -16,7 +16,7 @@ class Region < ActiveRecord::Base
                   :splash_html, :title, :tagline,
                   :phone, :tax_id, :twitter_key, :twitter_secret, :twitter_token,
                   :twitter_token_secret, :weight_unit, :time_zone, :logo, :post_pickup_emails,
-                  :unschedule_self, :volunteer_coordinator_email
+                  :unschedule_self, :volunteer_coordinator_email, :receive_log_emails
 
   has_attached_file :logo,
                     styles: { thumb: '50x50' },
