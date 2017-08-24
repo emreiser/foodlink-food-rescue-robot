@@ -52,9 +52,7 @@
               first_shift = shift_group[0]
               row_bgcolor = nil
 
-              if shift_group.any?{ |shift_group| shift_group.volunteers.empty? } and not current_page?(controller: "logs", action: "open")
-                row_bgcolor = "pink"
-              end
+              row_bgcolor = "pink" if shift_group.reject{|s| s.complete}.present?
           %>
             <tr <% unless row_bgcolor.nil? %>style="background: <%= row_bgcolor %>;"<% end %>>
               <td>
@@ -112,7 +110,7 @@
                 <% shift_group.each{ |shift|
                   next if shift.notes.nil?
                 %>
-                  <%= word_wrap(shift.notes, line_width: 20).gsub("\n","<br>").html_safe %><hr>
+                  <%= word_wrap(shift.notes, line_width: 20).gsub("\n","<br>").html_safe %>
                 <% } %>
                 <% if current_volunteer.any_admin?(first_shift.region) %>
                   <td>
