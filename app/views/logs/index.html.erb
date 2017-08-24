@@ -60,9 +60,9 @@
               </td>
               <td>
                 <% unless first_shift.schedule_chain.nil? %>
-                  <%= link_to schedule_chain_path(first_shift.schedule_chain.id), class: 'btn btn-info info' do %>
+                  <%= link_to log_path(first_shift), class: 'btn btn-info info' do %>
                     <i class="fa fa-info-circle"></i>
-                    Info
+                    View report
                   <% end %>
                 <% else %>
                   One-time Shift
