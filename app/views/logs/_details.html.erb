@@ -43,11 +43,11 @@
 </p>
 
 <p>
-  <strong>Information about volunteers (new volunteers, no shows, praise, etc.): </strong><br>
+  <strong>Information about volunteers:</strong><br>
   <%= @log.volunteer_feedback %>
 </p>
 
 <p>
-  <strong>Notes:</strong><br>
+  <strong>Other notes:</strong><br>
  <%= @log.notes.nil? ? "" : word_wrap(@log.notes,:line_width => 20).gsub("\n","<br>").html_safe %>
  </p>
