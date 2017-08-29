@@ -112,64 +112,6 @@
 
 <div class="row bordered-bottom">
   <div class="col-sm-6">
-    <h2>Shifts Needing Covering!</h2>
-    <% if @sncs_pickups.length > 0 %>
-      <table class="table table-striped">
-        <thead>
-          <tr>
-            <th>Location</th>
-            <th>Date</th>
-            <th></th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          <% n = 0
-          @sncs_pickups.each do |pickup_group|
-            next if pickup_group.all? {|x| x.donor.nil? or x.recipients.empty? }
-            first_pickup = pickup_group[0]
-            %>
-            <tr class="bordered">
-              <td>
-                <% pickup_group.each{ |pickup| %>
-                <% next if pickup.donor.nil? or pickup.recipients.empty? %>
-                <%= link_to pickup.donor.name, pickup.donor %> -&gt; <% pickup.recipients.each do |recip| %> <%=link_to recip.name, recip %> <% end %>
-                <% unless pickup.food_types.empty? %>
-                <br />
-                <em>(<%= pickup.food_types.collect{ |ft| ft.name }.join(",") %>)</em>
-                <% end %>
-                <br />
-                <% } %>
-              </td>
-              <td>
-                <%= readable_time_until first_pickup %>
-              </td>
-              <td>
-                <button class="btn btn-primary take" onclick="window.location='<%= take_log_path(first_pickup.id,:ids => pickup_group.collect{ |p| p.id }) %>';">
-                  <i class="fa fa-hand-rock-o"></i>
-                  Take
-                </button>
-              </td>
-              <td>
-                <% if first_pickup.schedule_chain.present? %>
-                  <button class="btn btn-info info" onclick="window.location='/schedule_chains/<%= first_pickup.schedule_chain.id %>';">
-                    <i class="fa fa-info-circle"></i>
-                    Info
-                  </button>
-                <% end %>
-              </td>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
-    <% else %>
-      <p>There are no shifts that need covering.</p>
-    <% end %>
-  </div>
-</div>
-
-<div class="row bordered-bottom">
-  <div class="col-sm-6">
     <h2>Pickup Stats</h2>
 
     <table class="table table-striped">
