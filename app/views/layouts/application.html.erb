@@ -52,11 +52,13 @@
 
           <%= drop_down "Your Shifts" do %>
             <%= menu_item "Regular Shifts", mine_schedule_chains_path %>
-            <%= menu_item "Upcoming Shifts", mine_upcoming_logs_path %>
+            <%= menu_item "Monthly View", my_month_schedule_chains_path %>
             <%= menu_item "Past Shifts", mine_past_logs_path %>
+          <% end %>
+
+          <%= drop_down "Absences" do %>
             <%= menu_item "Schedule An Absence", new_absence_path %>
             <%= menu_item "Your Absences", absences_path %>
-            <%= menu_item "Month View", my_month_schedule_chains_path %>
           <% end %>
 
           <% if current_volunteer.any_admin? %>
