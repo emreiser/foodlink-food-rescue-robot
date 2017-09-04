@@ -118,7 +118,7 @@ module FoodRobot
       log.save
 
       log.volunteers.each{ |v|
-        if log.schedule_chain.lead_volunteer == v
+        if log.schedule_chain && log.schedule_chain.lead_volunteer == v
           reminder_list[v] = [] if reminder_list[v].nil?
           reminder_list[v].push(log) if log.schedule_chain
         end
