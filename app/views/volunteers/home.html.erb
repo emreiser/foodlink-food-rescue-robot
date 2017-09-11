@@ -61,10 +61,11 @@
           </tr>
         <% end %>
       </table>
-      <div class="center"><%= link_to "Schedule an absence", new_absence_path, class: "btn btn-warning" %></div>
     <% else %>
       <p>You have no upcoming collections.</p>
     <% end %>
+    <br>
+    <div><%= link_to "Schedule an absence", new_absence_path, class: "btn btn-warning" %></div>
   </div>
 
   <div class="col-sm-6">
