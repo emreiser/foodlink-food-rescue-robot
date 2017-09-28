@@ -72,16 +72,14 @@
                 <%= readable_time_until first_shift %>
               </td>
               <td>
-                <% if shift_group.any?{ |shift| shift.volunteers.empty? } %>
+                <% shift_group.collect{ |shift| shift.volunteers }.flatten.uniq.each do |volunteer| %>
+                  <%= link_to volunteer.name, volunteer %><br />
+                <% end %>
+                <br>
+                <% if shift_group.any?{ |shift| !shift.covered? && !shift.volunteers.include?(current_volunteer) } %>
                   <%= link_to take_log_path(first_shift, ids: shift_group.collect{ |shift| shift.id }), class: 'btn btn-primary take' do %>
-                    <i class="fa fa-hand-rock-o"></i>
-                    Cover Shift
+                    <i class="fa fa-hand-rock-o"></i> Cover Shift
                   <% end %>
-                <% else %>
-                  <% shift_group.collect{ |shift| shift.volunteers }.flatten.uniq.each do |volunteer| %>
-                    <%= link_to volunteer.name, volunteer %><br />
-                  <% end %>
-                  <%= render 'take_or_leave', logs: shift_group %>
                 <% end %>
 
                 <% unless first_shift.absences.empty? %>
