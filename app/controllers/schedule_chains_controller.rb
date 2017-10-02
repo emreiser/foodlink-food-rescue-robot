@@ -274,6 +274,8 @@
   def my_month
     @page_title = "Your shifts"
     @schedules = current_volunteer.schedule_volunteers.where(active: true)
+    @regular_shifts = @schedules.map {|s| s.schedule_chain_id }.uniq
+    @covers = current_volunteer.logs.where("\"when\" >= ? ", Time.zone.today).select{|l| !@regular_shifts.include? l.schedule_chain_id }
     @absence_days = current_volunteer.absences.map {|a| (a.start_date..a.stop_date).to_a }.flatten
   end
 

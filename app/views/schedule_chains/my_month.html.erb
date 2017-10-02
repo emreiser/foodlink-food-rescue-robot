@@ -1,15 +1,22 @@
 <%= month_calendar do |date| %>
   <h5><%= date.day %></h5>
 
-  <% @schedules.each do |sv| %>
-    <% if sv.schedule_chain && sv.schedule_chain.day_of_week == date.wday %>
-      <% next if @absence_days.present? && @absence_days.include?(date) %>
-      <% if sv.week_assignment.include? date.week_of_month.to_s or sv.week_assignment.blank? %>
-        <% if sv.schedule_chain.donors.present? %>
-          <span style="<%= "background-color: pink" if !sv.schedule_chain.covered? %>">
-            <%= link_to sv.schedule_chain.donors.first.name, sv.schedule_chain  %><br>
-          </span>
+  <% if @absence_days.present? && @absence_days.include?(date) %>
+  <% else %>
+    <% @schedules.each do |sv| %>
+      <% if sv.schedule_chain && sv.schedule_chain.day_of_week == date.wday %>
+        <% if sv.week_assignment.include? date.week_of_month.to_s or sv.week_assignment.blank? %>
+          <% if sv.schedule_chain.donors.present? %>
+            <span style="<%= "background-color: pink" if !sv.schedule_chain.covered? %>">
+              <%= link_to sv.schedule_chain.donors.first.name, sv.schedule_chain  %><br>
+            </span>
+          <% end %>
         <% end %>
+      <% end %>
+    <% end %>
+    <% @covers.each do |c| %>
+      <% if c.when == date %>
+        <%= link_to c.schedule_chain.donors.first.name, c.schedule_chain  %><br>
       <% end %>
     <% end %>
   <% end %>
