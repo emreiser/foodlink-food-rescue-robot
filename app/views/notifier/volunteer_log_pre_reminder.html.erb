@@ -16,7 +16,7 @@
         <strong>Collection location: <%= l.donor.nil? ? "Unknown" : l.donor.name %></strong> (<%= readable_start_time(l.schedule_chain) %>)<br>
         Volunteers: <%= l.volunteers.collect{ |v| v.nil? ? nil : v.name.split.first.capitalize }.compact.join(", ") %><br>
         <% if l.schedule_chain.lead_volunteer %>
-        Lead Volunteer: <%= l.schedule_chain.lead_volunteer.name.split.first.capitalize %> - <%= l.schedule_chain.lead_volunteer.phone %><br><br>
+        Lead Volunteer: <%= l.schedule_chain.lead_volunteer.name.split.first.capitalize %> - <%= l.schedule_chain.lead_volunteer.email %> <%= l.schedule_chain.lead_volunteer.phone %><br><br>
         <% end %>
         
         <strong>Delivery locations:</strong><br>
