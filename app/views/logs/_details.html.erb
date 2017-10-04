@@ -49,5 +49,5 @@
 
 <p>
   <strong>Other notes:</strong><br>
- <%= @log.notes.nil? ? "" : word_wrap(@log.notes,:line_width => 20).gsub("\n","<br>").html_safe %>
+  <%= @log.notes %>
  </p>
