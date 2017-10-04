@@ -42,7 +42,10 @@ class ScheduleChain < ActiveRecord::Base
   end
 
   def covered?
-    self.volunteers.length >= self.num_volunteers
+    coverage = self.schedule_volunteers.where(active:true).map { |sv| sv.week_assignment.present? ? sv.week_assignment : [1,2,3,4,5]}.flatten
+    counts = coverage.each_with_object(Hash.new(0)) { |value,counts| counts[value] += 1 }
+     binding.pry
+    counts.values.reduce(0, :+) >= (5 * num_volunteers)
   end
 
   # does the schedule chain start with a pickup and end with a dropoff?
