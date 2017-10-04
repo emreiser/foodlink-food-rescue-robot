@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+</head>
+<body>
+
+  <p>
+    Most awesome region administrator!
+  </p>
+  <p>
+    A new absence has been created by <%= @absence.volunteer.name %>:<br>
+    <strong><%= @absence.start_date.strftime("%b %e, %Y") %> - <%= @absence.stop_date.strftime("%b %e, %Y") %><strong><br><br>
+    <%= link_to "View absence", @absence %>
+  </p>
+
+  <p>
+    Happy covering!
+  </p>
+  <p>
+    *chirp* *beep*
+  </p>
+  --<br/>
+  The Food Link Robot<br/>
+  <%= root_url %>
+</body>
+</html>

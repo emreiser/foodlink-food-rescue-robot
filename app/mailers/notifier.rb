@@ -98,4 +98,11 @@ class Notifier < ActionMailer::Base
     to = ForceTo.nil? ? to : ForceTo
     mail(to: to, subject: "[Food Link Robot] New shift report - #{log.donor.name} (#{log.when.strftime("%b %e, %Y")})"){ |format| format.html }
   end
+
+  def email_absence(emails, absence)
+    @absence = absence
+    to = emails
+    to = ForceTo.nil? ? to : ForceTo
+    mail(to: to, subject: "[Food Link Robot] New absence for #{absence.volunteer.name}"){ |format| format.html }
+  end
 end

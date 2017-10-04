@@ -96,6 +96,11 @@ class AbsencesController < ApplicationController
       render :new
     else
       if @absence.save
+        emails = current_volunteer.regions.map{|r| r.volunteer_coordinator_email }
+        if @absence.volunteer.regions.first.receive_log_emails
+          m = Notifier.email_absence(emails, @absence)
+          m.deliver
+        end
         flash[:warning] = nil
         flash[:notice] = "Thanks for scheduling an absence, if you would like to pick one up to replace it go here: <a href=\"#{open_logs_path}\">cover shifts list</a>.<br><br>#{n+ns} shifts will be skipped (12 is the max at one time, #{ns} were already present). You can see your scheduled absences <a href=\"#{absences_path}\">here</a>.".html_safe
         render :new
