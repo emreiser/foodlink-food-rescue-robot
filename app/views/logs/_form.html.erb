@@ -51,7 +51,7 @@
       <div class="row">
         <div class="col-sm-4">Donor</div>
         <div class="col-sm-8">
-          <%= f.select :donor_id, (@region.locations.donors + @region.locations.hubs + @region.locations.sellers).collect{ |d| [d.name,d.id] }, {include_blank: true}, {class: 'form-control select2'} %>
+          <%= f.select :donor_id, (@region.locations.donors + @region.locations.hubs + @region.locations.sellers).collect{ |d| [d.name,d.id] if d }, {include_blank: true}, {class: 'form-control select2'} %>
         </div>
       </div>
       <div class="row">
