@@ -11,7 +11,7 @@
   <p>
     A new absence has been created by <%= @absence.volunteer.name %>:<br>
     <strong><%= @absence.start_date.strftime("%b %e, %Y") %> - <%= @absence.stop_date.strftime("%b %e, %Y") %><strong><br><br>
-    <%= link_to "View absence", @absence %>
+    <%= link_to "View absences", all_absences_url %>
   </p>
 
   <p>
