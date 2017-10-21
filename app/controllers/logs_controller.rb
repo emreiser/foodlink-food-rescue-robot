@@ -286,6 +286,12 @@ class LogsController < ApplicationController
         LogVolunteer.create(volunteer: current_volunteer, covering: true, log: log)
       end
       flash[:notice] = "Successfully took a shift with #{logs.length} donor(s)."
+      logs.each do |log|
+        if log.region.receive_log_emails
+          m = Notifier.email_one_time_shift(log, current_volunteer)
+          m.deliver
+        end
+      end
     else
       flash[:notice] = "Cannot take shifts for regions that you aren't assigned to!"
     end

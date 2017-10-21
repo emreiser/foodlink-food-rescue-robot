@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+</head>
+<body>
+
+  <p>
+    Most awesome region administrator!
+  </p>
+  <p>
+    <%= @volunteer.name %> has just picked up a one-time shift for <%= @log.donor.name if @log.donor %> (<%= @log.when.strftime("%b %e, %Y") %>).<br>
+    <%= link_to "View shift", log_url(@log) %>
+  </p>
+
+  <p>
+    *chirp* *beep*
+  </p>
+  --<br/>
+  The Food Link Robot<br/>
+  <%= root_url %>
+</body>
+</html>
