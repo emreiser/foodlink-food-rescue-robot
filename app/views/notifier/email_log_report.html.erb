@@ -9,13 +9,15 @@
     Most awesome region administrator!
   </p>
   <p>
-    A new shift report has been submitted for <%= @log.donor.name if @log.donor %> (<%= @log.when.strftime("%b %e, %Y") %>).
+    A new shift report has been submitted by <strong><%= @volunteer.name %></strong> for <%= @log.donor.name if @log.donor %> (<%= @log.when.strftime("%b %e, %Y") %>).
   </p>
 
   <h4>Report details</h4>
   <hr>
 
   <%= render "logs/details" %>
+  <hr>
+  <%= link_to "See full report", log_url(@log) %>
 
   <p>
     Thanks!

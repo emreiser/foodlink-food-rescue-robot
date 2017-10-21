@@ -174,10 +174,12 @@ class LogsController < ApplicationController
       redirect_to(root_path)
       return
     end
+    @log.save
     parse_and_create_log_parts(params,@log)
     finalize_log(@log)
     if @log.save
       flash[:notice] = "Created successfully."
+      email_log(@log)
       unless session[:my_return_to].nil?
         redirect_to(session[:my_return_to])
       else
@@ -243,10 +245,7 @@ class LogsController < ApplicationController
 
       if @log.save
         if @log.complete
-          if @log.region.receive_log_emails
-            m = Notifier.email_log_report(@log.region, @log)
-            m.deliver
-          end
+          email_log(@log)
           flash[:notice] = "Updated Successfully. All done!"
         else
           flash[:warning] = %Q[Saved, but some weights/counts still needed to complete this log. <a href="/logs/#{@log.id}/edit">Finish it here.</a>]
@@ -438,9 +437,17 @@ class LogsController < ApplicationController
 
       log.log_parts.each{ |lp|
         required_unfilled += 1 if lp.required && lp.weight.nil? && lp.count.nil?
-        filled_count += 1 unless lp.weight.nil? && lp.count.nil?
+        filled_count += 1 unless lp.num_boxes.nil? && lp.count.nil?
       }
+
       log.complete = filled_count > 0 && required_unfilled == 0
+    end
+
+    def email_log(log)
+      if log.region.receive_log_emails
+        m = Notifier.email_log_report(log.region, log, current_volunteer)
+        m.deliver
+      end
     end
 
     def admin_only

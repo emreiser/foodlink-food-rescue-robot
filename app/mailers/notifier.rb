@@ -92,8 +92,9 @@ class Notifier < ActionMailer::Base
     mail(to: to, subject: "[Food Link Robot] #{region.name} Weekly Summary"){ |format| format.html }
   end
 
-  def email_log_report(region, log)
+  def email_log_report(region, log, volunteer)
     @log = log
+    @volunteer = volunteer
     to = region.volunteer_coordinator_email
     to = ForceTo.nil? ? to : ForceTo
     mail(to: to, subject: "[Food Link Robot] New shift report - #{log.donor.name} (#{log.when.strftime("%b %e, %Y")})"){ |format| format.html }
