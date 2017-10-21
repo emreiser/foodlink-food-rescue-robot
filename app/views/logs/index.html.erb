@@ -4,7 +4,7 @@
   <% if current_volunteer.any_admin? %>
     <div class="col-sm-6 text-left">
       <%= form_tag("/logs/new", method: "get", class: "form-inline") do %>
-        <%= label_tag :region_id, 'New Item For:' %>
+        <%= label_tag :region_id, 'New Log For:' %>
         <%= select_tag(:region_id, options_for_select(@my_admin_regions.collect{ |r| [r.name,r.id] }), {class: 'form-control'} ) %>
         <%= submit_tag("Go") %>
       <% end %>
