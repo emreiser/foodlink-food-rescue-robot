@@ -219,12 +219,10 @@
         if schedule_volunteer.save
           collided_shifts = []
           Log.where('schedule_chain_id = ? AND "when" >= current_date AND NOT complete',schedule.id).each{ |l|
-            if l.volunteers.empty?
-              l.volunteers << current_volunteer
-              l.save
-            else
-              collided_shifts.push(l)
-            end
+          if schedule_volunteer.week_assignment.include? l.when.week_of_month.to_s or schedule_volunteer.week_assignment.blank?
+            l.volunteers << current_volunteer
+            l.save
+          end
           }
           # if collided_shifts.length > 0
           #   m = Notifier.schedule_collision_warning(schedule,collided_shifts)
