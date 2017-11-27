@@ -9,7 +9,7 @@
     Most awesome region administrator!
   </p>
   <p>
-    A new shift report has been submitted by <strong><%= @volunteer.name %></strong> for <%= @log.donor.name if @log.donor %> (<%= @log.when.strftime("%b %e, %Y") %>).
+    A new shift report has been submitted by <strong><%= @volunteer.name %></strong> for <%= @log.donor.try(:name) %> (<%= @log.when.strftime("%b %e, %Y") %>).
   </p>
 
   <h4>Report details</h4>
