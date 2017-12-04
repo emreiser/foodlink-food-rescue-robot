@@ -208,7 +208,7 @@
         },
         xAxis: {
           title: { text: 'Month' },
-          categories: ['<%= raw @by_month.sort_by{ |k,v| k}.collect{ |pair| pair[0] }.join("','") %>']
+          categories: ['<%= raw @boxes_per_month.map{|m| m[0] }.join("','") %>']
         },
         yAxis: {
           title: { text: 'Boxes' }
@@ -219,7 +219,7 @@
         },
         {
           name: 'Total food rescued by Food Link',
-          data: [<%= @pounds_per_month.collect{ |x| x[1] }.join(",") %>]
+          data: [<%= @boxes_per_month.collect{ |x| x[1] }.join(",") %>]
         }]
       });
     });

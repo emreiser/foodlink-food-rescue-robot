@@ -280,15 +280,16 @@ class VolunteersController < ApplicationController
     @regions = current_volunteer.regions
     @completed_pickup_count = Log.picked_up_by(current_volunteer.id).count
     @total_food_rescued = Log.picked_up_weight(nil,current_volunteer.id)
-    @pounds_per_month = Log.joins(:log_parts).select("date_trunc('month',logs.when) as month, sum(weight)").
+    @boxes_per_month = Log.joins(:log_parts).select("date_trunc('month',logs.when) as month, sum(num_boxes)").
       where("complete AND region_id in (#{@regions.collect{ |r| r.id }.join(',')})").
-      group("month").order("month ASC").collect{ |l| [Date.parse(l.month).strftime("%Y-%m"),l.sum] }
+      group("month").order("month ASC").collect{ |l| [Date.parse(l.month).strftime("%m-%Y"),l.sum] }
 
     @unassigned = current_volunteer.unassigned?
 
     # FIXME: the below is Sean's code. It's quite nonDRY and should be cleaned up substantially
     @pickups = Log.picked_up_by current_volunteer.id
     @lbs = 0.0
+    @boxes = 0.0
     @human_pct = 0.0
     @num_pickups = {}
     @num_covered = 0
@@ -298,11 +299,12 @@ class VolunteersController < ApplicationController
     @pickups.each{ |l|
       #@num_covered += 1 if l.orig_volunteer != current_volunteer and !l.orig_volunteer.nil?
       @lbs += l.summed_weight
-      @biggest = l if @biggest.nil? or l.summed_weight > @biggest.summed_weight
+      @boxes += l.summed_boxes
+      @biggest = l if @biggest.nil? or l.summed_boxes > @biggest.summed_boxes
       @earliest = l if @earliest.nil? or l.when < @earliest.when
-      yrmo = l.when.strftime("%Y-%m")
+      yrmo = l.when.strftime("%m-%Y")
       @by_month[yrmo] = 0.0 if @by_month[yrmo].nil?
-      @by_month[yrmo] += l.summed_weight unless l.summed_weight.nil?
+      @by_month[yrmo] += l.summed_boxes unless l.summed_boxes.nil?
     }
     @num_shifts = current_volunteer.schedule_chains.count
     @num_to_cover = Log.needing_coverage.count

@@ -82,6 +82,10 @@ class Log < ActiveRecord::Base
     self.log_parts.collect{ |lp| lp.count }.compact.sum
   end
 
+  def summed_boxes
+    self.log_parts.collect{ |lp| lp.num_boxes }.compact.sum
+  end
+
   def prior_volunteers
     self.log_volunteers.collect{ |sv| (not sv.active) ? sv.volunteer : nil }.compact
   end
