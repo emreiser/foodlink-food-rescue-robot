@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20170824020446) do
+ActiveRecord::Schema.define(:version => 20171213212227) do
 
   create_table "absences", :force => true do |t|
     t.integer "volunteer_id"
@@ -94,7 +94,7 @@ ActiveRecord::Schema.define(:version => 20170824020446) do
     t.datetime "updated_at",   :null => false
     t.integer  "count"
     t.text     "description"
-    t.integer  "num_boxes"
+    t.float    "num_boxes"
   end
 
   add_index "log_parts", ["food_type_id"], :name => "index_log_parts_on_food_type_id"
@@ -217,12 +217,13 @@ ActiveRecord::Schema.define(:version => 20170824020446) do
 
   create_table "schedule_volunteers", :force => true do |t|
     t.integer  "volunteer_id"
-    t.boolean  "active",            :default => true
-    t.datetime "created_at",                           :null => false
-    t.datetime "updated_at",                           :null => false
+    t.boolean  "active",               :default => true
+    t.datetime "created_at",                              :null => false
+    t.datetime "updated_at",                              :null => false
     t.integer  "schedule_chain_id"
-    t.boolean  "lead_volunteer",    :default => false
+    t.boolean  "lead_volunteer",       :default => false
     t.text     "week_assignment"
+    t.text     "lead_week_assignment"
   end
 
   add_index "schedule_volunteers", ["volunteer_id"], :name => "index_schedule_volunteers_on_volunteer_id"
