@@ -162,7 +162,7 @@ class LogsController < ApplicationController
   end
 
   def create
-    @log = Log.new(params[:log])
+    @log = Log.create(params[:log])
     @region = @log.region
     @food_types = @region.food_types.collect{ |e| [e.name,e.id] }
     @scale_types = @region.scale_types.collect{ |e| [e.name,e.id] }
@@ -174,8 +174,8 @@ class LogsController < ApplicationController
       redirect_to(root_path)
       return
     end
-    @log.save
     parse_and_create_log_parts(params,@log)
+    @log.reload
     finalize_log(@log)
     if @log.save
       flash[:notice] = "Created successfully."
