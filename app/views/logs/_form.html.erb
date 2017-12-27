@@ -253,7 +253,11 @@
         $(this).closest(".log_part").remove();
         update_total_weight();
       }
-    })
+    });
+    
+    $(document).on("click", ".volunteer .remove", function(e){
+      $(this).parent().remove();
+    });
   });
 </script>
 <% end %>

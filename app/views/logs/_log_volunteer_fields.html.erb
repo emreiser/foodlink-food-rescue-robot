@@ -1,3 +1,8 @@
-<div class="nested_fields">
+<div class="nested_fields volunteer row">
+  <div class="col-sm-10">
   <%= f.association :volunteer, :collection => @region.volunteers, :as=>:select, :label=>false, :input_html => {:class => 'form-control select2', :tabindex => '-1'} %>
+  </div>
+  <div class="col-sm-2 remove">
+    <div class="btn btn-danger glyphicon glyphicon-remove"></div>
+  </div>
 </div>

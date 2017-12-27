@@ -241,6 +241,16 @@ class LogsController < ApplicationController
     parse_and_create_log_parts(params, @log)
 
     if @log.update_attributes(params[:log])
+
+      # Delete volunteers removed from log
+      unless params[:log][:log_volunteers_attributes].nil?
+        delete_volunteers = []
+        params[:log][:log_volunteers_attributes].collect{ |k,v|
+          delete_volunteers << LogVolunteer.find(v["id"].to_i) if v["volunteer_id"].nil?
+        }
+        @log.log_volunteers -= delete_volunteers
+      end
+
       finalize_log(@log)
 
       if @log.save
