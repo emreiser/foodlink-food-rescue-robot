@@ -11,7 +11,7 @@
     </div>
     <div class="col-sm-6">
       <%= form_tag("/logs/by_day", method: "get", class: "form-inline") do %>
-        Jump to <%= date_select("date",:d, {order: [:day, :month, :year], start_year: 1920, end_year: DateTime.now.year}, {class: 'form-control'}) %>
+        Jump to <%= date_select("date",:d, {order: [:day, :month, :year], start_year: 1920, end_year: DateTime.now.year + 1}, {class: 'form-control'}) %>
         <%= submit_tag("Go") %>
       <% end %>
     </div>
