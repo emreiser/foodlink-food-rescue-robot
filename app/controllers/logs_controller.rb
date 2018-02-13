@@ -422,7 +422,7 @@ class LogsController < ApplicationController
     respond_to do |format|
       format.html
       format.csv do
-        send_data @logs.to_csv
+        send_data @logs.to_csv_with_food_type
       end
     end
   end
