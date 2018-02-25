@@ -31,7 +31,7 @@ module FoodRobot
       # don't generate logs for malformed schedules
       next unless schedule.functional?
       # things that are relevant to this day
-      next if schedule.one_time? and schedule.detailed_date != date
+      next if schedule.one_time? and schedule.logs.present?
       next if schedule.weekly? and schedule.day_of_week != date.wday
 
       puts "Schedule Chain: " + schedule.schedules.collect{ |ss|
