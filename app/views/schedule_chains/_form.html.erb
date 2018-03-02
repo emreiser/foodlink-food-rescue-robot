@@ -9,7 +9,7 @@
       </td>
       <td>
         <div class="form-inline">
-          <%= f.select(:frequency, options_for_select({'Weekly'=>'weekly', 'One Time'=>'one-time'}), {}, {class: "form-control"} ) %>
+          <%= f.select(:frequency, options_for_select({'Weekly'=>'weekly', 'One Time'=>'one-time'}, f.object.frequency), {}, {class: "form-control"} ) %>
           <span id="frequency-option-weekly" class="frequency-option" style="display:none;">
             on <%= f.select(:day_of_week, Date::DAYNAMES.each_with_index.to_a, { prompt: 'Unknown/varies' }, {class: "form-control"}) %>
           </span>
