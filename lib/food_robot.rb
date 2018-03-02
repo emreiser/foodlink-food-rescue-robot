@@ -63,6 +63,8 @@ module FoodRobot
         if is_done["#{schedule.id}:#{ss.location.id}"].nil?
           # normal case, generate a new log
           log = Log.from_donor_schedule(ss, ssi, date, absence)
+          #set correct date for one-time schedules generated in advance
+          log.when = schedule.detailed_date if schedule.one_time?
           log.save
           n += 1
         else
