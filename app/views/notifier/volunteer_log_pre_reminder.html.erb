@@ -23,9 +23,8 @@
         <strong>Delivery locations:</strong><br>
         <%= l.recipients.collect{ |r| r.nil? ? nil : r.name }.compact.join("<br>").html_safe %><br><br>
 
-        <% if l.schedule_chain.lead_volunteer == @volunteer %>
+        For lead volunteers:
           <%= link_to "Fill out the collection report here", edit_log_url(l) %>
-        <% end %>
       </li>
     <% } %>
     </ul>
