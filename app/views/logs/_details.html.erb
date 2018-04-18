@@ -33,7 +33,7 @@
 <p>
   <strong>Items collected:</strong><br >
   <% @log.log_parts.each do |lp| %>
-    <%= lp.food_type.name %>: <%= lp.num_boxes %> boxes<br>
+    <%= lp.food_type.name %>: <%= lp.num_boxes %> boxes <%= "(#{lp.description})" if !lp.description.blank? %><br>
   <% end %>
 </p>
 
