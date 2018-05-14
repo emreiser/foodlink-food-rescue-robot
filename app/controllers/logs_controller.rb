@@ -418,11 +418,29 @@ class LogsController < ApplicationController
     @start_date = Date.new(params[:start_date][:year].to_i,params[:start_date][:month].to_i,params[:start_date][:day].to_i)
     @stop_date = Date.new(params[:stop_date][:year].to_i,params[:stop_date][:month].to_i,params[:stop_date][:day].to_i)
     @regions = current_volunteer.admin_regions(true)
-    @logs = Log.where("logs.when >= ? AND logs.when <= ? AND complete AND region_id IN (#{@regions.collect{ |r| r.id }.join(",")})",@start_date,@stop_date)
-    respond_to do |format|
-      format.html
-      format.csv do
-        send_data @logs.to_csv
+    @types = FoodType.all.collect{|f| {id: f.id, name: f.name}}
+
+    self.response.headers["Content-Type"] ||= 'text/csv'
+    self.response.headers["Content-Disposition"] = "attachment; filename=export.csv"
+    self.response.headers["Content-Transfer-Encoding"] = "binary"
+    self.response.headers["Last-Modified"] = Time.now.ctime.to_s
+
+    self.response_body = Enumerator.new do |yielder|
+      yielder << ["Id","Date",@types.map{|t| t[:name]},"Total weight","Donor","Recipients","Volunteers","Hours spent"].flatten.to_csv
+
+      Log.where("logs.when >= ? AND logs.when <= ? AND complete AND region_id IN (#{@regions.collect{ |r| r.id }.join(",")})",@start_date,@stop_date).find_each do |log|
+        lps = log.log_parts
+        num_boxes = @types.map{ |t| "#{lps.where(food_type_id: t[:id]).compact.inject(0) { |sum, x| (sum + x[:num_boxes]) if x[:num_boxes] }}"}
+        yielder << [
+          log.id,
+          log.when,
+          num_boxes,
+          log.summed_weight,
+          log.donor.nil? ? "Unknown" : log.donor.name,
+          log.recipients.collect{ |r| r.nil? ? "Unknown" : r.name }.join(":"),
+          log.volunteers.collect{ |r| r.nil? ? "Unknown" : r.name }.join(":"),
+          log.hours_spent
+        ].flatten.to_csv
       end
     end
   end
