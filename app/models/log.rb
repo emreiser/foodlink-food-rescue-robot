@@ -234,7 +234,7 @@ class Log < ActiveRecord::Base
   end
 
   def operations_lead
-    id = self.log_volunteers.where(operations_lead: true).first.volunteer_id
+    id = self.log_volunteers.where(operations_lead: true).first.try(:volunteer_id)
     Volunteer.find(id) if id
   end
 

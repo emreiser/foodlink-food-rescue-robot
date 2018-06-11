@@ -73,7 +73,7 @@
               </td>
               <td>
                 <% shift_group.collect{ |shift| shift.volunteers }.flatten.uniq.each do |volunteer| %>
-                  <%= link_to volunteer.name, volunteer %> <%= " - Ops Lead" if first_shift.operations_lead.volunteer_id == volunteer.id %><br />
+                  <%= link_to volunteer.name, volunteer %> <%= " - Ops Lead" if first_shift.operations_lead.try(:id) == volunteer.id %><br />
                 <% end %>
                 <br>
                 <% if shift_group.any?{ |shift| !shift.covered? && !shift.volunteers.include?(current_volunteer) } %>
