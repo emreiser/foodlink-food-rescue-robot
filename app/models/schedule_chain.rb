@@ -172,6 +172,11 @@ class ScheduleChain < ActiveRecord::Base
     Volunteer.find(lead.volunteer_id) if lead
   end
 
+  def operations_lead
+    ops_lead = self.schedule_volunteers.where(operations_lead: true, active: true).first
+    Volunteer.find(ops_lead.volunteer_id) if ops_lead
+  end
+
   def from_to_name
     schedule_1 = schedules.first
     schedule_2 = schedules.last

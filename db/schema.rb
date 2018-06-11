@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20171213212227) do
+ActiveRecord::Schema.define(:version => 20180607183154) do
 
   create_table "absences", :force => true do |t|
     t.integer "volunteer_id"
@@ -108,10 +108,11 @@ ActiveRecord::Schema.define(:version => 20171213212227) do
   create_table "log_volunteers", :force => true do |t|
     t.integer  "log_id"
     t.integer  "volunteer_id"
-    t.boolean  "active",       :default => true
-    t.datetime "created_at",                     :null => false
-    t.datetime "updated_at",                     :null => false
+    t.boolean  "active",          :default => true
+    t.datetime "created_at",                         :null => false
+    t.datetime "updated_at",                         :null => false
     t.boolean  "covering"
+    t.boolean  "operations_lead", :default => false
   end
 
   add_index "log_volunteers", ["log_id"], :name => "index_log_volunteers_on_log_id"
@@ -217,13 +218,13 @@ ActiveRecord::Schema.define(:version => 20171213212227) do
 
   create_table "schedule_volunteers", :force => true do |t|
     t.integer  "volunteer_id"
-    t.boolean  "active",               :default => true
-    t.datetime "created_at",                              :null => false
-    t.datetime "updated_at",                              :null => false
+    t.boolean  "active",            :default => true
+    t.datetime "created_at",                           :null => false
+    t.datetime "updated_at",                           :null => false
     t.integer  "schedule_chain_id"
-    t.boolean  "lead_volunteer",       :default => false
+    t.boolean  "lead_volunteer",    :default => false
     t.text     "week_assignment"
-    t.text     "lead_week_assignment"
+    t.boolean  "operations_lead",   :default => false
   end
 
   add_index "schedule_volunteers", ["volunteer_id"], :name => "index_schedule_volunteers_on_volunteer_id"
@@ -280,6 +281,7 @@ ActiveRecord::Schema.define(:version => 20171213212227) do
     t.integer  "requested_region_id"
     t.string   "authentication_token"
     t.boolean  "active",                 :default => true,  :null => false
+    t.boolean  "is_operations_lead",     :default => false
   end
 
   add_index "volunteers", ["email"], :name => "index_volunteers_on_email", :unique => true

@@ -1,8 +1,10 @@
 <div class="volunteer nested_fields">
   <%= f.association :volunteer, collection: @region.volunteers, as: :select, label: false, input_html: {class: "form-control"} %>
   <div class="lead-volunteer">
-    <%= f.check_box(:lead_volunteer) %> Is lead volunteer
-  </div><br>
+    <%= f.check_box(:lead_volunteer) %> Is Lead Volunteer
+  </div>
+  <%= f.check_box(:operations_lead) %> Is Operations Lead
+  <br><br>
 
   <div class="field">
     <%= f.label "Week assignment" %><br>

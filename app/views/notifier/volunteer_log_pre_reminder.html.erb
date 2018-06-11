@@ -17,7 +17,10 @@
         Volunteers: <%= l.volunteers.collect{ |v| 
           v.present? && v.phone ? v.name.split.first.capitalize + " - #{v.phone}" : v.name.split.first.capitalize }.compact.join(", ") %><br>
         <% if l.schedule_chain.lead_volunteer && l.volunteers.include?(l.schedule_chain.lead_volunteer)%>
-        Lead Volunteer: <%= l.schedule_chain.lead_volunteer.name.split.first.capitalize %> - <%= l.schedule_chain.lead_volunteer.email %> <%= l.schedule_chain.lead_volunteer.phone %><br><br>
+        Lead Volunteer: <%= l.schedule_chain.lead_volunteer.name.split.first.capitalize %> - <%= l.schedule_chain.lead_volunteer.email %> | <%= l.schedule_chain.lead_volunteer.phone %><br><br>
+        <% end %>
+        <% if l.operations_lead %>
+        Operations Lead: <%= l.operations_lead.name.split.first.capitalize %> - <%= l.schedule_chain.operations_lead.email %> | <%= l.schedule_chain.operations_lead.phone %><br><br>
         <% end %>
         
         <strong>Delivery locations:</strong><br>

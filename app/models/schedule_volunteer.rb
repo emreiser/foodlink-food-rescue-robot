@@ -5,7 +5,8 @@ class ScheduleVolunteer < ActiveRecord::Base
 
   serialize :week_assignment, Array
   
-  attr_accessible :schedule_chain_id, :volunteer_id, :active, :lead_volunteer, :week_assignment
+  attr_accessible :schedule_chain_id, :volunteer_id, :active, :lead_volunteer,
+                  :week_assignment, :operations_lead
 
 	accepts_nested_attributes_for :volunteer
 

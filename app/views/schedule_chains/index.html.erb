@@ -78,7 +78,7 @@
       <td>
         <% schedule.volunteers.each do |volunteer| %>
           <span class=<%= "bold" if schedule.lead_volunteer == volunteer %>>
-            <%= link_to volunteer.name, volunteer %> (<%= display_week_assignment(volunteer.find_active_schedule_volunteer(schedule.id).week_assignment) %>)<br />
+            <%= link_to volunteer.name, volunteer %> <%= "- Ops Lead" if @schedule.scheduleoperations_lead == volunteer %> (<%= display_week_assignment(volunteer.find_active_schedule_volunteer(schedule.id).week_assignment) %>)<br />
           </span>
         <% end %>
         <%= render partial: "take_or_leave", locals: {schedule: schedule} %>

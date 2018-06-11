@@ -110,7 +110,7 @@ class Log < ActiveRecord::Base
       next if !sv.active
       week_of_collection = date.week_of_month
       if sv.week_assignment.include? week_of_collection.to_s or sv.week_assignment.blank?
-        log.log_volunteers << LogVolunteer.new(volunteer:sv.volunteer,log:log,active:true)
+        log.log_volunteers << LogVolunteer.new(volunteer:sv.volunteer,log:log,active:true,operations_lead: sv.operations_lead)
       end
     }
     log.num_volunteers = schedule_chain.num_volunteers
@@ -233,4 +233,11 @@ class Log < ActiveRecord::Base
     end
   end
 
+  def operations_lead
+    id = self.log_volunteers.where(operations_lead: true).first.volunteer_id
+    Volunteer.find(id) if id
+  end
+
 end
+
+
