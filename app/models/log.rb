@@ -45,7 +45,7 @@ class Log < ActiveRecord::Base
     unless record.scale_type.nil?
       record.weight_unit = record.scale_type.weight_unit if record.weight_unit.nil?
       record.log_parts.each{ |lp|
-        lp.weight = (lp.num_boxes * lp.food_type.weight_per_box)
+        lp.foodtype ? lp.weight = (lp.num_boxes * lp.food_type.weight_per_box) : lp.weight = 0
         lp.save
       }
     end
