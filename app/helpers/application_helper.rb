@@ -26,15 +26,15 @@ module ApplicationHelper
 
   def readable_start_time schedule
     schedule = schedule.schedule_chain if schedule.is_a? Schedule
-    str = 'unknown'
-    str = schedule.detailed_start_time.to_s(:clean_time) unless schedule.detailed_start_time.nil?
+    str = 'Unknown'
+    str = schedule.detailed_start_time.to_s(:clean_time) if schedule && schedule.detailed_start_time
     str
   end
 
   def readable_stop_time schedule
     schedule = schedule.schedule_chain if schedule.is_a? Schedule
-    str = "unknown"
-    str = schedule.detailed_stop_time.to_s(:clean_time) unless schedule.detailed_stop_time.nil?
+    str = "Unknown"
+    str = schedule.detailed_stop_time.to_s(:clean_time) unless schedule && schedule.detailed_stop_time.nil?
     str
   end
 
