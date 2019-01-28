@@ -83,7 +83,6 @@ GEM
       rails (>= 3.1)
     buftok (0.2.0)
     builder (3.0.4)
-    byebug (10.0.2)
     cancancan (2.2.0)
     capybara (2.18.0)
       addressable
@@ -247,9 +246,6 @@ GEM
     pry (0.11.3)
       coderay (~> 1.1.0)
       method_source (~> 0.9.0)
-    pry-byebug (3.6.0)
-      byebug (~> 10.0)
-      pry (~> 0.10)
     pry-rails (0.3.6)
       pry (>= 0.10.4)
     pry-remote (0.1.8)
@@ -299,6 +295,7 @@ GEM
     rb-fsevent (0.9.8)
     rb-inotify (0.9.10)
       ffi (>= 0.5.0, < 2)
+    rb-readline (0.5.5)
     rdoc (3.12.2)
       json (~> 1.4)
     ref (2.0.0)
@@ -449,7 +446,6 @@ DEPENDENCIES
   poltergeist (~> 1.12)
   prawn (~> 2.1.0)
   prawn-table (~> 0.2.2)
-  pry-byebug
   pry-rails
   pry-remote
   pry-rescue
@@ -459,6 +455,7 @@ DEPENDENCIES
   rails_12factor
   ranked-model
   rb-fsevent (~> 0.9.0)
+  rb-readline
   rspec-rails (~> 3.5)
   rubocop
   sass-rails (~> 3.2.6)

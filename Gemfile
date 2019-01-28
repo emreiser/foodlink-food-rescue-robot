@@ -39,10 +39,10 @@ end
 group :development, :test do
   gem 'awesome_print'
   gem 'dotenv-rails'
-  gem 'pry-byebug'
   gem 'pry-rails'
   gem 'pry-remote'
   gem 'pry-rescue'
+  gem 'rb-readline'
   gem 'sqlite3' # REMOVE THIS WHEN POSSIBLE
 end
 
