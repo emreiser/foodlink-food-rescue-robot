@@ -211,7 +211,7 @@ class Log < ActiveRecord::Base
                 lps.collect{ |lp| lp.weight }.join(":"),
                 lps.collect{ |lp| lp.description.nil? ? "None" : lp.description }.join(":"),
                 log.summed_weight,log.donor.nil? ? "Unknown" : log.donor.name,log.recipients.collect{ |r| r.nil? ? "Unknown" : r.name }.join(":"),
-                log.volunteers.collect{ |r| r.nil? ? "Unknown" : r.name }.join(":"),log.scale_type.nil? ? "Uknown" : log.scale_type.name,
+                log.volunteers.collect{ |r| r.nil? ? "Unknown" : r.name }.join(":"),log.scale_type.nil? ? "Unknown" : log.scale_type.name,
                 log.transport_type.nil? ? "Unknown" : log.transport_type.name,log.hours_spent,log.num_reminders,log.notes
         ]
       end
@@ -226,7 +226,7 @@ class Log < ActiveRecord::Base
         lps = log.log_parts
         num_boxes = types.map{ |t| "#{lps.where(food_type_id: t[:id]).compact.inject(0) { |sum, x| (sum + x[:num_boxes]) if x[:num_boxes] }}"}
         csv << [log.id,log.when] + num_boxes + [log.summed_weight,log.donor.nil? ? "Unknown" : log.donor.name,log.recipients.collect{ |r| r.nil? ? "Unknown" : r.name }.join(":"),
-                log.volunteers.collect{ |r| r.nil? ? "Unknown" : r.name }.join(":"),log.scale_type.nil? ? "Uknown" : log.scale_type.name,
+                log.volunteers.collect{ |r| r.nil? ? "Unknown" : r.name }.join(":"),log.scale_type.nil? ? "Unknown" : log.scale_type.name,
                 log.transport_type.nil? ? "Unknown" : log.transport_type.name,log.hours_spent,log.num_reminders,log.notes
         ]
       end
