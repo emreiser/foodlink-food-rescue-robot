@@ -13,10 +13,10 @@
     <ul>
     <% @logs.each{ |l| %>
       <li>
-        <strong>Collection location: <%= l.donor.nil? ? "Unknown" : l.donor.name %></strong> (<%= readable_start_time(l.schedule_chain) %>)<br>
-        Volunteers: <%= l.volunteers.reject{|v| l.schedule_chain.lead_volunteer == v || l.operations_lead == v }.collect{ |v|
+        <strong>Collection location: <%= l.donor.nil? ? "Unknown" : l.donor.name %></strong> (<%= readable_start_time(l.schedule_chain) if l.schedule_chain %>)<br>
+        Volunteers: <%= l.volunteers.reject{|v| l.operations_lead == v || l.schedule_chain.lead_volunteer == v if l.schedule_chain }.collect{ |v|
           v.present? && v.phone ? v.name.split.first.capitalize + " - #{v.phone}" : v.name.split.first.capitalize }.compact.join(", ") %><br>
-        <% if l.schedule_chain.lead_volunteer && l.volunteers.include?(l.schedule_chain.lead_volunteer)%>
+        <% if l.schedule_chain.try(:lead_volunteer) && l.volunteers.include?(l.schedule_chain.lead_volunteer)%>
         <em>Lead Volunteer</em>: <%= l.schedule_chain.lead_volunteer.name.split.first.capitalize %> - <%= l.schedule_chain.lead_volunteer.email %> | <%= l.schedule_chain.lead_volunteer.phone %><br>
         <% end %>
         <% if l.operations_lead %>

@@ -34,7 +34,7 @@ module ApplicationHelper
   def readable_stop_time schedule
     schedule = schedule.schedule_chain if schedule.is_a? Schedule
     str = "Unknown"
-    str = schedule.detailed_stop_time.to_s(:clean_time) unless schedule.detailed_stop_time.nil?
+    str = schedule.detailed_stop_time.to_s(:clean_time) if schedule && schedule.detailed_stop_time
     str
   end
 

@@ -3,7 +3,7 @@
 The Food Rescue Robot is a Rails 3 web application for managing the logistics
 of just-in-time (i.e., warehouse-less) food rescue. It keeps track of donors,
 recipients, a pickup and delivery schedule, and all the volunteers responsible
-for doing the work. It sends reminders to users about their pickups. The site 
+for doing the work. It sends reminders to users about their pickups. The site
 also logs how much food is rescued, and can automatically issue receipts for donations.
 
 # Who uses it? (And how can I?)
@@ -25,8 +25,12 @@ development on the master branch and we are growing a small team of hackers to m
 
 # How can I help?
 
-If you want to help with development, feel free to fork the project. If you have something 
+If you want to help with development, feel free to fork the project. If you have something
 to submit upstream, send a pull request from your fork. If you're trying to setup a dev environment, keep reading.
+
+Alternatively, if your OSS time is limited, you can [donate to Boulder Food Rescue](https://www.boulderfoodrescue.org/donate/) via several options. _Please include a note that indicates you are donating for Robot Development in the notes._
+
+[<img src="https://www.boulderfoodrescue.org/wp-content/uploads/2011/09/partnership_donatebutton.jpg">](https://www.coloradogives.org/index.php?section=organizations&action=newDonation&fwID=37126)
 
 # General Tech Overview
 
@@ -59,62 +63,59 @@ can see the routes with ```rake routes```;
 
 ## Prerequisites
 
- * Ruby 2.1
- * Rails 3.2.16 and the rest of the dependencies in the Gemfile
+ * Ruby 2.3.7
  * Postgresql 9.3 or greater (runs on at least 9.4.4)
- * A reasonable operating system (e.g., Linux)
+ * A reasonable operating system (e.g., Linux or Mac, Windows if you're saucy)
  * Various dependencies for the above
 
-After checking out the code, you'll want to install the necessary gemfiles:
+## Setup
 
+Clone this repository:
+
+    git clone https://github.com/boulder-food-rescue/food-rescue-robot.git
+
+`cd` into the directory:
+
+    cd food-rescue-robot
+### Linux or Mac
+
+Set up your environment:
+
+    bundle exec bin/setup
+
+This will check your system for prerequisites (e.g. Ruby version), install dependencies, create a `.env` file, create any missing databases and database users, load the database schema and seed development data.
+
+You may need to insert the secret key manually. Check the `.env` file's SECRET_KEY_BASE. If absent, generate a secret key by using the command below:
+
+`bundle exec rake secret`
+
+### Manual or Windows
+
+Install dependencies:
+
+    bundle install
+
+Copy `.env.example` to `.env`, and replace `SECRET_KEY_BASE` with the value of:
+
+    rake secret
+
+Create a development and test Postgres database and user:
+
+```sql
+CREATE ROLE bfr_webapp_db WITH LOGIN;
+CREATE ROLE bfr_webapp_db_test WITH LOGIN;
+CREATE DATABASE bfr_webapp_db OWNER bfr_webapp_db;
+CREATE DATABASE bfr_webapp_db_test OWNER bfr_webapp_db_test;
 ```
-bundle install
-```
 
-## Database
-
-You'll need to create a database and user:
-
-```
-$ sudo su - postgres
-$ psql
-> CREATE DATABASE robot_db;
-> CREATE ROLE robot_user WITH LOGIN PASSWORD 'changeme';
-> GRANT ALL ON DATABASE robot_db TO robot_user;
-> \q
-$ exit
-```
-
-Next, copy /config/database.yml.dist to /config/database.yml and make any necessary changes.
-
-If you want to start with an empty schema, you can proceed as usual (rake db:setup, etc.), or you can
-load a database dump from me or elsewhere. If you start with an empty schema, you'll want to start
-by creating a Volunteer user with the admin bit set, and a first region e.g.:
-
-```
-$ rails console
-> r = Region.new
-> r.name = "Somewhere"
-> r.save
->
-> v = Volunteer.new
-> v.email = "jane.doe@gmail.com"
-> v.password = "changeme"
-> v.admin = true
-> v.regions << r
-> v.assigned = true
-> v.save
-```
-
+Load the datbase
 ## Running It
 
-You should be able to simply:
+To start a server, run
 
-```
-$ make devserver
-```
+    bundle exec rails server
 
-This starts a thin server on localhost:3000, which you can get at with your browser.
+Open [http://localhost:3000](http://localhost:3000)
 
 Also, beware that some crucial functions, like generating log entries from the schedule, and sending emails
 are executed by cron, daily or weekly. If you want to work on those bits, you may be keen to run these:
@@ -124,6 +125,34 @@ bundle exec rake foodrobot:generate_logs
 bundle exec rake foodrobot:send_reminders
 bundle exec rake foodrobot:send_weekly_summary
 ```
+
+## Generating Sample Data
+
+The seeds command generates a regular volunteer and an admin volunteer for you. Please review seeds.rb. You can make more regions / volunteers with this code:
+
+```
+$ rails console
+region = Region.create(name: "Boulder")
+
+volunteer = Volunteer.new(email: "you.email@gmail.com", password: "changeme", password_confirmation: "changeme", assigned: true)
+volunteer.admin = true
+volunteer.regions << region
+volunteer.save!
+```
+
+**Additionally:**
+
+Run:
+
+  ```
+  $ bundle exec rake db:sample_region
+  ```
+
+**Note:** _Running the `db:sample_region` rake task will create a new `Region` in your database and populate it with a bunch of random data (volunteers, donors, recipients, schedule chains, etc.). For more info on what exactly is created, see `lib/sample_data/region_data.rb`._
+
+**Note:** _Region admins will be created for the new region with email addresses based on the region's name. For example, if the region name is `San Francisco`, the created region admins will have email addresses: `admin-san-francisco@example.com`, `admin-san-francisco-2@example.com`, etc. Their passwords will all be `password`._
+
+**Note:** _The `db:sample_region` rake task does not create any `Log` records, so you'll have to run the rake task to generate logs based on the newly created schedule chains: `bundle exec rake foodrobot:generate_logs`._
 
 ## Hosting
 
@@ -140,3 +169,10 @@ $ heroku pg:backups capture
 $ curl -o latest.dump `heroku pg:backups public-url`
 $ pg_restore --verbose --clean --no-acl --no-owner -h localhost -U robot_user -d robot_db latest.dump
 ```
+
+## Troubleshooting
+
+### Logs
+
+Having trouble with logs not being generated for schedule chains?
+  - Check that ALL locations (also called donors) are valid. Often times this causes logs to not be created for current shifts/schedule chains being run.
