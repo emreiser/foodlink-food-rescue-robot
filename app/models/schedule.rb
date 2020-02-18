@@ -8,7 +8,7 @@ class Schedule < ActiveRecord::Base
   belongs_to :location
   belongs_to :schedule_chain
   ranks :position, with_same: :schedule_chain_id
-  default_scope order('position ASC')
+  default_scope { order(position: 'ASC')}
 
   has_many :schedule_parts
   has_many :food_types, through: :schedule_parts
