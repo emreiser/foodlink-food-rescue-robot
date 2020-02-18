@@ -32,7 +32,7 @@ class VolunteersController < ApplicationController
   end
 
   def shiftless
-    @volunteers = Volunteer.all.keep_if do |v|
+    @volunteers = Volunteer.all.to_a.keep_if do |v|
       ((v.region_ids & current_volunteer.region_ids).length > 0) and v.schedule_chains.length == 0
     end
     @header = "Shiftless Volunteers"
@@ -52,7 +52,7 @@ class VolunteersController < ApplicationController
   end
 
   def need_training
-    @volunteers = Volunteer.all.keep_if{ |v|
+    @volunteers = Volunteer.all.to_a.keep_if{ |v|
       ((v.region_ids & current_volunteer.region_ids).length > 0) and v.needs_training?
     }
     @header = "Volunteers Needing Training"
@@ -282,7 +282,7 @@ class VolunteersController < ApplicationController
     @total_food_rescued = Log.picked_up_weight(nil,current_volunteer.id)
     @boxes_per_month = Log.joins(:log_parts).select("date_trunc('month',logs.when) as month, sum(num_boxes)").
       where("complete AND region_id in (#{@regions.collect{ |r| r.id }.join(',')})").
-      group("month").order("month ASC").collect{ |l| [Date.parse(l.month).strftime("%m-%Y"),l.sum] }
+      group("month").order("month ASC").collect{ |l| [l.month.strftime("%m-%Y"),l.sum] }
 
     @unassigned = current_volunteer.unassigned?
 

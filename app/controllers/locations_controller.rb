@@ -6,9 +6,9 @@ class LocationsController < ApplicationController
     if (params[:key] == @loc.receipt_key) or (!current_volunteer.nil? and (current_volunteer.region_admin?(@loc.region) or current_volunteer.super_admin?))
       @schedules = ScheduleChain.for_location(@loc)
       if @loc.is_donor
-        @logs = Log.at(@loc)
+        @logs = Log.at(@loc).to_a
       else
-        @logs = Log.at(@loc).keep_if{ |x| x.weight_sum.to_f > 0 }
+        @logs = Log.at(@loc).to_a.keep_if{ |x| x.weight_sum.to_f > 0 }
       end
       render :hud
     else

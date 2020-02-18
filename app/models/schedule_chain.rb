@@ -34,7 +34,7 @@ class ScheduleChain < ActiveRecord::Base
   def self.unassigned_in_regions region_id_list
     conditions = {}
     conditions[:region_id] = region_id_list if region_id_list.length > 0
-    self.includes(:schedule_volunteers).keep_if { |schedule|
+    self.includes(:schedule_volunteers).to_a.keep_if { |schedule|
         schedule.volunteers.count == 0 and schedule.functional?
     }
 		conditions
@@ -58,7 +58,7 @@ class ScheduleChain < ActiveRecord::Base
   # list all the schedules that don't have active volunteers
   # clarification: (in my regions) and (temporary or (no volunteers and last stop is dropoff))
   def self.open_in_regions region_id_list
-    schedules = ScheduleChain.where(:irregular=>false).where(:frequency=>"weekly").where(:region_id=>region_id_list) if region_id_list.length > 0
+    schedules = ScheduleChain.where(:irregular=>false).where(:frequency=>"weekly").where(:region_id=>region_id_list).to_a if region_id_list.length > 0
     return [] if schedules.nil?
     schedules.keep_if do |schedule|
       unless not schedule.functional?
