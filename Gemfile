@@ -2,27 +2,28 @@ source 'http://rubygems.org'
 ruby File.read('.ruby-version').strip
 
 # the base rails libraries
-gem 'pg'
-gem 'rails', '~> 3.2.16'
+gem 'pg','~> 0.21'
+gem 'rails', '4.2.8'
 gem 'rails_12factor'
 gem 'thin'
+gem 'protected_attributes'
 
 # for handling json objects with ruby
 gem 'json'
 
-gem 'bootstrap-sass', '~> 3.2.0'
-gem 'coffee-rails', '~> 3.2.1'
+gem 'bootstrap-sass', '~> 3.4.1'
+gem 'coffee-rails'
 gem 'font-awesome-sass', '~> 4.4.0'
 gem 'jquery-rails', '2.1.4'
-gem 'sass-rails', '~> 3.2.6'
-gem 'simple_form'
+gem 'sass-rails'
+gem 'simple_form', '~> 4.0.0'
 gem 'therubyracer', platforms: :ruby
 gem 'twitter-bootstrap-rails'
-gem 'uglifier', '>= 1.0.3'
+gem 'uglifier'
 
-gem 'momentjs-rails', '>= 2.9.0'
-gem 'bootstrap3-datetimepicker-rails', '~> 4.17.47'
-gem 'simple_calendar', '~> 2.0'
+gem 'momentjs-rails'
+gem 'bootstrap3-datetimepicker-rails'
+gem 'simple_calendar'
 
 gem 'unicorn-rails'
 
@@ -96,8 +97,8 @@ gem 'browser-timezone-rails' # '~> 0.0.9'
 gem 'ranked-model'
 
 # Send email when exception occurs.
-gem 'exception_notification', '~> 3.0.1'
-gem 'exception_notification-rake', '~> 0.0.6'
+gem 'exception_notification', '~> 4.2.2'
+gem 'exception_notification-rake', '~> 0.3.0'
 
 gem 'cancancan'
 gem 'interactor'
