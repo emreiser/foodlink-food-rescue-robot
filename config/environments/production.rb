@@ -86,10 +86,12 @@ Webapp::Application.configure do
   # with SQLite, MySQL, and PostgreSQL)
   # config.active_record.auto_explain_threshold_in_seconds = 0.5
 
-  config.middleware.use ExceptionNotifier,
-    email_prefix: '[FOOD LINK ROBOT ERROR] ',
-    sender_address: %{"Food Link Robot" <robot@foodlinkma.org>},
-    exception_recipients: %w{emilie.reiser@gmail.com}
+  config.middleware.use ExceptionNotification::Rack,
+    email: {
+      email_prefix: '[FOOD LINK ROBOT ERROR] ',
+      sender_address: %{"Food Link Robot" <robot@foodlinkma.org>},
+      exception_recipients: %w{emilie.reiser@gmail.com}
+    }
 
   ExceptionNotifier::Rake.configure
 

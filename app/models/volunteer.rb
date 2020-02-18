@@ -10,16 +10,12 @@ class Volunteer < ActiveRecord::Base
   has_many :absences
   has_many :regions, through: :assignments
   has_many :schedule_volunteers
-  has_many :schedule_chains, through: :schedule_volunteers,
-           conditions: { 'schedule_volunteers.active' => true }
-  has_many :prior_schedules, through: :schedule_volunteers,
-           conditions: { 'schedule_volunteers.active' => false }, class_name: 'ScheduleChain'
+  has_many :schedule_chains, -> { where(schedule_volunteers: {active: true}) }, through: :schedule_volunteers         
+  has_many :prior_schedules, -> { where(schedule_volunteers: {active: false}) }, class_name: 'ScheduleChain', through: :schedule_volunteers
   has_many :log_volunteers
-  has_many :logs, :through=>:log_volunteers,
-           :conditions=>{"log_volunteers.active"=>true}
-  has_many :prior_logs, :through=>:log_volunteers,
-           :conditions=>{"log_volunteers.active"=>false}, :class_name=>"Log"
-
+  has_many :logs, -> { where(log_volunteers: {active: true}) }, through: :log_volunteers
+  has_many :prior_logs, -> { where(log_volunteers: {active: false}) }, class_name: "Log", through: :log_volunteers         
+  
   attr_accessible :pre_reminders_too, :region_ids, :password,
                   :password_confirmation, :remember_me, :admin_notes, :email,
                   :has_car, :is_disabled, :name, :on_email_list, :phone,

@@ -3,8 +3,7 @@ class ScheduleChain < ActiveRecord::Base
   default_scope { where(active:true) }
 
   has_many :schedule_volunteers
-  has_many :volunteers, :through => :schedule_volunteers,
-           :conditions=>{"schedule_volunteers.active"=>true}
+  has_many :volunteers, -> { where(schedule_volunteers: {active: true}) }, through: :schedule_volunteers
   has_many :schedules
   has_many :locations, :through => :schedules
   has_many :logs

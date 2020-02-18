@@ -8,10 +8,9 @@ class Log < ActiveRecord::Base
   belongs_to :region
 
   has_many :log_volunteers
-  has_many :volunteers, :through => :log_volunteers,
-           :conditions=>{"log_volunteers.active"=>true}
-  has_many :inactive_volunteers, :through => :log_volunteers,
-           :conditions=>{"log_volunteers.active"=>false}
+  has_many :volunteers, -> { where(log_volunteers: {active: true}) }, through: :log_volunteers
+  has_many :inactive_volunteers, -> { where(log_volunteers: {active: false}) }, through: :log_volunteers
+
   has_many :log_recipients
   has_many :recipients, :through => :log_recipients
   has_many :log_parts
