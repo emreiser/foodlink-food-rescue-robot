@@ -12,12 +12,11 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require jquery.cookie
+//= require js.cookie
 //= require bootstrap-sprockets
 //= require dataTables/jquery.dataTables
 //= require highcharts
 //= require active_scaffold
-//= require jstz
 //= require browser_timezone_rails/set_time_zone
 //= require cocoon
 //= require facts

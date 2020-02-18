@@ -13,8 +13,8 @@ gem 'json'
 
 gem 'bootstrap-sass', '~> 3.4.1'
 gem 'coffee-rails'
-gem 'font-awesome-sass', '~> 4.4.0'
-gem 'jquery-rails', '2.1.4'
+gem 'font-awesome-sass', '~> 5.12.0'
+gem 'jquery-rails'
 gem 'sass-rails'
 gem 'simple_form', '~> 4.0.0'
 gem 'therubyracer', platforms: :ruby

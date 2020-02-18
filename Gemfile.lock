@@ -167,8 +167,8 @@ GEM
     ffi-compiler (1.0.1)
       ffi (>= 1.0.0)
       rake
-    font-awesome-sass (4.4.0)
-      sass (>= 3.2)
+    font-awesome-sass (5.12.0)
+      sassc (>= 1.11)
     formatador (0.2.5)
     geocoder (1.6.1)
     globalid (0.4.2)
@@ -367,11 +367,6 @@ GEM
     ruby-graphviz (1.2.4)
     ruby-progressbar (1.10.1)
     ruby_dep (1.5.0)
-    sass (3.7.4)
-      sass-listen (~> 4.0.0)
-    sass-listen (4.0.0)
-      rb-fsevent (~> 0.9, >= 0.9.4)
-      rb-inotify (~> 0.9, >= 0.9.7)
     sass-rails (6.0.0)
       sassc-rails (~> 2.1, >= 2.1.1)
     sassc (2.2.1)
@@ -476,14 +471,14 @@ DEPENDENCIES
   exception_notification-rake (~> 0.3.0)
   factory_girl_rails
   faker (~> 1.7.3)
-  font-awesome-sass (~> 4.4.0)
+  font-awesome-sass (~> 5.12.0)
   geocoder
   gmaps4rails (= 1.5.6)
   guard-rspec
   highcharts-rails (~> 3.0.0)
   interactor
   jquery-datatables-rails!
-  jquery-rails (= 2.1.4)
+  jquery-rails
   json
   momentjs-rails
   newrelic_rpm
