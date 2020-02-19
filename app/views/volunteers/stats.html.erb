@@ -25,7 +25,7 @@
     <table class="datatable"><thead><th>Volunteer<th>Email<th>Last Collection<th>Num Collections</thead><tbody>
     <%
        @lazy_volunteers.each{ |v|
-         next if Date.parse(v.last_date) > (Date.today - 90)
+         next if v.last_date > (Date.today - 90)
     %>
       <tr>
         <td>

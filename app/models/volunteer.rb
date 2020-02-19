@@ -171,7 +171,7 @@ class Volunteer < ActiveRecord::Base
   def self.active(region_ids=nil,ndays=90)
     Volunteer.joins(:logs).select("max(logs.when) as last_log_date,volunteers.*").
       group("volunteers.id").to_a.keep_if{ |v|
-        (Date.parse(v.last_log_date) > Time.zone.today-ndays) and (region_ids.nil? or (v.region_ids & region_ids).length > 0)
+        (v.last_log_date > Time.zone.today-ndays) and (region_ids.nil? or (v.region_ids & region_ids).length > 0)
       }
   end
 

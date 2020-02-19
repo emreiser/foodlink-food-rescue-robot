@@ -72,7 +72,7 @@ class LogsController < ApplicationController
       group("year").order("year ASC").collect{ |l| [l.year,l.sum] }
     @pounds_per_month = Log.joins(:log_parts).select("date_trunc('month',logs.when) as month, sum(weight)").
       where("complete AND region_id in (#{@regions.collect{ |r| r.id }.join(',')})").
-      group("month").order("month ASC").collect{ |l| [Date.parse(l.month).strftime("%Y-%m"),l.sum] }
+      group("month").order("month ASC").collect{ |l| [l.month.strftime("%Y-%m"),l.sum] }
     @transport_per_year = {}
     @transport_years = []
     @transport_data = Log.joins(:transport_type).select("extract(YEAR from logs.when) as year, transport_types.name, count(*)").
