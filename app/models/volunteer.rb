@@ -159,7 +159,7 @@ class Volunteer < ActiveRecord::Base
   end
 
   def current_absences
-    self.absences.keep_if{ |a| a.start_date < Date.today and a.stop_date > Date.today }
+    self.absences.to_a.keep_if{ |a| a.start_date < Date.today and a.stop_date > Date.today }
   end
 
   def find_active_schedule_volunteer(schedule_chain_id)
@@ -170,13 +170,13 @@ class Volunteer < ActiveRecord::Base
 
   def self.active(region_ids=nil,ndays=90)
     Volunteer.joins(:logs).select("max(logs.when) as last_log_date,volunteers.*").
-      group("volunteers.id").keep_if{ |v|
+      group("volunteers.id").to_a.keep_if{ |v|
         (Date.parse(v.last_log_date) > Time.zone.today-ndays) and (region_ids.nil? or (v.region_ids & region_ids).length > 0)
       }
   end
 
   def self.inactive(region_ids=nil)
-    Volunteer.find_all_by_active(false).keep_if{ |v| (region_ids.nil? or (v.region_ids & region_ids).length > 0) }
+    Volunteer.find_all_by_active(false).to_a.keep_if{ |v| (region_ids.nil? or (v.region_ids & region_ids).length > 0) }
   end
 
   def self.all_for_region region_id
