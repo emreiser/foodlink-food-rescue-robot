@@ -23,7 +23,7 @@ You can use the form below to schedule an absence. <br>
     </div>
     <div class="col-sm-4">
       <div class="form-inline input-group date">
-        <%= f.text_field(:start_date, class: 'form-control datepicker') %>
+        <%= f.text_field(:start_date, class: 'form-control datepicker', required: true) %>
         <span class="input-group-addon">
           <span class="glyphicon glyphicon-calendar"></span>
         </span>
@@ -36,7 +36,7 @@ You can use the form below to schedule an absence. <br>
     </div>
     <div class="col-sm-4">
       <div class="form-inline input-group date">
-         <%= f.text_field(:stop_date, class: 'form-control datepicker') %>
+         <%= f.text_field(:stop_date, class: 'form-control datepicker', required: true) %>
          <span class="input-group-addon">
           <span class="glyphicon glyphicon-calendar"></span>
         </span>
