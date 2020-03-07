@@ -1,0 +1,15 @@
+<div class="row log_part nested-fields">
+  <div class="col-sm-4">
+    <%= f.select(:food_type_id, @food_types,{include_blank: "Select food type"}, {class: "form-control"}) %>
+  </div>
+  <div class="col-sm-3">
+    <%= f.text_field(:num_boxes, placeholder: "Number of boxes", size: 5, class: "form-control") %>
+  </div>
+  <div class="col-sm-4">
+    <%= f.text_field(:description, size: 20, placeholder: "Description", class: "form-control") %>
+    <%= f.hidden_field(:id) %>
+  </div>
+  <div class="col-sm-1">
+    <%= link_to_remove_association("", f, class: "btn btn-danger glyphicon glyphicon-remove") %>
+  </div>
+</div>

@@ -13,13 +13,14 @@ class Log < ActiveRecord::Base
 
   has_many :log_recipients
   has_many :recipients, :through => :log_recipients
-  has_many :log_parts
+  has_many :log_parts, inverse_of: :log
   has_many :food_types, :through => :log_parts
   has_and_belongs_to_many :absences
 
   accepts_nested_attributes_for :log_recipients
-  accepts_nested_attributes_for :log_volunteers
+  accepts_nested_attributes_for :log_volunteers, allow_destroy: true
   accepts_nested_attributes_for :schedule_chain
+  accepts_nested_attributes_for :log_parts, reject_if: :all_blank, allow_destroy: true
 
   validates :notes, presence: { if: Proc.new{ |a| a.complete and a.summed_weight == 0 and a.summed_count == 0 and a.why_zero == 2 },
              message: "can't be blank if weights/counts are all zero: let us know what happened!" }
@@ -35,7 +36,8 @@ class Log < ActiveRecord::Base
                   :log_volunteers_attributes, :weight_unit, :volunteers_attributes,
                   :schedule_chain_id, :recipients_attributes, :log_recipients_attributes, :log_volunteers_attributes,
                   :id, :created_at, :updated_at, :complete, :recipient_ids, :volunteer_ids, :num_volunteers,
-                  :info_for_next_day, :volunteer_feedback
+                  :info_for_next_day, :volunteer_feedback,
+                  :log_parts_attributes
 
   # units conversion on scale type --- we always store in lbs in the database
   before_validation { |record|

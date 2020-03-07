@@ -174,7 +174,6 @@ class LogsController < ApplicationController
       redirect_to(root_path)
       return
     end
-    parse_and_create_log_parts(params,@log)
     @log.reload
     finalize_log(@log)
     if @log.save
@@ -238,9 +237,7 @@ class LogsController < ApplicationController
       return
     end
 
-    parse_and_create_log_parts(params, @log)
-
-    if @log.update_attributes(params[:log])
+    if @log.update_attributes(log_params)
 
       # Delete volunteers removed from log
       unless params[:log][:log_volunteers_attributes].nil?
@@ -447,12 +444,19 @@ class LogsController < ApplicationController
 
   private
 
+    def log_params
+      params.require(:log).permit(
+        :region_id, :schedule_chain_id, :num_volunteers, :when, :donor_id, :hours_spent,
+        :flag_for_admin, :info_for_next_day, :volunteer_feedback, :notes, :why_zero,
+        log_parts_attributes: [:food_type_id, :num_boxes, :description, :id, :_destroy])
+    end
+
     def parse_and_create_log_parts(params,log)
       ret = []
-      params["log_parts"].each{ |dc,lpdata|
-        empty = !lpdata["food_type_id"].present? || !lpdata["num_boxes"].present?
-        next if lpdata["id"].nil? and empty
-        lp = lpdata["id"].nil? ? LogPart.new : LogPart.find(lpdata["id"].to_i)
+      params["log"]["log_parts_attributes"].each{ |dc,lpdata|
+        empty = lpdata["food_type_id"].blank? || lpdata["num_boxes"].blank?
+        next if lpdata["id"].blank? and empty
+        lp = lpdata["id"].present? ? LogPart.find(lpdata["id"].to_i) : LogPart.new 
         lp.num_boxes = lpdata["num_boxes"]
         lp.description = lpdata["description"]
         lp.food_type_id = lpdata["food_type_id"].to_i
@@ -460,6 +464,7 @@ class LogsController < ApplicationController
         ret.push lp
         lp.save
       } unless params["log_parts"].nil?
+      binding.pry
       LogPart.delete(log.log_parts - ret)
       ret
     end

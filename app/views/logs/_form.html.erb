@@ -68,7 +68,7 @@
     </details>
   </div>
 
-  <div class="row">
+  <div class="row" id="log-parts">
     <div class="col-sm-4">
       <h3>Items collected</h3>
       <span class="subtext">Enter the amount collected for each food type.<br/>
@@ -82,65 +82,24 @@
         </div>
         <div class=col-sm-5>Description</div>
       </div>
-      <% @log.log_parts.each{ |lp| %>
-        <%= fields_for :log_parts, lp, :index => "update_#{lp.id}" do |f2| %>
-          <div class="log_part row" style="background: <%= lp.required ? "lightgrey" : "white" %>;">
-            <div class="col-sm-4">
-              <%= f2.select(:food_type_id, @food_types,{include_blank: "Select food type"}, {class: "form-control"}) %>
-            </div>
-            <div class="col-sm-3">
-              <%= f2.text_field(:num_boxes, class: "form-control") %>
-            </div>
-            <div class="col-sm-4">
-              <%= f2.text_field(:description, size: 20, class: "form-control" ) %>
-              <%= f2.hidden_field(:id) %>
-            </div>
-            <div class="col-sm-1">
-              <div class="btn btn-danger glyphicon glyphicon-remove"></div>
-            </div>
-          </div>
+      <div id="log-parts-list">
+        <%= f.simple_fields_for :log_parts do |log_part| %>
+          <%= render 'log_part_fields', f: log_part %>
         <% end %>
-      <% } %>
 
-      <%= fields_for :log_parts, LogPart.new, :index => "new_0" do |f2| %>
-        <div class="row log_part">
-          <div class="col-sm-4">
-            <%= f2.select(:food_type_id, @food_types,{include_blank: "Select food type"}, {class: "form-control"}) %>
-          </div>
-          <div class="col-sm-3">
-            <%= f2.text_field(:num_boxes, placeholder: "Number of boxes", size: 5, class: "form-control") %>
-          </div>
-          <div class="col-sm-4">
-            <%= f2.text_field(:description, size: 20, placeholder: "Description", class: "form-control") %>
-          </div>
-          <div class="col-sm-1">
-            <div class="btn btn-danger glyphicon glyphicon-remove"></div>
-          </div>
+        <%= f.simple_fields_for :log_parts, LogPart.new do |log_part| %>
+          <%= render 'log_part_fields', f: log_part %>
+        <% end %>
+      </div>
+      <div class="row labels">
+        <div class="col-sm-4"></div>
+        <div class="col-sm-3 center">TOTAL: <span id="total_weight">0</span></div>
+      </div>
+      <div class="row">
+        <div class="col-sm-4"></div>
+        <div class="col-sm-3 center"><%= link_to_add_association '+ Add Another', f, :log_parts, class: 'btn btn-primary' %>
         </div>
-        <div class="row labels">
-          <div class="col-sm-4"></div>
-          <div class="col-sm-3 center">TOTAL: <span id="total_weight">0</span></div>
-        </div>
-        <div class="row">
-          <div class="col-sm-4"></div>
-          <div class="col-sm-3 center">
-            <%=
-              task = "<div class=\"log_part row\">"
-              fields_for :log_parts, LogPart.new, :index => "new_42" do |f2|
-                task += "<div class=\"col-sm-4\">" + f2.select(:food_type_id, @food_types,{include_blank: "Select food type"}, {class: 'form-control'}) + "</div>"
-                task += "<div class=\"col-sm-3\">" + f2.text_field(:num_boxes,size: 5, placeholder: "Number of boxes", class: 'form-control') + "</div>"
-                task += "<div class=\"col-sm-4\">" + f2.text_field(:description,size: 20, placeholder: "Description", class: 'form-control') + "</div><div class='col-sm-1'><div class='btn btn-danger glyphicon glyphicon-remove'></div></div>"
-              end
-              task += "</div>"
-              func_str =
-                "var new_id = 'new_' + new Date().getTime();
-                $('#{ escape_javascript task }'.replace(/new_\\d+/g, new_id)).insertAfter($('.log_part').last());
-                $('#'+new_id).on('change',function(){ update_total_weight(); });";
-                link_to_function "+ Add Another", func_str, class: "btn btn-info";
-             %>
-          </div>
-        </div>
-      <% end %>
+      </div>
     </div>
   </div>
   <div class="table-striped">
@@ -248,16 +207,17 @@
       });
     });
 
-    $(document).on("click", ".log_part .glyphicon-remove", function(){
-      if($(".log_part").length > 1){
-        $(this).closest(".log_part").remove();
-        update_total_weight();
-      }
+    $(document).on("cocoon:after-remove", "#log-parts", function(e, insertedItem, originalEvent){
+      update_total_weight();
     });
     
     $(document).on("click", ".volunteer .remove", function(e){
       $(this).parent().remove();
     });
+
+    $("#log-parts a.add_fields").
+      data("association-insertion-method", 'append').
+      data("association-insertion-node", '#log-parts-list');
   });
-</script>
+  </script>
 <% end %>
