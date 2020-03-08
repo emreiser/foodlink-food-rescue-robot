@@ -184,7 +184,7 @@
 <script type="text/javascript" charset="utf-8">
   function update_total_weight(){
     t = 0.0
-    $( "input[id$='num_boxes']").each(function(i){
+    $( "input[id$='num_boxes']:visible").each(function(i){
       v = $(this).val()
       if(v != "" && v != undefined) {
         t = t + parseFloat(v)
@@ -196,7 +196,7 @@
       $("#zero_reason").hide();
     }
     $("#total_weight").text(t)
-  }
+  };
 
   jQuery(document).ready(function() {
 
