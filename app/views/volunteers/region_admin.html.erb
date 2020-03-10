@@ -22,7 +22,7 @@
 
           <% if current_volunteer.super_admin? %>
             <td>
-              <%= select_tag(:volunteer_id, options_for_select(Volunteer.find(:all, :order => 'name').collect{ |v|
+              <%= select_tag(:volunteer_id, options_for_select(Volunteer.order('name').all.collect{ |v|
                     ["#{v.name} ["+v.regions.collect{ |r| r.name }.join(",")+"]",v.id] }), {class: "form-control select2"}) %></td>
           <% else %>
             <td>

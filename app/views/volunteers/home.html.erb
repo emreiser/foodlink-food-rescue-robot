@@ -215,7 +215,7 @@
         },
         series: [{
           name: 'Total food rescued by you',
-          data: [<%= @by_month.sort_by{ |k,v| k}.collect{ |pair| pair[1] }.join(",") %>]
+          data: [<%= @boxes_per_month.map{|m| @by_month[m[0]] ? @by_month[m[0]] : 0 }.join(",") %>]
         },
         {
           name: 'Total food rescued by Food Link',
