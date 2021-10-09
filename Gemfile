@@ -1,12 +1,17 @@
 source 'http://rubygems.org'
 ruby File.read('.ruby-version').strip
 
+# update mimemagic to account for yanked version in rails dependency
+gem 'mimemagic', '~> 0.3.7'
+
 # the base rails libraries
 gem 'pg','~> 0.21'
 gem 'rails', '4.2.8'
 gem 'rails_12factor'
 gem 'thin'
 gem 'protected_attributes'
+
+
 
 # for handling json objects with ruby
 gem 'json'
@@ -71,8 +76,7 @@ gem 'yaml_db'
 
 # smart image attachment management
 gem 'aws-sdk', '~> 2.3'
-gem 'paperclip', git: 'https://github.com/thoughtbot/paperclip',
-                 ref: '523bd46c768226893f23889079a7aa9c73b57d68'
+gem "kt-paperclip", "~> 6.4", ">= 6.4.1"
 
 # generate pdfs
 gem 'prawn', '~> 2.1.0'
