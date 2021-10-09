@@ -75,7 +75,7 @@ gem 'twitter'
 gem 'yaml_db'
 
 # smart image attachment management
-gem 'aws-sdk', '~> 2.3'
+gem 'aws-sdk-s3'
 gem "kt-paperclip", "~> 6.4", ">= 6.4.1"
 
 # generate pdfs
