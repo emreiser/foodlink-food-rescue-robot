@@ -464,7 +464,6 @@ class LogsController < ApplicationController
         ret.push lp
         lp.save
       } unless params["log_parts"].nil?
-      binding.pry
       LogPart.delete(log.log_parts - ret)
       ret
     end

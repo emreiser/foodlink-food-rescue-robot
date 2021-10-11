@@ -5,6 +5,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :null_session
   after_filter :setup_headers
   before_filter :authenticate_user_from_token!
+  before_filter :configure_permitted_parameters, if: :devise_controller?
 
   respond_to :html, :json
 
@@ -56,6 +57,10 @@ class ApplicationController < ActionController::Base
     if user and Devise.secure_compare(user.authentication_token,token)
       sign_in user, store: false
     end
+  end
+
+  def configure_permitted_parameters
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:name, :phone, :requested_region_id])
   end
 
 

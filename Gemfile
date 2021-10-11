@@ -68,7 +68,7 @@ gem 'test-unit', '~> 3.0'
 gem 'active_scaffold'
 
 # handles authentication
-gem 'devise', git: 'https://github.com/plataformatec/devise' , branch: '3-stable'
+gem 'devise', '~> 4.0'
 
 # lets us post things to twitter programatically
 gem 'twitter'
