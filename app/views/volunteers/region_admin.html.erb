@@ -26,7 +26,7 @@
                     ["#{v.name} ["+v.regions.collect{ |r| r.name }.join(",")+"]",v.id] }), {class: "form-control select2"}) %></td>
           <% else %>
             <td>
-              <%= select_tag(:volunteer_id, options_for_select(Volunteer.find(:all, :order => 'name').collect{ |v|
+              <%= select_tag(:volunteer_id, options_for_select(Volunteer.all.order(:name).collect{ |v|
                     ((v.regions.collect{ |r| r.id } & adminrids).length > 0 and !v.admin) ? [v.name,v.id] : nil }.compact), {class: "form-control select2"}) %>
             </td>
           <% end %>
