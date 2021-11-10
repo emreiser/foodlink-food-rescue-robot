@@ -448,6 +448,8 @@ class LogsController < ApplicationController
       params.require(:log).permit(
         :region_id, :schedule_chain_id, :num_volunteers, :when, :donor_id, :hours_spent,
         :flag_for_admin, :info_for_next_day, :volunteer_feedback, :notes, :why_zero,
+        log_volunteers_attributes: [:id, :volunteer_id, :operations_lead, :_destroy],
+        log_recipients_attributes: [:id, :recipient_id],
         log_parts_attributes: [:food_type_id, :num_boxes, :description, :id, :_destroy])
     end
 
