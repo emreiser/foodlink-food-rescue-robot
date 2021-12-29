@@ -1,4 +1,7 @@
-# What is this thing?
+## Food Link Food Rescue Robot
+Fork of [boulder-food-rescue/food-rescue-robot](https://github.com/boulder-food-rescue/food-rescue-robot), adapted for [Food Link](https://www.foodlinkma.org/).
+
+## What is this thing?
 
 The Food Rescue Robot is a Rails 3 web application for managing the logistics
 of just-in-time (i.e., warehouse-less) food rescue. It keeps track of donors,
@@ -6,16 +9,16 @@ recipients, a pickup and delivery schedule, and all the volunteers responsible
 for doing the work. It sends reminders to users about their pickups. The site
 also logs how much food is rescued, and can automatically issue receipts for donations.
 
-# Who uses it? (And how can I?)
+## Who uses it? (And how can I?)
 
-Currently, the "Food Rescue Robot" is live at http://robot.boulderfoodrescue.org
+Currently, the original "Food Rescue Robot" is live at http://robot.boulderfoodrescue.org
 and is used by a number of food rescue organizations cities around the world. If you're keen to use it, shoot an email to caleb at boulder food rescue (dot) org, and I can set you up with an account. Alternatively, if you would like to fork the source and hack on it yourself you are welcome to. This code is licensed under a Beerware-style license:
 
   As long as you retain this notice you can do whatever you want with this stuff.
   If we meet some day, and you think this stuff is worth it, you can buy me a
   beer in return.
 
-# Who is responsible?
+## Who is responsible?
 
 Most of the code was written by Caleb Phillips, a co-founder of Boulder Food Rescue (http://www.boulderfoodrescue.org) and
 adjunct Computer Science professor at the University of Colorado, Boulder. There is a fork maintained in Boston by
@@ -23,7 +26,7 @@ Rahul Bhargava (MIT Media Labs), and some early design work was done by Universi
 and Zac Doyle under awards from the Casey Feldman Foundation. As of May 2016, Rylan Bowers (http://rylanbowers.com/) is leading
 development on the master branch and we are growing a small team of hackers to maintain and improve the codebase.
 
-# How can I help?
+## How can I help?
 
 If you want to help with development, feel free to fork the project. If you have something
 to submit upstream, send a pull request from your fork. If you're trying to setup a dev environment, keep reading.
@@ -59,16 +62,16 @@ Datatables, Highcharts, and Select2.
 There is a basic JSON API, which is provided by some controller methods (look for ```responds_to :json```). You
 can see the routes with ```rake routes```;
 
-# Preparing a Development Environment
+## Preparing a Development Environment
 
-## Prerequisites
+### Prerequisites
 
  * Ruby 2.3.7
  * Postgresql 9.3 or greater (runs on at least 9.4.4)
  * A reasonable operating system (e.g., Linux or Mac, Windows if you're saucy)
  * Various dependencies for the above
 
-## Setup
+### Setup
 
 Clone this repository:
 
@@ -77,7 +80,7 @@ Clone this repository:
 `cd` into the directory:
 
     cd food-rescue-robot
-### Linux or Mac
+#### Linux or Mac
 
 Set up your environment:
 
@@ -109,7 +112,7 @@ CREATE DATABASE bfr_webapp_db_test OWNER bfr_webapp_db_test;
 ```
 
 Load the datbase
-## Running It
+### Running It
 
 To start a server, run
 
@@ -126,7 +129,7 @@ bundle exec rake foodrobot:send_reminders
 bundle exec rake foodrobot:send_weekly_summary
 ```
 
-## Generating Sample Data
+### Generating Sample Data
 
 The seeds command generates a regular volunteer and an admin volunteer for you. Please review seeds.rb. You can make more regions / volunteers with this code:
 
@@ -170,9 +173,9 @@ $ curl -o latest.dump `heroku pg:backups public-url`
 $ pg_restore --verbose --clean --no-acl --no-owner -h localhost -U robot_user -d robot_db latest.dump
 ```
 
-## Troubleshooting
+### Troubleshooting
 
-### Logs
+#### Logs
 
 Having trouble with logs not being generated for schedule chains?
   - Check that ALL locations (also called donors) are valid. Often times this causes logs to not be created for current shifts/schedule chains being run.
